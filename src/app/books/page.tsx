@@ -1,3 +1,3 @@
-export default function Book({ params }: { params: { id: string } }) {
-  return <div>{params.id}</div>;
+export default function Books() {
+  return <div>Nimic momentan</div>;
 }
