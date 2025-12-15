@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "@/components/server/Header";
 
 // const geistMono = Geist_Mono({
 //   variable: "--font-geist-mono",
@@ -18,8 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <body className={`${geistMono.variable} antialiased`}>{children}</body> */}
       <body className="m-0 p-0 w-full min-h-screen box-border overflow-x-hidden antialiased">
+        <Header />
         {children}
       </body>
     </html>
