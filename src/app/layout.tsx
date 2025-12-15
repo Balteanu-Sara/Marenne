@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/server/Header";
+import { Header, Footer } from "@/components/server/indexServer";
 
 // const geistMono = Geist_Mono({
 //   variable: "--font-geist-mono",
@@ -22,6 +22,7 @@ export default function RootLayout({
       <body className="m-0 p-0 w-full min-h-screen box-border overflow-x-hidden antialiased">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
