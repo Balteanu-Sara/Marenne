@@ -31,8 +31,7 @@ export default function Footer() {
       <LinksSection />
       <Logo />
       <div>
-        Copyright © {new Date().getFullYear()} MARENNE BOOKS Powered and secured
-        by{" "}
+        Copyright © 2026 MARENNE BOOKS Powered and secured by{" "}
         <a href="https://www.netlify.com/" target="_blank">
           Netlify
         </a>
