@@ -45,6 +45,36 @@
   --font-title: var(--font-ternary);
   --font-title1: var(--font-ternary1);
   /* --font-mono: var(--font-geist-mono); */
+
+  --animate-openCart: openCart 1s forwards;
+  --animate-closeCart: closeCart 1s forwards;
+
+  @keyframes openCart {
+    0% {
+      top: 0px;
+      left: 100%;
+      opacity: 1;
+    }
+    100% {
+      top: 0px;
+      left: 30%;
+      opacity: 1;
+    }
+  }
+
+  @keyframes closeCart {
+    100% {
+      top: 0px;
+      left: 30%;
+      opacity: 1;
+    }
+
+    0% {
+      top: 0px;
+      left: 100%;
+      opacity: 1;
+    }
+  }
 }
 
 body {
