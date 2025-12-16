@@ -1,15 +1,22 @@
+import Link from "next/link";
+import { Search, Carousel } from "@/components/client/indexClient";
+
 function Logo() {
   return (
-    <div className="font-title justify-self-center">
-      <span className="hidden lg:inline"> ANTENNE BOOKS</span>
-      <span className="lg:hidden">ANTENNE</span>
-    </div>
+    <>
+      <div className="lg:hidden text-[32vw] font-title leading-none px-[15px] -translate-y-[0.12em] justify-self-center">
+        <Link href="/">MARENNE</Link>
+      </div>
+      <div className="hidden lg:inline text-[18.8vw] font-title leading-none px-[15px] -translate-y-[0.15em] justify-self-center">
+        <Link href="/">MARENNE BOOKS</Link>
+      </div>
+    </>
   );
 }
 
 function Menu() {
   return (
-    <div className="flex row justify-between">
+    <div className="flex row justify-between px-[15px] font-garamond text-[30px]">
       <LeftMenu />
       <RightMenu />
     </div>
@@ -17,22 +24,33 @@ function Menu() {
 }
 
 function LeftMenu() {
-  return <p>LeftMenu</p>;
+  return (
+    <>
+      <p className=" lg:hidden">Menu</p>
+      <div className="hidden gap-2 lg:flex lg:row">
+        <Link href="/">All,</Link> <Link href="/">Books,</Link> <Search />
+      </div>
+    </>
+  );
 }
 
 function RightMenu() {
-  return <p>RightMenu</p>;
+  return (
+    <div className="flex row gap-2">
+      <p>English,</p>
+      {/* <p className="hidden lg:inline">Profile</p> */}
+      <p>Login,</p>
+      <p>Cart</p>
+    </div>
+  );
 }
 
-function Banner() {
-  return <p>Banner</p>;
-}
 export default function Header() {
   return (
     <header>
       <Logo />
       <Menu />
-      <Banner />
+      <Carousel />
     </header>
   );
 }
