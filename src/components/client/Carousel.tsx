@@ -20,7 +20,7 @@ export default function Carousel() {
   const settings: SliderProps = {
     dots: false,
     infinite: true,
-    speed: 20000,
+    speed: 23000,
     slidesToShow: 3,
     autoplay: true,
     autoplaySpeed: 0,
@@ -29,14 +29,14 @@ export default function Carousel() {
   };
 
   return (
-    <Link href="/newsletter" className="">
-      <Slider {...settings}>
-        <p>Sign up to our Newsletter</p>
-        <p>MARENNE BOOKS</p>
-        <p>Sign up to our Newletter</p>
-        <p>MARENNE BOOKS</p>
-        <p>Sign up to our Newletter</p>
-        <p>MARENNE BOOKS</p>
+    <Link href="/newsletter">
+      <Slider {...settings} className="bg-yellow">
+        <p className="font-garamond">Sign up to our Newsletter</p>
+        <p className="font-title">MARENNE BOOKS</p>
+        <p className="font-garamond">Sign up to our Newletter</p>
+        <p className="font-title">MARENNE BOOKS</p>
+        <p className="font-garamond">Sign up to our Newletter</p>
+        <p className="font-title">MARENNE BOOKS</p>
       </Slider>{" "}
     </Link>
   );
