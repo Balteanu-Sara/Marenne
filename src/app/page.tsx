@@ -1,11 +1,20 @@
 import Button from "@/components/Button";
+import {
+  Recommended,
+  NewReleases,
+  MoreOn,
+  BestSellers,
+  BackInStock,
+} from "@/components/server/indexServer";
 
 export default function Home() {
   return (
-    <div>
-      <p className="font-title">ANTENNE BOOKS</p>
-      <p className="font-title1">ANTENNE BOOKS</p>
-      <Button />
-    </div>
+    <main className="p-[15px]">
+      <Recommended />
+      <NewReleases />
+      <MoreOn />
+      <BestSellers />
+      <BackInStock />
+    </main>
   );
 }
