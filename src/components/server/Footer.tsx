@@ -17,6 +17,11 @@ function ShopSection() {
         </li>
         <li className="h-[27px]">
           <Link href="/" className="lg:hover:text-white">
+            Magazines
+          </Link>
+        </li>
+        <li className="h-[27px]">
+          <Link href="/" className="lg:hover:text-white">
             About Us
           </Link>
         </li>

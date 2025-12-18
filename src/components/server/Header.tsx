@@ -28,7 +28,9 @@ function LeftMenu() {
     <>
       <p className=" lg:hidden">Menu</p>
       <div className="hidden gap-2 lg:flex lg:row">
-        <Link href="/">All,</Link> <Link href="/">Books,</Link> <Search />
+        <Link href="/">All,</Link> <Link href="/">Books,</Link>{" "}
+        <Link href="/">Magazines,</Link>
+        <Search />
       </div>
     </>
   );
