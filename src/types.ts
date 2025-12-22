@@ -2,12 +2,12 @@ export type Book = {
   id: string;
   title: string;
   author?: string;
-  cover: string;
+  cover: number;
   description?: string;
   publisher: string;
   publish_date: string;
   pages: number;
-  isbn: number;
+  isbn: string;
   subjects?: string[];
 };
 
