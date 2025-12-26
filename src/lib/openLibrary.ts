@@ -102,7 +102,7 @@ async function accessWorks(
 
 export async function clearResult(
   books: SearchBooksResults,
-  limit: number = 10
+  limit: number = 20
 ): Promise<Book[]> {
   const searchResult: SearchResult[] = books.docs.slice(0, limit);
 
@@ -141,7 +141,10 @@ export async function clearResult(
   });
 
   const promisedBooks: Book[] = await Promise.all(bookDetails);
-  return promisedBooks;
+  const filteredBooksByCover: Book[] = promisedBooks.filter(
+    (book) => book.cover
+  );
+  return filteredBooksByCover;
 }
 
 export async function searchBooks(query: string): Promise<SearchBooksResults> {
