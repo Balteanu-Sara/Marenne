@@ -101,10 +101,10 @@ async function accessWorks(
 }
 
 export async function clearResult(
-  books: SearchBooksResults,
+  booksObj: SearchBooksResults,
   limit: number = 20
 ): Promise<Book[]> {
-  const searchResult: SearchResult[] = books.docs.slice(0, limit);
+  const searchResult: SearchResult[] = booksObj.docs.slice(0, limit);
 
   const bookDetails = searchResult.map(async (result) => {
     const title: string = result.title;
@@ -154,6 +154,6 @@ export async function searchBooks(query: string): Promise<SearchBooksResults> {
 
   if (!res.ok) throw new Error("Failed to fetch books in searchBooks");
 
-  const books: SearchBooksResults = await res.json();
-  return books;
+  const booksObj: SearchBooksResults = await res.json();
+  return booksObj;
 }

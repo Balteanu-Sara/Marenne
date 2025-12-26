@@ -1,4 +1,4 @@
-export type Book = {
+export interface Book {
   id: string;
   title: string;
   author?: string;
@@ -9,17 +9,17 @@ export type Book = {
   pages: number;
   isbn: string;
   subjects?: string[];
-};
+}
 
-export type SearchResult = {
+export interface SearchResult {
   author_name?: string[];
   cover_i: number;
   key: string;
   title: string;
-};
+}
 
-export type SearchBooksResults = {
+export interface SearchBooksResults {
   numFound: number;
   start: number;
   docs: SearchResult[];
-};
+}
