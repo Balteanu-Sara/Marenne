@@ -16,7 +16,7 @@ async function accessEdition(
 }> {
   const res = await fetch(`${baseUrl + key}/editions.json`);
   const editionInfo = await res.json();
-  const entries = editionInfo.entries;
+  const entries = Array.isArray(editionInfo.entries) ? editionInfo.entries : [];
 
   let filledDescription: string = description;
   let filledSubjects: string[] = [...subjects];
@@ -33,7 +33,7 @@ async function accessEdition(
           : entry.description.value
         : "";
     if (entry.subjects && filledSubjects.length === 0)
-      filledSubjects = [...entry.subjects[0]];
+      filledSubjects = [...entry.subjects];
 
     if (!publish_date && "publish_date" in entry)
       publish_date = entry.publish_date;
@@ -42,7 +42,7 @@ async function accessEdition(
       pages = entry.number_of_pages;
 
     if ("isbn_13" in entry || "isbn_10" in entry) {
-      isbn = entry.isbn_13 ? entry.isbn_13 : entry.isbn_10;
+      isbn = entry.isbn_13 ? entry.isbn_13[0] : entry.isbn_10[0];
       if ("publish_date" in entry) publish_date = entry.publish_date;
       if ("publishers" in entry) publisher = entry.publishers[0];
       if ("number_of_pages" in entry) pages = entry.number_of_pages;
