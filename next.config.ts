@@ -10,6 +10,18 @@ const nextConfig: NextConfig = {
     root: path.resolve(__dirname),
   },
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "covers.openlibrary.org",
+        port: "",
+        pathname: "/b/**",
+      },
+    ],
+    unoptimized: true, // Disable optimization globally
+  },
+
   // PostHog rewrites
   async rewrites() {
     return [
