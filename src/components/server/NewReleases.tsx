@@ -4,14 +4,14 @@ import { Book } from "@/types";
 import Image from "next/image";
 
 export default async function NewReleases() {
-  const newReleasesDocs = await searchBooks(
+  const newReleasesJson = await searchBooks(
     "and+OR+the+OR+love&first_publish_year=2025"
   );
-  const newReleases: Book[] = await clearResult(newReleasesDocs);
+  const newReleases: Book[] = await clearResult(newReleasesJson);
 
   return (
-    <section className="w-[100%] gap-2">
-      <p className="justify-self-center font-garamond text-[30px]">
+    <section className="w-[100%] gap-2 mt-[15px]">
+      <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
         New Releases
       </p>
       <div className="grid grid-cols-3">
