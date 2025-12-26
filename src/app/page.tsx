@@ -11,11 +11,17 @@ export default function Home() {
   return (
     <main className="p-[15px]">
       <Recommended />
+
       <Suspense fallback={<div>Loading new releases...</div>}>
         <NewReleases />
       </Suspense>
+
       <MoreOn />
-      <BestSellers />
+
+      <Suspense fallback={<div>Loading best sellers...</div>}>
+        <BestSellers />
+      </Suspense>
+
       <BackInStock />
     </main>
   );
