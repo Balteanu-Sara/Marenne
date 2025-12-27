@@ -22,7 +22,7 @@ export default async function BestSellers() {
                 width={180}
                 height={275}
                 alt={`Cover book for ${release.title}`}
-                className="w-[180px] h-[275px]"
+                className="w-auto h-auto"
               />
               <div className="font-courier text-center">
                 <p className="text-clip">{release.title}</p>

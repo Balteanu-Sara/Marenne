@@ -22,7 +22,9 @@ export default function Home() {
         <BestSellers />
       </Suspense>
 
-      <BackInStock />
+      <Suspense fallback={<div>Loading new in stock...</div>}>
+        <BackInStock />
+      </Suspense>
     </main>
   );
 }
