@@ -1,3 +1,3 @@
 export default function Search() {
-  return <p>Search</p>;
+  return <p className="h-[35px]">Search</p>;
 }
