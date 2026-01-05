@@ -23,3 +23,12 @@ export interface SearchBooksResults {
   start: number;
   docs: SearchResult[];
 }
+
+export type CurrentStates = {
+  isCartOpen: boolean;
+  isMenuOpen: boolean;
+  isLoginOpen: boolean;
+  toggleCart: () => void;
+  toggleMenu: () => void;
+  toggleLogin: () => void;
+};
