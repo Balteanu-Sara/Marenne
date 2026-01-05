@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { Search, Carousel } from "@/components/client/indexClient";
+import {
+  Search,
+  Carousel,
+  MobileMenu,
+  DesktopMenu,
+} from "@/components/client/indexClient";
+import { StateProvider } from "@/context/CurrentStateContext";
 
 function Logo() {
   return (
@@ -16,9 +22,11 @@ function Logo() {
 
 function Menu() {
   return (
-    <div className="flex row justify-between px-[15px] font-garamond text-[30px]">
-      <LeftMenu />
-      <RightMenu />
+    <div>
+      <StateProvider>
+        <MobileMenu />
+        <DesktopMenu />
+      </StateProvider>
     </div>
   );
 }
@@ -26,7 +34,7 @@ function Menu() {
 function LeftMenu() {
   return (
     <>
-      <p className=" lg:hidden">Menu</p>
+      <p className="lg:hidden">Menu</p>
       <div className="hidden gap-2 lg:flex lg:row">
         <Link href="/">All,</Link> <Link href="/">Books,</Link>{" "}
         <Link href="/">Magazines,</Link>
