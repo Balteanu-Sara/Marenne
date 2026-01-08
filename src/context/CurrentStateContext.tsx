@@ -28,6 +28,12 @@ export function StateProvider({ children }: { children: ReactNode }) {
     setIsLoginOpen((prev) => !prev);
   }
 
+  function close() {
+    setIsCartOpen(false);
+    setIsMenuOpen(false);
+    setIsLoginOpen(false);
+  }
+
   return (
     <StateContext.Provider
       value={{
@@ -37,6 +43,7 @@ export function StateProvider({ children }: { children: ReactNode }) {
         toggleCart,
         toggleMenu,
         toggleLogin,
+        close,
       }}
     >
       {children}

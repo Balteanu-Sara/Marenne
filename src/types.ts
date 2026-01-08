@@ -31,4 +31,5 @@ export type CurrentStates = {
   toggleCart: () => void;
   toggleMenu: () => void;
   toggleLogin: () => void;
+  close: () => void;
 };
