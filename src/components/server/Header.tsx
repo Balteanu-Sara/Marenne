@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import {
   Search,
   Carousel,
@@ -24,7 +25,9 @@ function Menu() {
   return (
     <div>
       <StateProvider>
-        <MobileMenu />
+        <Suspense fallback={<div>Loading mobile menu...</div>}>
+          <MobileMenu />
+        </Suspense>
         <DesktopMenu />
       </StateProvider>
     </div>

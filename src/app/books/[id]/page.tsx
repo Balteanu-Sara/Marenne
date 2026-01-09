@@ -1,3 +1,9 @@
-export default function Book({ params }: { params: { id: string } }) {
-  return <div>{params.id}</div>;
+export default async function Book({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+
+  return <div>{id}</div>;
 }
