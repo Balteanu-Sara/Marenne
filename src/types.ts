@@ -27,9 +27,11 @@ export interface SearchBooksResults {
 export type CurrentStates = {
   isCartOpen: boolean;
   isMenuOpen: boolean;
+  isSearchOpen: boolean;
   isLoginOpen: boolean;
   toggleCart: () => void;
   toggleMenu: () => void;
+  toggleSearch: () => void;
   toggleLogin: () => void;
   close: () => void;
 };

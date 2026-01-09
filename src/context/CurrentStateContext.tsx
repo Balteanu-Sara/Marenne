@@ -8,6 +8,7 @@ const StateContext = createContext<CurrentStates | undefined>(undefined);
 export function StateProvider({ children }: { children: ReactNode }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   function toggleCart() {
@@ -19,12 +20,21 @@ export function StateProvider({ children }: { children: ReactNode }) {
   function toggleMenu() {
     setIsCartOpen(false);
     setIsLoginOpen(false);
+    setIsSearchOpen(false);
     setIsMenuOpen((prev) => !prev);
+  }
+
+  function toggleSearch() {
+    setIsCartOpen(false);
+    setIsLoginOpen(false);
+    setIsMenuOpen(false);
+    setIsSearchOpen((prev) => !prev);
   }
 
   function toggleLogin() {
     setIsCartOpen(false);
     setIsMenuOpen(false);
+    setIsSearchOpen(false);
     setIsLoginOpen((prev) => !prev);
   }
 
@@ -32,6 +42,7 @@ export function StateProvider({ children }: { children: ReactNode }) {
     setIsCartOpen(false);
     setIsMenuOpen(false);
     setIsLoginOpen(false);
+    setIsSearchOpen(false);
   }
 
   return (
@@ -39,9 +50,11 @@ export function StateProvider({ children }: { children: ReactNode }) {
       value={{
         isCartOpen,
         isMenuOpen,
+        isSearchOpen,
         isLoginOpen,
         toggleCart,
         toggleMenu,
+        toggleSearch,
         toggleLogin,
         close,
       }}
