@@ -5,21 +5,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function MobileMenu() {
-  const { isMenuOpen, toggleMenu, toggleCart, close } = useStateContext();
+  const { isMenuOpen, toggleMenu, toggleCart, toggleSearch } =
+    useStateContext();
   const pathName = usePathname();
 
   return (
     <div className="relative top-0 z-10 flex flex-col px-[15px] font-garamond text-[30px] h-auto lg:hidden">
       <div className="flex flex-row justify-between">
         <button onClick={toggleMenu}>{isMenuOpen ? "Close" : "Menu"}</button>
-        <button
-          onClick={() => {
-            close();
-            toggleCart();
-          }}
-        >
-          Cart
-        </button>
+        {pathName.endsWith("books") && <p>Filter</p>}
+        <button onClick={toggleCart}>Cart</button>
       </div>
       <Cart />
       <div
@@ -36,8 +31,9 @@ export default function MobileMenu() {
           <Link href="/" className="h-[35px]">
             Magazines
           </Link>
-          {pathName.endsWith("books") && <p>Filter</p>}
-          <Search />
+          <button onClick={toggleSearch} className="h-[35px] text-left">
+            Search
+          </button>
         </div>
         <div className="flex flex-col text-end">
           <Link href="/" className="h-[35px]">
@@ -46,6 +42,7 @@ export default function MobileMenu() {
           <button className="h-[35px]">English</button>
         </div>
       </div>
+      <Search />
     </div>
   );
 }
