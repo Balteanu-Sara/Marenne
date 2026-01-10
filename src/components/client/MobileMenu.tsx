@@ -22,13 +22,13 @@ export default function MobileMenu() {
           ${isMenuOpen ? "h-[150px] mt-3 mb-3" : "h-0"} `}
       >
         <div className="flex flex-col">
-          <Link href="/" className="h-[35px] ">
+          <Link href="/" className="h-[35px]" onClick={toggleMenu}>
             All
           </Link>
-          <Link href="/" className="h-[35px]">
+          <Link href="/" className="h-[35px]" onClick={toggleMenu}>
             Books
           </Link>
-          <Link href="/" className="h-[35px]">
+          <Link href="/" className="h-[35px]" onClick={toggleMenu}>
             Magazines
           </Link>
           <button onClick={toggleSearch} className="h-[35px] text-left">
@@ -36,10 +36,12 @@ export default function MobileMenu() {
           </button>
         </div>
         <div className="flex flex-col text-end">
-          <Link href="/" className="h-[35px]">
+          <Link href="/" className="h-[35px]" onClick={toggleMenu}>
             Login
           </Link>
-          <button className="h-[35px]">English</button>
+          <button className="h-[35px]" onClick={toggleMenu}>
+            English
+          </button>
         </div>
       </div>
       <Search />

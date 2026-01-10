@@ -3,6 +3,7 @@ import { useStateContext } from "@/context/CurrentStateContext";
 import { searchBooks } from "@/lib/openLibrary";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { SearchResult } from "@/types";
 
 export default function Search() {
@@ -44,7 +45,7 @@ export default function Search() {
         <div className="fixed inset-0 z-5" onClick={toggleSearch} />
       )}
       <div
-        className={`bg-green p-[15px] flex flex-col fixed left-[15px] w-[calc(100vw-30px)] top-[130px] h-[calc(100vh-250px)] transition duration-300 
+        className={`bg-green p-[15px] flex flex-col fixed left-[15px] w-[calc(100vw-30px)] top-[130px] h-[calc(100vh-200px)] transition duration-300 
         ${isSearchOpen ? "z-9 opacity-100" : "-z-1 opacity-0"}`}
       >
         <div className="w-[100%]">
@@ -89,7 +90,11 @@ export default function Search() {
                   })}
                 </div>
               </div>
-              <div>Show results for {query}</div>
+              <div className="text-center pt-[20px]">
+                <Link href="/results" className="border-b-1">
+                  Show results for {query}
+                </Link>
+              </div>
             </>
           )}
           {!loading && query && query.length < 4 && (
