@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import {
-  Search,
   Carousel,
   MobileMenu,
   DesktopMenu,
@@ -30,30 +29,6 @@ function Menu() {
         </Suspense>
         <DesktopMenu />
       </StateProvider>
-    </div>
-  );
-}
-
-function LeftMenu() {
-  return (
-    <>
-      <p className="lg:hidden">Menu</p>
-      <div className="hidden gap-2 lg:flex lg:row">
-        <Link href="/">All,</Link> <Link href="/">Books,</Link>{" "}
-        <Link href="/">Magazines,</Link>
-        <Search />
-      </div>
-    </>
-  );
-}
-
-function RightMenu() {
-  return (
-    <div className="flex row gap-2">
-      <p>English,</p>
-      {/* <p className="hidden lg:inline">Profile</p> */}
-      <p>Login,</p>
-      <p>Cart</p>
     </div>
   );
 }
