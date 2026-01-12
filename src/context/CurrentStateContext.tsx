@@ -8,32 +8,46 @@ const StateContext = createContext<CurrentStates | undefined>(undefined);
 export function StateProvider({ children }: { children: ReactNode }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   function toggleCart() {
     setIsMenuOpen(false);
     setIsLoginOpen(false);
+    setIsFilterOpen(false);
+    setIsSearchOpen(false);
     setIsCartOpen((prev) => !prev);
   }
 
   function toggleMenu() {
     setIsCartOpen(false);
+    setIsFilterOpen(false);
     setIsLoginOpen(false);
     setIsSearchOpen(false);
     setIsMenuOpen((prev) => !prev);
+  }
+
+  function toggleFilter() {
+    setIsCartOpen(false);
+    setIsMenuOpen(false);
+    setIsLoginOpen(false);
+    setIsSearchOpen(false);
+    setIsFilterOpen((prev) => !prev);
   }
 
   function toggleSearch() {
     setIsCartOpen(false);
     setIsLoginOpen(false);
     setIsMenuOpen(false);
+    setIsFilterOpen(false);
     setIsSearchOpen((prev) => !prev);
   }
 
   function toggleLogin() {
     setIsCartOpen(false);
     setIsMenuOpen(false);
+    setIsFilterOpen(false);
     setIsSearchOpen(false);
     setIsLoginOpen((prev) => !prev);
   }
@@ -41,6 +55,7 @@ export function StateProvider({ children }: { children: ReactNode }) {
   function close() {
     setIsCartOpen(false);
     setIsMenuOpen(false);
+    setIsFilterOpen(false);
     setIsLoginOpen(false);
     setIsSearchOpen(false);
   }
@@ -50,10 +65,12 @@ export function StateProvider({ children }: { children: ReactNode }) {
       value={{
         isCartOpen,
         isMenuOpen,
+        isFilterOpen,
         isSearchOpen,
         isLoginOpen,
         toggleCart,
         toggleMenu,
+        toggleFilter,
         toggleSearch,
         toggleLogin,
         close,
