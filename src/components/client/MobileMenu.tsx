@@ -25,7 +25,7 @@ export default function MobileMenu() {
           <Link href="/" className="h-[35px]" onClick={toggleMenu}>
             All
           </Link>
-          <Link href="/" className="h-[35px]" onClick={toggleMenu}>
+          <Link href="/books" className="h-[35px]" onClick={toggleMenu}>
             Books
           </Link>
           <Link href="/" className="h-[35px]" onClick={toggleMenu}>
