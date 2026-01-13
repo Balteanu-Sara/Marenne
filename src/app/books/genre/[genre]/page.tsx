@@ -1,15 +1,20 @@
 import Image from "next/image";
-import { searchBooks, clearResult } from "@/lib/openLibrary";
+import { clearResult, searchBooksBySubject } from "@/lib/openLibrary";
 
-export default async function Genre({ params }: { params: { genre: string } }) {
+export default async function Genre({
+  params,
+}: {
+  params: Promise<{ genre: string }>;
+}) {
   const { genre } = await params;
-  const booksJson = await searchBooks(genre);
-  const books = await clearResult(booksJson);
+  console.log(genre);
+  const booksJson = await searchBooksBySubject(genre);
+  const books = await clearResult(booksJson, 12);
 
   return (
     <main className="p-[15px] w-[100%] gap-2 mt-[15px]">
       <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
-        {genre[0].toUpperCase() + genre.slice(1)}
+        {genre !== "lgbt" ? genre[0].toUpperCase() + genre.slice(1) : "LGBT"}
       </p>
       <div className="flex flex-wrap justify-center">
         {books.map((book) => (
