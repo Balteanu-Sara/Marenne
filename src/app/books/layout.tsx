@@ -5,5 +5,5 @@ export default function LayoutBook({
 }: {
   children: React.ReactNode;
 }) {
-  return <Suspense fallback="Loading first books">{children}</Suspense>;
+  return <Suspense fallback="Loading books">{children}</Suspense>;
 }
