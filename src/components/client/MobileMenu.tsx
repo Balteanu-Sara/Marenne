@@ -89,7 +89,7 @@ export default function MobileMenu() {
       </div>
 
       <div
-        className={`flex flex-col absolute w-screen z-4 bg-gradient-to-b from-[#ffffff] to-[#f2f2f2] top-8 left-0 pl-[15px] pr-[15px] overflow-hidden transition-all duration-400
+        className={`flex flex-col absolute w-screen z-4 bg-gradient-to-b from-[#ffffff] to-[#f2f2f2] top-8 left-0 pl-[15px] pr-[15px] overflow-hidden transition-all duration-500
           ${isFilterOpen ? "h-[795px] mt-3 mb-3" : "h-0"} `}
       >
         <hr />
@@ -97,7 +97,7 @@ export default function MobileMenu() {
           return (
             <p key={genre + index}>
               <OptionMenu
-                href={`books/genre/${genre.toLowerCase()}`}
+                href={`/books/genre/${genre.toLowerCase()}`}
                 style="block h-[35px]"
                 click={toggleFilter}
                 innerText={genre}
