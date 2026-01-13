@@ -1,4 +1,10 @@
-import { SearchBooksResults, SearchResult, Book } from "@/types";
+import {
+  SearchBooksResults,
+  SearchBooksBySubjectResults,
+  SearchResult,
+  SearchBySubjectResult,
+  Book,
+} from "@/types";
 
 const baseUrl: string = "https://openlibrary.org";
 
@@ -101,18 +107,25 @@ async function accessWorks(
 }
 
 export async function clearResult(
-  booksObj: SearchBooksResults,
+  booksObj: SearchBooksResults | SearchBooksBySubjectResults,
   limit: number = 20
 ): Promise<Book[]> {
-  const searchResult: SearchResult[] = booksObj.docs.slice(0, limit);
+  const searchResult: SearchResult[] | SearchBySubjectResult[] =
+    "docs" in booksObj
+      ? booksObj.docs.slice(0, limit)
+      : booksObj.works.slice(0, limit);
 
   const bookDetails = searchResult.map(async (result) => {
     const title: string = result.title;
-    const author: string = result["author_name"]
-      ? result["author_name"][0]
-      : "";
+    const author: string =
+      "author_name" in result
+        ? result["author_name"]?.[0] ?? ""
+        : "authors" in result
+        ? result["authors"][0].name
+        : "";
     const id: string = result.key;
-    const cover: number = result.cover_i;
+    const cover: number =
+      "cover_i" in result ? result.cover_i : result.cover_id;
 
     let { description, subjects } = await accessWorks(id);
     const {
@@ -155,5 +168,18 @@ export async function searchBooks(query: string): Promise<SearchBooksResults> {
   if (!res.ok) throw new Error("Failed to fetch books in searchBooks");
 
   const booksObj: SearchBooksResults = await res.json();
+  return booksObj;
+}
+
+export async function searchBooksBySubject(
+  subject: string
+): Promise<SearchBooksBySubjectResults> {
+  const res = await fetch(`${baseUrl}/subjects/${subject}.json`, {
+    cache: "force-cache",
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch books in searchBooks");
+
+  const booksObj: SearchBooksBySubjectResults = await res.json();
   return booksObj;
 }

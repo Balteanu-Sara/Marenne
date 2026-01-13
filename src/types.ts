@@ -24,6 +24,17 @@ export interface SearchBooksResults {
   docs: SearchResult[];
 }
 
+export interface SearchBySubjectResult {
+  authors: { key: string; name: string }[];
+  cover_id: number;
+  key: string;
+  title: string;
+}
+
+export interface SearchBooksBySubjectResults {
+  works: SearchBySubjectResult[];
+}
+
 export type CurrentStates = {
   isCartOpen: boolean;
   isMenuOpen: boolean;
