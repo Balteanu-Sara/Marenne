@@ -7,3 +7,4 @@ export { default as BestSellers } from "./BestSellers";
 export { default as BackInStock } from "./BackInStock";
 export { default as ViewMore } from "./ViewMore";
 export { default as LoadingBooks } from "./LoadingBooks";
+export { default as BooksSection } from "./BooksSection";
