@@ -40,6 +40,9 @@
   --color-red: var(--red);
   --color-green: var(--green);
   --color-yellow: var(--yellow);
+  --color-grey-1: var(--grey-1);
+  --color-grey-2: var(--grey-2);
+  --color-grey-3: var(--grey-3);
   --font-garamond: var(--font-primary);
   --font-courier: var(--font-secondary);
   --font-title: var(--font-ternary);
