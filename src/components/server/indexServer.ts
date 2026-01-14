@@ -8,3 +8,4 @@ export { default as BackInStock } from "./BackInStock";
 export { default as ViewMore } from "./ViewMore";
 export { default as LoadingBooks } from "./LoadingBooks";
 export { default as BooksSection } from "./BooksSection";
+export { default as GenreSection } from "./GenreSection";
