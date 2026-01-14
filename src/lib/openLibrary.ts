@@ -121,7 +121,7 @@ export async function clearResult(
       "author_name" in result
         ? result["author_name"]?.[0] ?? ""
         : "authors" in result
-        ? result["authors"][0].name
+        ? result["authors"][0]?.name
         : "";
     const id: string = result.key;
     const cover: number =
