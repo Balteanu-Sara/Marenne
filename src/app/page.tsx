@@ -4,6 +4,7 @@ import {
   MoreOn,
   BestSellers,
   BackInStock,
+  LoadingBooks,
 } from "@/components/server/indexServer";
 import { Suspense } from "react";
 
@@ -12,19 +13,35 @@ export default function Home() {
     <main className="p-[15px]">
       <Recommended />
 
-      <Suspense fallback={<div>Loading new releases...</div>}>
-        <NewReleases />
-      </Suspense>
+      <section className="w-[100%] gap-2 mt-[15px]">
+        <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
+          New Releases
+        </p>
+        <Suspense fallback={<LoadingBooks />}>
+          <NewReleases />
+        </Suspense>
+      </section>
 
       <MoreOn />
 
-      <Suspense fallback={<div>Loading best sellers...</div>}>
-        <BestSellers />
-      </Suspense>
+      <section className="w-[100%] gap-2 mt-[30px]">
+        <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
+          Best sellers
+        </p>
+        <Suspense fallback={<LoadingBooks />}>
+          <BestSellers />
+        </Suspense>
+      </section>
 
-      <Suspense fallback={<div>Loading new in stock...</div>}>
-        <BackInStock />
-      </Suspense>
+      <section className="w-[100%] gap-2 mt-[30px]">
+        <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
+          Back in stock
+        </p>
+
+        <Suspense fallback={<LoadingBooks />}>
+          <BackInStock />
+        </Suspense>
+      </section>
     </main>
   );
 }

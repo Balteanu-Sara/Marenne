@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function ViewMore({
+export default function ViewMore({
   href,
   message = "",
 }: {
