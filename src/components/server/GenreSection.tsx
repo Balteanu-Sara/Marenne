@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { clearResult, searchBooksBySubject } from "@/lib/openLibrary";
 
 export default async function GenreSection({ genre }: { genre: string }) {
@@ -8,7 +9,11 @@ export default async function GenreSection({ genre }: { genre: string }) {
   return (
     <div className="flex flex-wrap justify-center">
       {books.map((book) => (
-        <div key={book.id} className="flex flex-col items-center m-3 w-[180px]">
+        <Link
+          href={`/books/${book.id.replace("/works/", "")}`}
+          key={book.id}
+          className="flex flex-col items-center m-3 w-[180px]"
+        >
           <Image
             src={`https://covers.openlibrary.org/b/id/${book.cover}-M.jpg`}
             width={180}
@@ -21,7 +26,7 @@ export default async function GenreSection({ genre }: { genre: string }) {
             <p className="text-center text-clip">{book.title}</p>
             <p>$20.50</p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

@@ -2,6 +2,7 @@ import { searchBooks, clearResult } from "@/lib/openLibrary";
 import { ViewMore } from "@/components/server/indexServer";
 import { Book } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function BackInStock() {
   const backInStockJson = await searchBooks("subject:fiction+OR+classic");
@@ -13,7 +14,8 @@ export default async function BackInStock() {
         {backInStock
           .filter((release, index) => index < 9)
           .map((release) => (
-            <div
+            <Link
+              href={`/books/${release.id.replace("/works/", "")}`}
               key={release.id}
               className="flex flex-col items-center m-3 w-[180px]"
             >
@@ -28,7 +30,7 @@ export default async function BackInStock() {
                 <p className="text-clip">{release.title}</p>
                 <p>$20.50</p>
               </div>
-            </div>
+            </Link>
           ))}
       </div>
       <ViewMore href="/" message="in stock" />

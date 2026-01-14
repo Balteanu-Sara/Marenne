@@ -1,6 +1,7 @@
 import { searchBooks, clearResult } from "@/lib/openLibrary";
 import { Book } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function BooksSection() {
   const firstBooksJson = await searchBooks(
@@ -11,7 +12,11 @@ export default async function BooksSection() {
   return (
     <div className="flex flex-wrap justify-center">
       {firstBooks.map((book) => (
-        <div key={book.id} className="flex flex-col items-center m-3 w-[180px]">
+        <Link
+          href={`/books/${book.id.replace("/works/", "")}`}
+          key={book.id}
+          className="flex flex-col items-center m-3 w-[180px]"
+        >
           <Image
             src={`https://covers.openlibrary.org/b/id/${book.cover}-M.jpg`}
             width={180}
@@ -24,7 +29,7 @@ export default async function BooksSection() {
             <p className="text-center text-clip">{book.title}</p>
             <p>$20.50</p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
