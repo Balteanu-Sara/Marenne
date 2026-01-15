@@ -26,7 +26,7 @@ export default function Home() {
 
       <section className="w-[100%] gap-2 mt-[30px]">
         <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
-          Best sellers
+          Best Sellers
         </p>
         <Suspense fallback={<LoadingBooks />}>
           <BestSellers />
@@ -35,7 +35,7 @@ export default function Home() {
 
       <section className="w-[100%] gap-2 mt-[30px]">
         <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
-          Back in stock
+          Back In Stock
         </p>
 
         <Suspense fallback={<LoadingBooks />}>
