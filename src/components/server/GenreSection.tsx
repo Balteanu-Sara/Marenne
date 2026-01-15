@@ -1,21 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
-import { clearResult, searchBooksBySubject } from "@/lib/openLibrary";
+import { clearResultOverview, searchBooksBySubject } from "@/lib/openLibrary";
 
 export default async function GenreSection({ genre }: { genre: string }) {
   const booksJson = await searchBooksBySubject(genre);
-  const books = await clearResult(booksJson, 12);
+  const books = await clearResultOverview(booksJson, 12);
 
   return (
     <div className="flex flex-wrap justify-center">
       {books.map((book) => (
         <Link
-          href={`/books/${book.id.replace("/works/", "")}`}
-          key={book.id}
+          href={`/books/${book.key.replace("/works/", "")}`}
+          key={book.key}
           className="flex flex-col items-center m-3 w-[180px]"
         >
           <Image
-            src={`https://covers.openlibrary.org/b/id/${book.cover}-M.jpg`}
+            src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
             width={180}
             height={275}
             alt={`Cover book for ${book.title}`}

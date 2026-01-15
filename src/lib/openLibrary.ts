@@ -106,56 +106,61 @@ async function accessWorks(
   return { description, subjects };
 }
 
-export async function clearResult(
+export async function clearResult(booksObj: SearchBooksResults): Promise<Book> {
+  const book = booksObj.docs[0];
+
+  const title: string = book.title;
+  const author: string = book["author_name"] ? book["author_name"][0] : "";
+  const id: string = book.key;
+  const cover: number = book.cover_i;
+  let { description, subjects } = await accessWorks(id);
+  const {
+    filledDescription,
+    filledSubjects,
+    publish_date,
+    publisher,
+    isbn,
+    pages,
+  } = await accessEdition(id, description, subjects);
+  if (description === "") description = filledDescription;
+  if (subjects.length === 0) subjects = [...filledSubjects];
+
+  return {
+    id,
+    title,
+    author,
+    cover,
+    description,
+    publisher,
+    publish_date,
+    pages,
+    isbn,
+    subjects,
+  };
+}
+
+export async function clearResultOverview(
   booksObj: SearchBooksResults | SearchBooksBySubjectResults,
   limit: number = 20
-): Promise<Book[]> {
+): Promise<SearchResult[]> {
   const searchResult: SearchResult[] | SearchBySubjectResult[] =
     "docs" in booksObj
       ? booksObj.docs.slice(0, limit)
       : booksObj.works.slice(0, limit);
 
-  const bookDetails = searchResult.map(async (result) => {
+  const previewBooks = searchResult.map(async (result) => {
     const title: string = result.title;
-    const author: string =
-      "author_name" in result
-        ? result["author_name"]?.[0] ?? ""
-        : "authors" in result
-        ? result["authors"][0]?.name
-        : "";
-    const id: string = result.key;
-    const cover: number =
+    const author_name: string[] = [];
+    const key: string = result.key;
+    const cover_i: number =
       "cover_i" in result ? result.cover_i : result.cover_id;
 
-    let { description, subjects } = await accessWorks(id);
-    const {
-      filledDescription,
-      filledSubjects,
-      publish_date,
-      publisher,
-      isbn,
-      pages,
-    } = await accessEdition(id, description, subjects);
-    if (description === "") description = filledDescription;
-    if (subjects.length === 0) subjects = [...filledSubjects];
-
-    return {
-      id,
-      title,
-      author,
-      cover,
-      description,
-      publisher,
-      publish_date,
-      pages,
-      isbn,
-      subjects,
-    };
+    return { author_name, cover_i, key, title };
   });
 
-  const promisedBooks: Book[] = await Promise.all(bookDetails);
-  const filteredBooksByCover: Book[] = promisedBooks.filter(
-    (book) => book.cover
+  const promisedBooks: SearchResult[] = await Promise.all(previewBooks);
+  const filteredBooksByCover: SearchResult[] = promisedBooks.filter(
+    (book) => book.cover_i
   );
   return filteredBooksByCover;
 }
