@@ -10,3 +10,5 @@ export { default as LoadingBooks } from "./LoadingBooks";
 export { default as BooksSection } from "./BooksSection";
 export { default as GenreSection } from "./GenreSection";
 export { default as MagazinesSection } from "./MagazinesSection";
+export { default as BookDetails } from "./BookDetails";
+export { default as LoadingBook } from "./LoadingBook";
