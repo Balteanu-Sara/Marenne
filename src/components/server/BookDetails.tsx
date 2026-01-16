@@ -1,7 +1,9 @@
 import { clearResult, searchBooks } from "@/lib/openLibrary";
 import Image from "next/image";
-import { BookDescription } from "@/components/client/indexClient";
-import CopyURLButton from "@/components/client/CopyURLButton";
+import {
+  BookDescription,
+  CopyURLButton,
+} from "@/components/client/indexClient";
 
 export default async function BookDetails({ id }: { id: string }) {
   const bookJson = await searchBooks(`/works/${id}`);
