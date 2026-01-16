@@ -7,7 +7,7 @@ export default function Books() {
       <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
         Books
       </p>
-      <Suspense fallback={<LoadingBooks />}>
+      <Suspense fallback={<LoadingBooks len={9} />}>
         <BooksSection />
       </Suspense>
     </main>
