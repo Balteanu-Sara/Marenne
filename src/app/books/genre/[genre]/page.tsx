@@ -15,7 +15,7 @@ export default async function Genre({
         {genre !== "lgbt" ? genre[0].toUpperCase() + genre.slice(1) : "LGBT"}
       </p>
 
-      <Suspense fallback={<LoadingBooks />}>
+      <Suspense fallback={<LoadingBooks len={9} />}>
         <GenreSection genre={genre} />
       </Suspense>
     </main>
