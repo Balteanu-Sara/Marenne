@@ -1,6 +1,7 @@
 import { clearResult, searchBooks } from "@/lib/openLibrary";
 import Image from "next/image";
 import { BookDescription } from "@/components/client/indexClient";
+import CopyURLButton from "@/components/client/CopyURLButton";
 
 export default async function BookDetails({ id }: { id: string }) {
   const bookJson = await searchBooks(`/works/${id}`);
@@ -36,7 +37,7 @@ export default async function BookDetails({ id }: { id: string }) {
               <p className="font-courier uppercase text-sm">Isbn</p>
               <p className="text-[30px] h-11">{book.isbn}</p>
             </div>
-            <p className="font-courier uppercase text-sm pt-1">Copy URL</p>
+            <CopyURLButton />
           </div>
           <Image
             src={`https://covers.openlibrary.org/b/id/${book.cover}-M.jpg`}
