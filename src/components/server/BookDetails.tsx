@@ -1,5 +1,6 @@
 import { clearResult, searchBooks } from "@/lib/openLibrary";
 import Image from "next/image";
+import { BookDescription } from "@/components/client/indexClient";
 
 export default async function BookDetails({ id }: { id: string }) {
   const bookJson = await searchBooks(`/works/${id}`);
@@ -54,7 +55,7 @@ export default async function BookDetails({ id }: { id: string }) {
           <button className="py-2 text-[30px]">Add to Cart</button>
         </div>
       </div>
-      {/* <p className="text-[30px] mt-10 mb-10">{book.description}</p> */}
+      {book.description && <BookDescription description={book.description} />}
     </section>
   );
 }
