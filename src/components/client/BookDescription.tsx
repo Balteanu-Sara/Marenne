@@ -12,7 +12,7 @@ export default function BookDescription({
     <div className="flex flex-col mt-10 mb-10">
       <div
         className={`relative overflow-hidden transition-all duration-500 ease-in-out ${
-          expanded ? "max-h-[1000px]" : "max-h-[150px]"
+          expanded ? "max-h-[1500px]" : "max-h-[150px]"
         }`}
       >
         <p className="text-[30px] leading-none">{description}</p>

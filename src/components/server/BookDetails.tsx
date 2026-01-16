@@ -10,10 +10,10 @@ export default async function BookDetails({ id }: { id: string }) {
   const book = await clearResult(bookJson);
 
   return (
-    <section className="flex flex-col gap-2 w-[100%] mt-[15px] font-garamond">
+    <section className="flex flex-col gap-2 w-[100%] mt-[20px] font-garamond">
       <div className="flex flex-col items-center text-center gap-0.5">
         {book.subjects && (
-          <p className="font-courier uppercase text-sm">
+          <p className="font-courier uppercase text-xs">
             {book.subjects.join()}
           </p>
         )}
