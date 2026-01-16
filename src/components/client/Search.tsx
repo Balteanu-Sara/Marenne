@@ -14,7 +14,10 @@ export default function Search() {
 
   useEffect(() => {
     if (isSearchOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
+    else {
+      document.body.style.overflow = "";
+      setQuery("");
+    }
 
     return () => {
       document.body.style.overflow = "";
@@ -46,7 +49,11 @@ export default function Search() {
       )}
       <div
         className={`bg-green p-[15px] flex flex-col fixed left-[15px] w-[calc(100vw-30px)] top-[130px] h-[calc(100vh-200px)] transition duration-300 
-        ${isSearchOpen ? "z-9 opacity-100" : "-z-1 opacity-0"}`}
+        ${
+          isSearchOpen
+            ? "z-9 opacity-100 pointer-events-auto"
+            : "-z-1 opacity-0 pointer-events-none"
+        }`}
       >
         <div className="w-[100%]">
           <input
