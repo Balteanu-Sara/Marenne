@@ -66,7 +66,11 @@ function LinksSection() {
 }
 
 function Logo() {
-  return <div className="font-title text-[18.4vw]">MARENNE BOOKS</div>;
+  return (
+    <div className="font-title text-[17.5vw] lg:text-[18.7vw]">
+      MARENNE BOOKS
+    </div>
+  );
 }
 
 export default function Footer() {

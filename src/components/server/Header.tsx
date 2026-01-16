@@ -13,7 +13,7 @@ function Logo() {
       <div className="lg:hidden text-[32vw] font-title leading-none px-[15px] -translate-y-[0.12em] justify-self-center">
         <Link href="/">MARENNE</Link>
       </div>
-      <div className="hidden lg:inline text-[18.8vw] font-title leading-none px-[15px] -translate-y-[0.15em] justify-self-center">
+      <div className="hidden lg:inline text-[18.7vw] font-title leading-none px-[15px] -translate-y-[0.15em] justify-self-center">
         <Link href="/">MARENNE BOOKS</Link>
       </div>
     </>
