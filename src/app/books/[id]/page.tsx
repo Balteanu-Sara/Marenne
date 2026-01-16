@@ -9,7 +9,7 @@ export default async function Book({
   const { id } = await params;
 
   return (
-    <main className="p-[15px] w-[100%] mt-[15px]">
+    <main className="p-[15px] gap-2">
       <Suspense fallback={<LoadingBook />}>
         <BookDetails id={id} />
       </Suspense>
