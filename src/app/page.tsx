@@ -17,7 +17,7 @@ export default function Home() {
         <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
           New Releases
         </p>
-        <Suspense fallback={<LoadingBooks />}>
+        <Suspense fallback={<LoadingBooks len={9} />}>
           <NewReleases />
         </Suspense>
       </section>
@@ -28,7 +28,7 @@ export default function Home() {
         <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
           Best Sellers
         </p>
-        <Suspense fallback={<LoadingBooks />}>
+        <Suspense fallback={<LoadingBooks len={9} />}>
           <BestSellers />
         </Suspense>
       </section>
@@ -38,7 +38,7 @@ export default function Home() {
           Back In Stock
         </p>
 
-        <Suspense fallback={<LoadingBooks />}>
+        <Suspense fallback={<LoadingBooks len={9} />}>
           <BackInStock />
         </Suspense>
       </section>

@@ -1,7 +1,7 @@
-export default function LoadingBooks() {
+export default function LoadingBooks({ len }: { len: number }) {
   return (
     <div className="flex flex-wrap justify-center">
-      {Array.from({ length: 9 }).map((_, i) => {
+      {Array.from({ length: len }).map((_, i) => {
         return (
           <div
             key={i}

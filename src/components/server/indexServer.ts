@@ -12,3 +12,4 @@ export { default as GenreSection } from "./GenreSection";
 export { default as MagazinesSection } from "./MagazinesSection";
 export { default as BookDetails } from "./BookDetails";
 export { default as LoadingBook } from "./LoadingBook";
+export { default as RelatedProducts } from "./RelatedProducts";
