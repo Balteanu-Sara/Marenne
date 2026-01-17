@@ -1,6 +1,6 @@
 "use client";
 import { useStateContext } from "@/context/CurrentStateContext";
-import { searchBooks } from "@/lib/openLibrary";
+import { searchBooks, clearResultOverview } from "@/lib/openLibrary";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,8 +30,9 @@ export default function Search() {
     const timeout = setTimeout(async () => {
       setLoading(true);
       try {
-        const books = await searchBooks(query);
-        setResults(books.docs.slice(0, 6));
+        const booksJson = await searchBooks(query);
+        const books = await clearResultOverview(booksJson);
+        setResults(books.slice(0, 9));
       } catch (error) {
         console.error(error);
       } finally {
@@ -73,32 +74,38 @@ export default function Search() {
             <>
               <div className="font-courier uppercase text-sm">
                 <p>Results</p>
-                <div className="grid grid-cols-2">
-                  {results.map((result) => {
-                    return (
-                      <div
-                        key={result.key}
-                        className="flex flex-col items-center"
-                      >
-                        <Image
-                          src={`https://covers.openlibrary.org/b/id/${result.cover_i}-M.jpg`}
-                          width={180}
-                          height={275}
-                          alt={`Cover book for ${result.title}`}
-                          // className="w-[180px] h-[275px]"
-                          className="w-auto h-auto"
-                        />
-                        <div className="font-courier text-center">
-                          <p className="text-clip">{result.title}</p>
-                          <p>$20.50</p>
-                        </div>
-                      </div>
-                    );
-                  })}
+                <div className="flex flex-wrap justify-center">
+                  {results
+                    .filter((result, index) => index < 9)
+                    .map((result) => {
+                      return (
+                        <Link
+                          href={`/books/${result.key.replace("/works/", "")}`}
+                          key={result.key}
+                          className="flex flex-col items-center m-3 w-[180px]"
+                        >
+                          <Image
+                            src={`https://covers.openlibrary.org/b/id/${result.cover_i}-M.jpg`}
+                            width={180}
+                            height={275}
+                            alt={`Cover book for ${result.title}`}
+                            className="w-[180px] h-[275px]"
+                          />
+                          <div className="font-courier text-center">
+                            <p className="text-clip">{result.title}</p>
+                            <p>$20.50</p>
+                          </div>
+                        </Link>
+                      );
+                    })}
                 </div>
               </div>
               <div className="text-center pt-[20px]">
-                <Link href="/results" className="border-b-1">
+                <Link
+                  href={`/search/${encodeURIComponent(query.toLowerCase())}`}
+                  className="border-b-1"
+                  onClick={toggleSearch}
+                >
                   Show results for {query}
                 </Link>
               </div>

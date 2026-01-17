@@ -13,3 +13,4 @@ export { default as MagazinesSection } from "./MagazinesSection";
 export { default as BookDetails } from "./BookDetails";
 export { default as LoadingBook } from "./LoadingBook";
 export { default as RelatedProducts } from "./RelatedProducts";
+export { default as SearchResultSection } from "./SearchResultSection";
