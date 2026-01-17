@@ -141,7 +141,7 @@ export async function clearResult(booksObj: SearchBooksResults): Promise<Book> {
 
 export async function clearResultOverview(
   booksObj: SearchBooksResults | SearchBooksBySubjectResults,
-  limit: number = 20
+  limit: number = 40
 ): Promise<SearchResult[]> {
   const searchResult: SearchResult[] | SearchBySubjectResult[] =
     "docs" in booksObj
