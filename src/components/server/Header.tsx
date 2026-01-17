@@ -38,7 +38,9 @@ export default function Header() {
     <header>
       <Logo />
       <Menu />
-      <Carousel />
+      <Suspense>
+        <Carousel />
+      </Suspense>
     </header>
   );
 }
