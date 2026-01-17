@@ -10,6 +10,9 @@ export default function NewsletterSection() {
     const timeout = setTimeout(() => {
       setResponse("");
     }, 5000);
+    return () => {
+      return clearTimeout(timeout);
+    };
   }, [response]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
