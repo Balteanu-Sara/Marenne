@@ -1,10 +1,13 @@
 import { searchBooks, clearResultOverview } from "@/lib/openLibrary";
-import { ViewMore } from "@/components/server/indexServer";
 import { SearchResult } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function BackInStock() {
+export default async function BackInStock({
+  bookNr = 20,
+}: {
+  bookNr?: number;
+}) {
   const backInStockJson = await searchBooks("subject:fiction+OR+classic");
   const backInStock: SearchResult[] = await clearResultOverview(
     backInStockJson
@@ -14,7 +17,7 @@ export default async function BackInStock() {
     <>
       <div className="flex flex-wrap justify-center">
         {backInStock
-          .filter((release, index) => index < 9)
+          .filter((release, index) => index < bookNr)
           .map((release) => (
             <Link
               href={`/books/${release.key.replace("/works/", "")}`}
@@ -35,7 +38,6 @@ export default async function BackInStock() {
             </Link>
           ))}
       </div>
-      <ViewMore href="/" message="in stock" />
     </>
   );
 }

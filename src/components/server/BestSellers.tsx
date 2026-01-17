@@ -1,10 +1,13 @@
 import { searchBooks, clearResultOverview } from "@/lib/openLibrary";
-import { ViewMore } from "@/components/server/indexServer";
 import { SearchResult } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function BestSellers() {
+export default async function BestSellers({
+  bookNr = 20,
+}: {
+  bookNr?: number;
+}) {
   const bestSellersJson = await searchBooks("subject:bestseller");
   const bestSellers: SearchResult[] = await clearResultOverview(
     bestSellersJson
@@ -14,7 +17,7 @@ export default async function BestSellers() {
     <>
       <div className="flex flex-wrap justify-center">
         {bestSellers
-          .filter((release, index) => index < 9)
+          .filter((release, index) => index < bookNr)
           .map((release) => (
             <Link
               href={`/books/${release.key.replace("/works/", "")}`}
@@ -35,7 +38,6 @@ export default async function BestSellers() {
             </Link>
           ))}
       </div>
-      <ViewMore href="/" message="best sellers" />
     </>
   );
 }

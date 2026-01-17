@@ -31,7 +31,8 @@ export default function Home() {
           Best Sellers
         </p>
         <Suspense fallback={<LoadingBooks len={9} />}>
-          <BestSellers />
+          <BestSellers bookNr={9} />
+          <ViewMore href="/best-sellers" message="best sellers" />
         </Suspense>
       </section>
 
@@ -41,7 +42,8 @@ export default function Home() {
         </p>
 
         <Suspense fallback={<LoadingBooks len={9} />}>
-          <BackInStock />
+          <BackInStock bookNr={9} />
+          <ViewMore href="/back-in-stock" message="in stock" />
         </Suspense>
       </section>
     </main>
