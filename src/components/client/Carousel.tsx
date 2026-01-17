@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type SliderProps = {
   dots: boolean;
@@ -17,6 +18,7 @@ type SliderProps = {
 };
 
 export default function Carousel() {
+  const pathName = usePathname();
   const settings: SliderProps = {
     dots: false,
     infinite: true,
@@ -28,16 +30,18 @@ export default function Carousel() {
     cssEase: "linear",
   };
 
-  return (
-    <Link href="/newsletter">
-      <Slider {...settings} className="bg-yellow">
-        <p className="font-garamond">Sign up to our Newsletter</p>
-        <p className="font-title">MARENNE BOOKS</p>
-        <p className="font-garamond">Sign up to our Newletter</p>
-        <p className="font-title">MARENNE BOOKS</p>
-        <p className="font-garamond">Sign up to our Newletter</p>
-        <p className="font-title">MARENNE BOOKS</p>
-      </Slider>{" "}
-    </Link>
-  );
+  if (!pathName.includes("/newsletter")) {
+    return (
+      <Link href="/newsletter" className="">
+        <Slider {...settings} className="bg-yellow">
+          <p className="font-garamond">Sign up to our Newsletter</p>
+          <p className="font-title">MARENNE BOOKS</p>
+          <p className="font-garamond">Sign up to our Newletter</p>
+          <p className="font-title">MARENNE BOOKS</p>
+          <p className="font-garamond">Sign up to our Newletter</p>
+          <p className="font-title">MARENNE BOOKS</p>
+        </Slider>{" "}
+      </Link>
+    );
+  }
 }

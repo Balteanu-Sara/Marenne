@@ -52,7 +52,7 @@ function LinksSection() {
         </li>
         <li className="h-[27px]">
           <a
-            href="google.com/maps/place/73+Farringdon+Rd,+London+EC1M+3JQ,+UK/@51.5210262,-0.109002,17z/data=!3m1!4b1!4m6!3m5!1s0x48761b4e1a800293:0x4e19a2a47fe3cba9!8m2!3d51.5210262!4d-0.1064271!16s%2Fg%2F11c3rmm7wg?entry=tts&g_ep=EgoyMDI0MTExMC4wIPu8ASoASAFQAw%3D%3D"
+            href="https://www.google.com/maps/place/73+Farringdon+Rd,+London+EC1M+3JQ,+UK/@51.5210262,-0.109002,17z/data=!3m1!4b1!4m6!3m5!1s0x48761b4e1a800293:0x4e19a2a47fe3cba9!8m2!3d51.5210262!4d-0.1064271!16s%2Fg%2F11c3rmm7wg?entry=tts&g_ep=EgoyMDI0MTExMC4wIPu8ASoASAFQAw%3D%3D"
             target="_blank"
             title="Marenne Books Location"
             className="lg:hover:text-white"
