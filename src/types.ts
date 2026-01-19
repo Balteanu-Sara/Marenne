@@ -36,6 +36,10 @@ export interface SearchBooksBySubjectResults {
 }
 
 export type CurrentStates = {
+  products: Product[];
+  addToCart: (product: SearchResult) => void;
+  removeFromCart: (key: string) => void;
+  clearCart: () => void;
   isCartOpen: boolean;
   isMenuOpen: boolean;
   isFilterOpen: boolean;

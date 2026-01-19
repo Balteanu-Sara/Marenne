@@ -8,3 +8,4 @@ export { default as BookDescription } from "./BookDescription";
 export { default as CopyURLButton } from "./CopyURLButton";
 export { default as NewsletterSection } from "./NewsletterSection";
 export { default as FaqSection } from "./FaqSection";
+export { default as CartButton } from "./CartButton";

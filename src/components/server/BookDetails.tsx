@@ -3,6 +3,7 @@ import Image from "next/image";
 import {
   BookDescription,
   CopyURLButton,
+  CartButton,
 } from "@/components/client/indexClient";
 
 export default async function BookDetails({ id }: { id: string }) {
@@ -50,14 +51,12 @@ export default async function BookDetails({ id }: { id: string }) {
             // className="w-auto h-auto border-1 border-black border-solid"
           />
         </div>
-        <div className="border-t-black border-t-[1px] border-b-black border-b-[1px]">
+        <div className="border-t-black border-t-[1px] border-b-black border-b-[1px] h-auto">
           <div className="py-1 border-b-black border-b-[1px]">
             <p className="font-courier uppercase text-sm">Cost</p>
             <p className="text-[30px] h-11">$10.75</p>
           </div>
-          <button className="py-2 text-[30px] lg:opacity-100 lg:transition-opacity lg:duration-300 lg:hover:opacity-50">
-            Add to Cart
-          </button>
+          <CartButton book={book} />
         </div>
       </div>
       {book.description && <BookDescription description={book.description} />}

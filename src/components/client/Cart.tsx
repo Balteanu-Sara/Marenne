@@ -4,7 +4,8 @@ import { useStateContext } from "@/context/CurrentStateContext";
 import { useEffect } from "react";
 
 export default function Cart() {
-  const { isCartOpen, toggleCart } = useStateContext();
+  const { isCartOpen, toggleCart, products, removeFromCart, clearCart } =
+    useStateContext();
 
   useEffect(() => {
     if (isCartOpen) document.body.style.overflow = "hidden";

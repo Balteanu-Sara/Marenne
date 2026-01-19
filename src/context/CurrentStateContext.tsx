@@ -13,7 +13,7 @@ export function StateProvider({ children }: { children: ReactNode }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-  function addProdToCart(product: SearchResult) {
+  function addToCart(product: SearchResult) {
     if (product.key in products)
       setProducts(
         products.map((prod) => {
@@ -28,7 +28,7 @@ export function StateProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  function deleteProdFromCart(key: string) {
+  function removeFromCart(key: string) {
     setProducts(
       products
         .map((prod) => {
@@ -39,7 +39,7 @@ export function StateProvider({ children }: { children: ReactNode }) {
     );
   }
 
-  function removeProducts() {
+  function clearCart() {
     setProducts([]);
   }
 
@@ -94,6 +94,10 @@ export function StateProvider({ children }: { children: ReactNode }) {
   return (
     <StateContext.Provider
       value={{
+        products,
+        addToCart,
+        removeFromCart,
+        clearCart,
         isCartOpen,
         isMenuOpen,
         isFilterOpen,
