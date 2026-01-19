@@ -6,22 +6,34 @@ function ShopSection() {
       <p className="font-courier text-sm uppercase">Shop</p>
       <ul className="font-garamond text-2xl">
         <li className="h-[27px]">
-          <Link href="/" className="lg:hover:text-white">
+          <Link
+            href="/"
+            className="lg:text-black lg:transition-colors lg:duration-300 lg:hover:text-white"
+          >
             All
           </Link>
         </li>
         <li className="h-[27px]">
-          <Link href="/books" className="lg:hover:text-white">
+          <Link
+            href="/books"
+            className="lg:text-black lg:transition-colors lg:duration-300 lg:hover:text-white"
+          >
             Books
           </Link>
         </li>
         <li className="h-[27px]">
-          <Link href="/magazines" className="lg:hover:text-white">
+          <Link
+            href="/magazines"
+            className="lg:text-black lg:transition-colors lg:duration-300 lg:hover:text-white"
+          >
             Magazines
           </Link>
         </li>
         <li className="h-[27px]">
-          <Link href="/aboutus" className="lg:hover:text-white">
+          <Link
+            href="/aboutus"
+            className="lg:text-black lg:transition-colors lg:duration-300 lg:hover:text-white"
+          >
             About Us
           </Link>
         </li>
@@ -36,7 +48,10 @@ function LinksSection() {
       <p className="font-courier text-sm uppercase">Links</p>
       <ul className="font-garamond text-2xl">
         <li className="h-[27px]">
-          <Link href="/faq" className="lg:hover:text-white">
+          <Link
+            href="/faq"
+            className="lg:text-black lg:transition-colors lg:duration-300 lg:hover:text-white"
+          >
             F.A.Q.s
           </Link>
         </li>
@@ -45,7 +60,7 @@ function LinksSection() {
             href="https://www.instagram.com/antennebooks"
             target="_blank"
             title="Instagram account"
-            className="lg:hover:text-white"
+            className="lg:text-black lg:transition-colors lg:duration-300 lg:hover:text-white"
           >
             Instagram
           </a>
@@ -55,7 +70,7 @@ function LinksSection() {
             href="https://www.google.com/maps/place/73+Farringdon+Rd,+London+EC1M+3JQ,+UK/@51.5210262,-0.109002,17z/data=!3m1!4b1!4m6!3m5!1s0x48761b4e1a800293:0x4e19a2a47fe3cba9!8m2!3d51.5210262!4d-0.1064271!16s%2Fg%2F11c3rmm7wg?entry=tts&g_ep=EgoyMDI0MTExMC4wIPu8ASoASAFQAw%3D%3D"
             target="_blank"
             title="Marenne Books Location"
-            className="lg:hover:text-white"
+            className="lg:text-black lg:transition-colors lg:duration-300 lg:hover:text-white"
           >
             Location
           </a>
@@ -86,8 +101,8 @@ export default function Footer() {
         <p>Copyright © 2026 MARENNE BOOKS</p>
         <p className="text-sm text-center">
           Powered and secured by{" "}
-          <a href="https://www.netlify.com/" target="_blank">
-            Netlify
+          <a href="https://vercel.com/" target="_blank">
+            Vercel
           </a>{" "}
         </p>
       </div>

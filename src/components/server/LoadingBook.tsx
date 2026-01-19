@@ -4,8 +4,8 @@ export default function LoadingBook() {
   return (
     <section className="flex flex-col gap-2 w-[100%] mt-[20px] font-garamond">
       <div className="flex flex-col items-center text-center gap-0.5">
-        <p className="font-courier uppercase h-xs h-5 rounded w-full bg-grey-3 animate-pulse" />
-        <p className="h-11 rounded w-full bg-grey-3 animate-pulse" />
+        <p className="font-courier uppercase h-5 w-1/3 rounded bg-grey-3 animate-pulse" />
+        <p className="h-11 rounded w-2/3 bg-grey-3 animate-pulse" />
       </div>
       <div className="flex flex-col gap-10 lg:flex-row">
         <div className="flex flex-col-reverse gap-2 lg:flex-row">

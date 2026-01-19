@@ -14,18 +14,13 @@ export default async function Book({
   const { id } = await params;
 
   return (
-    <main className="p-[15px] gap-2">
+    <main className="p-[15px]">
       <Suspense fallback={<LoadingBook />}>
         <BookDetails id={id} />
       </Suspense>
-      <section className="w-[100%] gap-2 mt-[15px]">
-        <div className="justify-self-center font-garamond text-4xl pb-[10px]">
-          Related Products
-        </div>
-        <Suspense fallback={<LoadingBooks len={4} />}>
-          <RelatedProducts id={id} />
-        </Suspense>
-      </section>
+      <Suspense fallback={<LoadingBooks len={4} />}>
+        <RelatedProducts id={id} />
+      </Suspense>
     </main>
   );
 }

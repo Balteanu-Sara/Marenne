@@ -11,40 +11,51 @@ export default async function RelatedProducts({ id }: { id: string }) {
   const bookJson = await searchBooks(`/works/${id}`);
   const { subjects } = await clearResult(bookJson);
 
-  const subject = subjects?.reduce((shortest, sub) =>
-    sub.length < shortest.length ? sub : shortest
-  );
+  const subject =
+    subjects && subjects.length !== 0
+      ? subjects.reduce((shortest, sub) =>
+          sub.length < shortest.length ? sub : shortest,
+        )
+      : "";
+
   if (subject) {
     const booksJson = await searchBooksBySubject(
-      encodeURIComponent(subject.toLowerCase())
+      encodeURIComponent(subject.toLowerCase()),
     );
     const books = await clearResultOverview(booksJson, 5);
     const booksFiltered = books.filter((book) => book.key !== `/works/${id}`);
     const relatedBooks =
       booksFiltered.length === 4 ? booksFiltered : booksFiltered.slice(0, 4);
 
-    return (
-      <div className="flex flex-wrap justify-center">
-        {relatedBooks.map((book) => (
-          <Link
-            href={`/books/${book.key.replace("/works/", "")}`}
-            key={book.key}
-            className="flex flex-col items-center m-3 w-[180px]"
-          >
-            <Image
-              src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
-              width={180}
-              height={275}
-              alt={`Cover book for ${book.title}`}
-              className="w-[180px] h-[275px] border-1 border-black border-solid"
-            />
-            <div className="font-courier text-center">
-              <p className="text-center text-clip">{book.title}</p>
-              <p>$20.50</p>
-            </div>
-          </Link>
-        ))}
-      </div>
+    return relatedBooks.length > 0 ? (
+      <section className="w-[100%] gap-2 mt-15">
+        <div className="justify-self-center font-garamond text-4xl pb-[10px]">
+          Related Products
+        </div>
+        <div className="flex flex-wrap justify-center">
+          {relatedBooks.map((book) => (
+            <Link
+              href={`/books/${book.key.replace("/works/", "")}`}
+              key={book.key}
+              className="flex flex-col items-center m-3 w-[180px]"
+            >
+              <Image
+                src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
+                width={180}
+                height={275}
+                alt={`Cover book for ${book.title}`}
+                className="w-[180px] h-[275px] border-1 border-black border-solid"
+              />
+              <div className="font-courier text-center">
+                <p className="text-center text-clip">{book.title}</p>
+                <p>$20.50</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+    ) : (
+      <></>
     );
   }
 }

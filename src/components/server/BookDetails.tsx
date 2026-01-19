@@ -55,7 +55,9 @@ export default async function BookDetails({ id }: { id: string }) {
             <p className="font-courier uppercase text-sm">Cost</p>
             <p className="text-[30px] h-11">$10.75</p>
           </div>
-          <button className="py-2 text-[30px]">Add to Cart</button>
+          <button className="py-2 text-[30px] lg:opacity-100 lg:transition-opacity lg:duration-300 lg:hover:opacity-50">
+            Add to Cart
+          </button>
         </div>
       </div>
       {book.description && <BookDescription description={book.description} />}
