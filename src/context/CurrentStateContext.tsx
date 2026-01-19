@@ -1,16 +1,47 @@
 "use client";
 
 import { useState, createContext, useContext, ReactNode } from "react";
-import { CurrentStates } from "@/types";
+import { CurrentStates, SearchResult, Product } from "@/types";
 
 const StateContext = createContext<CurrentStates | undefined>(undefined);
 
 export function StateProvider({ children }: { children: ReactNode }) {
+  const [products, setProducts] = useState<Product[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  function addProdToCart(product: SearchResult) {
+    if (product.key in products)
+      setProducts(
+        products.map((prod) => {
+          if (prod.key === product.key) {
+            return { ...prod, count: prod.count + 1 };
+          } else return prod;
+        }),
+      );
+    else {
+      const newProduct: Product = { ...product, count: 1 };
+      setProducts((prev) => [...prev, newProduct]);
+    }
+  }
+
+  function deleteProdFromCart(key: string) {
+    setProducts(
+      products
+        .map((prod) => {
+          if (prod.key === key) return { ...prod, count: prod.count - 1 };
+          else return prod;
+        })
+        .filter((prod) => prod.count !== 0),
+    );
+  }
+
+  function removeProducts() {
+    setProducts([]);
+  }
 
   function toggleCart() {
     setIsMenuOpen(false);

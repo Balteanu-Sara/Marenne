@@ -68,7 +68,7 @@ export default function FaqSection() {
   function toggle(id: number) {
     setOpen((prev) => ({
       ...prev,
-      [id]: !prev[id],
+      id: !prev[id],
     }));
   }
 

@@ -48,3 +48,7 @@ export type CurrentStates = {
   toggleLogin: () => void;
   close: () => void;
 };
+
+export interface Product extends SearchResult {
+  count: number;
+}
