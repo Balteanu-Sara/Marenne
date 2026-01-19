@@ -7,3 +7,4 @@ export { default as Cart } from "./Cart";
 export { default as BookDescription } from "./BookDescription";
 export { default as CopyURLButton } from "./CopyURLButton";
 export { default as NewsletterSection } from "./NewsletterSection";
+export { default as FaqSection } from "./FaqSection";

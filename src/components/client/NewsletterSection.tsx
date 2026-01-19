@@ -36,7 +36,7 @@ export default function NewsletterSection() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col justify-center gap-5 w-100% min-h-[410px]"
+      className="flex flex-col px-2 justify-center gap-5 w-100% min-h-[410px]"
     >
       <input
         className="w-100% text-black text-left text-[14px] pl-[16px] font-courier border-black border-[1px] border-solid font-normal h-[50px] bg-[rgb(255,255.255)] focus:outline-black"
@@ -52,7 +52,7 @@ export default function NewsletterSection() {
         value={query2}
         onChange={(e) => setQuery2(e.target.value)}
       />
-      <p className="w-100% text-left text-[12px] font-courier">
+      <p className="w-100% text-left text-[12px] font-courier font-normal">
         We use email and targeted online advertising to send you product and
         services updates, promotional offers and other marketing communications
         based on the information we collect about you, such as your email
