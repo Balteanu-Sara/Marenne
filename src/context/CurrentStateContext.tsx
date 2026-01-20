@@ -1,6 +1,12 @@
 "use client";
 
-import { useState, createContext, useContext, ReactNode } from "react";
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  ReactNode,
+} from "react";
 import { CurrentStates, SearchResult, Product } from "@/types";
 
 const StateContext = createContext<CurrentStates | undefined>(undefined);
@@ -13,8 +19,14 @@ export function StateProvider({ children }: { children: ReactNode }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
+  useEffect(() => {
+    console.log("Products: ", products);
+  }, [products]);
+
   function addToCart(product: SearchResult) {
-    if (product.key in products)
+    const existingProduct = products.find((prod) => prod.key === product.key);
+
+    if (existingProduct)
       setProducts(
         products.map((prod) => {
           if (prod.key === product.key) {
@@ -28,15 +40,19 @@ export function StateProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  function removeFromCart(key: string) {
+  function updateItem(key: string, operation: number) {
     setProducts(
-      products
-        .map((prod) => {
-          if (prod.key === key) return { ...prod, count: prod.count - 1 };
-          else return prod;
-        })
-        .filter((prod) => prod.count !== 0),
+      products.map((prod) => {
+        if (prod.key === key) {
+          if (operation > 0) return { ...prod, count: prod.count + 1 };
+          else return { ...prod, count: prod.count - 1 };
+        } else return prod;
+      }),
     );
+  }
+
+  function removeFromCart(key: string) {
+    setProducts(products.filter((prod) => prod.key !== key));
   }
 
   function clearCart() {
@@ -96,6 +112,7 @@ export function StateProvider({ children }: { children: ReactNode }) {
       value={{
         products,
         addToCart,
+        updateItem,
         removeFromCart,
         clearCart,
         isCartOpen,

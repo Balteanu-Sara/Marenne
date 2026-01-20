@@ -5,7 +5,6 @@ import {
   MobileMenu,
   DesktopMenu,
 } from "@/components/client/indexClient";
-import { StateProvider } from "@/context/CurrentStateContext";
 
 function Logo() {
   return (
@@ -23,12 +22,10 @@ function Logo() {
 function Menu() {
   return (
     <div>
-      <StateProvider>
-        <Suspense fallback={<div>Loading mobile menu...</div>}>
-          <MobileMenu />
-        </Suspense>
-        <DesktopMenu />
-      </StateProvider>
+      <Suspense fallback={<div>Loading mobile menu...</div>}>
+        <MobileMenu />
+      </Suspense>
+      <DesktopMenu />
     </div>
   );
 }
