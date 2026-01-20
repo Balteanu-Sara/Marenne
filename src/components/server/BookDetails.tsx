@@ -47,14 +47,13 @@ export default async function BookDetails({ id }: { id: string }) {
             width={180}
             height={275}
             alt={`Cover book for ${book.title}`}
-            className="self-center w-[180px] h-[275px]"
-            // className="w-auto h-auto border-1 border-black border-solid"
+            className="self-center w-[180px] h-[275px] border-1 border-black border-solid"
           />
         </div>
-        <div className="border-t-black border-t-[1px] border-b-black border-b-[1px] h-auto">
+        <div className="border-t-black border-t-[1px] border-b-black border-b-[1px] h-auto lg:w-50">
           <div className="py-1 border-b-black border-b-[1px]">
             <p className="font-courier uppercase text-sm">Cost</p>
-            <p className="text-[30px] h-11">$10.75</p>
+            <p className="text-[30px] h-11">$10,75</p>
           </div>
           <CartButton book={book} />
         </div>
