@@ -9,3 +9,4 @@ export { default as CopyURLButton } from "./CopyURLButton";
 export { default as NewsletterSection } from "./NewsletterSection";
 export { default as FaqSection } from "./FaqSection";
 export { default as CartButton } from "./CartButton";
+export { default as Login } from "./Login";

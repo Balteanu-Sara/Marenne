@@ -1,6 +1,11 @@
 "use client";
 import { useStateContext } from "@/context/CurrentStateContext";
-import { Search, Cart, OptionMenu } from "@/components/client/indexClient";
+import {
+  Search,
+  Cart,
+  OptionMenu,
+  Login,
+} from "@/components/client/indexClient";
 import { usePathname } from "next/navigation";
 
 const genres: string[] = [
@@ -34,6 +39,7 @@ export default function MobileMenu() {
     isFilterOpen,
     toggleMenu,
     toggleFilter,
+    toggleLogin,
     toggleCart,
     toggleSearch,
   } = useStateContext();
@@ -78,11 +84,11 @@ export default function MobileMenu() {
             Search
           </button>
         </div>
-        <div className="flex flex-col text-end">
-          <button className="h-[35px]" onClick={toggleMenu}>
+        <div className="flex flex-col">
+          <button className="h-[35px] text-right" onClick={toggleLogin}>
             Login
           </button>
-          <button className="h-[35px]" onClick={toggleMenu}>
+          <button className="h-[35px] text-right" onClick={toggleMenu}>
             English
           </button>
         </div>
@@ -108,6 +114,7 @@ export default function MobileMenu() {
         <hr className="mt-[10px]" />
       </div>
       <Search />
+      <Login />
     </div>
   );
 }
