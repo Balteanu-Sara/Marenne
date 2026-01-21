@@ -14,7 +14,7 @@ export default function Cart() {
     removeFromCart,
     clearCart,
   } = useStateContext();
-  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (isCartOpen) document.body.style.overflow = "hidden";
@@ -25,15 +25,21 @@ export default function Cart() {
     };
   }, [isCartOpen]);
 
-  useEffect(() => {
-    setTotal(12.5 * products.length);
-  }, [products]);
+  async function handleClick(callback: () => void) {
+    setLoading(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    callback();
+    setLoading(false);
+  }
+
+  const total = 12.5 * products.reduce((sum, prod) => sum + prod.count, 0);
 
   return (
     <>
       {isCartOpen && <div className="fixed inset-0 z-5" onClick={toggleCart} />}
       <div
-        className={`flex flex-col ${products.length ? "justify-between" : "justify-center"} fixed z-10 bg-yellow overflow-y-auto p-[30px] top-0 bottom-0 w-[80%] transform transition-[left] duration-500
+        className={`flex flex-col ${products.length ? "justify-between" : "justify-center"} ${loading ? "pointer-events-none" : ""} fixed z-10 bg-yellow overflow-y-auto p-[30px] top-0 bottom-0 w-[80%] transform transition-[left] duration-500
     ${isCartOpen ? "left-[20%]" : "left-[100%]"}
         }`}
       >
@@ -66,18 +72,30 @@ export default function Cart() {
                         <p>$12,5</p>
                       </div>
                       <div className="flex flex-row gap-3">
-                        <button onClick={() => updateItem(product.key, -1)}>
+                        <button
+                          onClick={() =>
+                            handleClick(() => updateItem(product.key, -1))
+                          }
+                          disabled={product.count === 1}
+                          className={product.count === 1 ? "opacity-50" : ""}
+                        >
                           -
                         </button>
                         <p>{product.count}</p>
-                        <button onClick={() => updateItem(product.key, 1)}>
+                        <button
+                          onClick={() =>
+                            handleClick(() => updateItem(product.key, 1))
+                          }
+                        >
                           +
                         </button>
                       </div>
                     </div>
                     <button
                       className="uppercase w-1/4 h-4"
-                      onClick={() => removeFromCart(product.key)}
+                      onClick={() =>
+                        handleClick(() => removeFromCart(product.key))
+                      }
                     >
                       Remove
                     </button>
@@ -99,12 +117,15 @@ export default function Cart() {
               </div>
               <button
                 className="font-courier text-left uppercase text-sm pt-1"
-                onClick={clearCart}
+                onClick={() => handleClick(() => clearCart())}
               >
                 Clear
               </button>
             </div>
           </>
+        )}
+        {loading && (
+          <div className="absolute z-15 inset-0 h-full w-full bg-yellow opacity-50"></div>
         )}
       </div>
     </>
