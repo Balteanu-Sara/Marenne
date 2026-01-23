@@ -10,8 +10,10 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>("");
   const router = useRouter();
+
+  console.log("message: ", message);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -33,7 +35,7 @@ export default function Login() {
       )}
       <form
         onSubmit={handleSubmit}
-        className={`bg-red p-[15px] flex flex-col justify-center items-center gap-10 fixed left-[15px] w-[calc(100vw-30px)] top-[20%] h-[calc(100vh-450px)] transition duration-300 
+        className={`bg-red p-[40px] flex flex-col justify-center items-center gap-10 fixed left-[15px] w-[calc(100vw-30px)] top-[20%] transition duration-300 
       ${
         isLoginOpen
           ? "z-9 opacity-100 pointer-events-auto"
@@ -86,6 +88,7 @@ export default function Login() {
               Don&apos;t have an account? Register{" "}
               <button
                 className="underline"
+                type="button"
                 onClick={() => setHasAccount((prev) => !prev)}
               >
                 here
@@ -97,6 +100,7 @@ export default function Login() {
               Already have an account? Login{" "}
               <button
                 className="underline"
+                type="button"
                 onClick={() => setHasAccount((prev) => !prev)}
               >
                 here
@@ -105,7 +109,7 @@ export default function Login() {
             </p>
           )}
         </div>
-        <p>{message}</p>
+        <p className="font-courier text-lg text-white text-center">{message}</p>
       </form>
     </>
   );
