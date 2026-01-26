@@ -7,6 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 type SliderProps = {
+  arrows: boolean;
   dots: boolean;
   infinite: boolean;
   speed: number;
@@ -20,6 +21,7 @@ type SliderProps = {
 export default function Carousel() {
   const pathName = usePathname();
   const settings: SliderProps = {
+    arrows: false,
     dots: false,
     infinite: true,
     speed: 23000,
