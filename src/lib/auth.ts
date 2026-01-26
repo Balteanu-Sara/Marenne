@@ -90,3 +90,27 @@ export async function getUserProfile(
     return null;
   }
 }
+
+export async function getUserGenres(userId: string): Promise<string[]> {
+  const profile = await getUserProfile(userId);
+  return profile?.selectedGenres || [];
+}
+
+export async function addGenres(
+  userId: string,
+  genres: string[],
+): Promise<{ success: true } | { success: false }> {
+  try {
+    genres.forEach(async (genre) => {
+      const currentGenres = await getUserGenres(userId);
+      const docRef = doc(db, "users", userId);
+
+      if (!currentGenres.includes(genre))
+        await updateDoc(docRef, { selectedGenres: [...currentGenres, genre] });
+    });
+    return { success: true };
+  } catch (err) {
+    console.error("Error adding genres: ", err);
+    return { success: false };
+  }
+}
