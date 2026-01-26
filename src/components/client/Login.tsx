@@ -43,7 +43,6 @@ export default function Login() {
   const router = useRouter();
 
   console.log("message: ", message);
-  console.log(genres);
 
   function resetStates() {
     setUsername("");
@@ -92,7 +91,6 @@ export default function Login() {
       setMessage("User not found. Please try again.");
       return;
     }
-
     const result = await addGenres(user.uid, genres);
     if (result && result.success) {
       toggleLogin();

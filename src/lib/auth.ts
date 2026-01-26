@@ -114,13 +114,11 @@ export async function addGenres(
   genres: string[],
 ): Promise<{ success: true } | { success: false }> {
   try {
-    genres.forEach(async (genre) => {
-      const currentGenres = await getUserGenres(userId);
-      const docRef = doc(db, "users", userId);
+    const currentGenres = await getUserGenres(userId);
+    const docRef = doc(db, "users", userId);
+    const updatedGenres = Array.from(new Set([...currentGenres, ...genres]));
+    await updateDoc(docRef, { selectedGenres: updatedGenres });
 
-      if (!currentGenres.includes(genre))
-        await updateDoc(docRef, { selectedGenres: [...currentGenres, genre] });
-    });
     return { success: true };
   } catch (err) {
     console.error("Error adding genres: ", err);
