@@ -1,3 +1,5 @@
+import { User } from "firebase/auth";
+
 export interface Book {
   id: string;
   title: string;
@@ -35,6 +37,29 @@ export interface SearchBooksBySubjectResults {
   works: SearchBySubjectResult[];
 }
 
+export interface Product extends SearchResult {
+  count: number;
+}
+
+export interface AuthErrorResponse {
+  code: string;
+  message: string;
+}
+
+export interface UserProfile {
+  username: string;
+  email: string;
+  selectedGenres: string[];
+  createdAt: string;
+}
+
+export interface AuthContext {
+  user: User | null;
+  userProfile: UserProfile | null;
+  isLoading: boolean;
+  isLogged: boolean;
+}
+
 export type CurrentStates = {
   products: Product[];
   addToCart: (product: SearchResult) => void;
@@ -53,7 +78,3 @@ export type CurrentStates = {
   toggleLogin: () => void;
   close: () => void;
 };
-
-export interface Product extends SearchResult {
-  count: number;
-}

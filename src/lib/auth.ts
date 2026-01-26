@@ -4,13 +4,9 @@ import {
   User,
   AuthError,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "./firebase";
-
-export interface AuthErrorResponse {
-  code: string;
-  message: string;
-}
+import { AuthErrorResponse, UserProfile } from "@/types";
 
 function formatAuthError(error: AuthError): AuthErrorResponse {
   const errorMessages: Record<string, string> = {
@@ -75,5 +71,22 @@ export async function login(
     console.error("Error signing in: ", err);
 
     return { success: false, error: formatAuthError(err as AuthError) };
+  }
+}
+
+export async function getUserProfile(
+  userId: string,
+): Promise<UserProfile | null> {
+  try {
+    const docRef = doc(db, "users", userId);
+    const docc = await getDoc(docRef);
+
+    if (docc.exists()) {
+      return docc.data() as UserProfile;
+    }
+    return null;
+  } catch (error) {
+    console.error("Error getting user profile: ", error);
+    return null;
   }
 }

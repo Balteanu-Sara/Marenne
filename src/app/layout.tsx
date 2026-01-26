@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header, Footer } from "@/components/server/indexServer";
 import { StateProvider } from "@/context/CurrentStateContext";
+import { AuthProvider } from "@/context/AuthContext";
 import PostHogProvider from "@/PostHogProvider";
 
 // const geistMono = Geist_Mono({
@@ -23,11 +24,13 @@ export default function RootLayout({
     <html lang="en">
       <body className="m-0 p-0 w-full min-h-screen box-border overflow-x-hidden antialiased">
         <PostHogProvider>
-          <StateProvider>
-            <Header />
-            {children}
-            <Footer />
-          </StateProvider>
+          <AuthProvider>
+            <StateProvider>
+              <Header />
+              {children}
+              <Footer />
+            </StateProvider>
+          </AuthProvider>
         </PostHogProvider>
       </body>
     </html>
