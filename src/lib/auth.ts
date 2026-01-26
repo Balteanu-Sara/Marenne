@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   User,
   AuthError,
 } from "firebase/auth";
@@ -71,6 +72,18 @@ export async function login(
     console.error("Error signing in: ", err);
 
     return { success: false, error: formatAuthError(err as AuthError) };
+  }
+}
+
+export async function logout(): Promise<
+  { success: true } | { success: false }
+> {
+  try {
+    await signOut(auth);
+    return { success: true };
+  } catch (err) {
+    console.error("Error at signing out: ", err);
+    return { success: false };
   }
 }
 

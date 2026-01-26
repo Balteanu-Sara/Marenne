@@ -126,28 +126,28 @@ export default function Login() {
           <p className="font-garmond text-4xl text-black">
             {hasAccount ? "Login" : "Register"}
           </p>
-          <div className="w-[80%] border-b-white border-b-[2px]">
-            <input
-              type="text"
-              placeholder={
-                hasAccount ? "Type in your username" : "Type in an username"
-              }
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="text-black font-garamond outline-none w-[100%] text-center text-2xl"
-            />
-          </div>
           {!hasAccount && (
             <div className="w-[80%] border-b-white border-b-[2px]">
               <input
                 type="text"
-                placeholder="Type in an email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                placeholder={
+                  hasAccount ? "Type in your username" : "Type in an username"
+                }
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className="text-black font-garamond outline-none w-[100%] text-center text-2xl"
               />
             </div>
           )}
+          <div className="w-[80%] border-b-white border-b-[2px]">
+            <input
+              type="text"
+              placeholder="Type in an email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="text-black font-garamond outline-none w-[100%] text-center text-2xl"
+            />
+          </div>
           <div className="w-[80%] border-b-white border-b-[2px]">
             <input
               type="text"

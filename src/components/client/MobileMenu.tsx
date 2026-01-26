@@ -7,6 +7,8 @@ import {
   Login,
 } from "@/components/client/indexClient";
 import { usePathname } from "next/navigation";
+import { useAuthContext } from "@/context/AuthContext";
+import { logout } from "@/lib/auth";
 
 const genres: string[] = [
   "Architecture",
@@ -43,6 +45,7 @@ export default function MobileMenu() {
     toggleCart,
     toggleSearch,
   } = useStateContext();
+  const { user } = useAuthContext();
   const pathName = usePathname();
 
   return (
@@ -85,9 +88,21 @@ export default function MobileMenu() {
           </button>
         </div>
         <div className="flex flex-col">
-          <button className="h-[35px] text-right" onClick={toggleLogin}>
-            Login
-          </button>
+          {user ? (
+            <button
+              className="h-[35px] text-right"
+              onClick={async () => {
+                await logout();
+                toggleMenu();
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <button className="h-[35px] text-right" onClick={toggleLogin}>
+              Login
+            </button>
+          )}
           <button className="h-[35px] text-right" onClick={toggleMenu}>
             English
           </button>
