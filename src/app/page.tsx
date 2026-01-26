@@ -15,7 +15,7 @@ export default function Home() {
       <Recommended />
 
       <section className="w-[100%] mt-[15px]">
-        <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
+        <p className="text-center font-garamond text-[30px] pb-[10px]">
           New Releases
         </p>
         <Suspense fallback={<LoadingBooks len={9} />}>
@@ -27,7 +27,7 @@ export default function Home() {
       <MoreOn />
 
       <section className="w-[100%] mt-[30px]">
-        <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
+        <p className="text-center font-garamond text-[30px] pb-[10px]">
           Best Sellers
         </p>
         <Suspense fallback={<LoadingBooks len={9} />}>
@@ -37,7 +37,7 @@ export default function Home() {
       </section>
 
       <section className="w-[100%] mt-[30px]">
-        <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
+        <p className="text-center font-garamond text-[30px] pb-[10px]">
           Back In Stock
         </p>
 

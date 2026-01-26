@@ -14,7 +14,7 @@ export default async function SearchResult({
 
   return (
     <main className="p-[15px] w-[100%] mt-[15px]">
-      <p className="justify-self-center font-garamond text-[30px] pb-[10px]">
+      <p className="text-center font-garamond text-[30px] pb-[10px]">
         Search Results for &quot;{correctedQuery}&quot;
       </p>
 

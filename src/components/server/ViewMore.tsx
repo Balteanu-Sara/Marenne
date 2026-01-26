@@ -10,7 +10,7 @@ export default function ViewMore({
   return (
     <Link
       href={href}
-      className="block justify-self-center font-garamond text-[20px] hover:underline"
+      className="block text-center font-garamond text-[20px] hover:underline"
     >
       View more{" " + message}
     </Link>
