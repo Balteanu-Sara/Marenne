@@ -1,5 +1,4 @@
 import {
-  Recommended,
   NewReleases,
   MoreOn,
   BestSellers,
@@ -7,14 +6,18 @@ import {
   LoadingBooks,
   ViewMore,
 } from "@/components/server/indexServer";
+import { Recommended } from "@/components/client/indexClient";
 import { Suspense } from "react";
 
 export default function Home() {
   return (
     <main className="p-[15px]">
-      <Recommended />
+      <Suspense fallback={<LoadingBooks len={9} />}>
+        <Recommended bookNr={9} />
+        <ViewMore href="/recommended" message="recommended books" />
+      </Suspense>
 
-      <section className="w-[100%] mt-[15px]">
+      <section className="w-[100%] mt-[30px]">
         <p className="text-center font-garamond text-[30px] pb-[10px]">
           New Releases
         </p>
