@@ -3,11 +3,11 @@ import {
   BestSellers,
   BackInStock,
   LoadingBooks,
-  ViewMore,
 } from "@/components/server/indexServer";
 import {
   RecommendedSection,
   MoreOnSection,
+  ViewMore,
 } from "@/components/client/indexClient";
 import { Suspense } from "react";
 
