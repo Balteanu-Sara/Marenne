@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { getUserGenres } from "@/lib/auth";
 import { SearchResult } from "@/types";
 
-export default function MoreOn({ bookNr = 20 }: { bookNr: number }) {
+export default function MoreOnSection({ bookNr = 20 }: { bookNr?: number }) {
   const { user } = useAuthContext();
   const [books, setBooks] = useState<SearchResult[] | []>([]);
   const [usedGenre, setUsedGenre] = useState("");

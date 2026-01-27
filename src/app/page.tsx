@@ -5,7 +5,10 @@ import {
   LoadingBooks,
   ViewMore,
 } from "@/components/server/indexServer";
-import { RecommendedSection, MoreOn } from "@/components/client/indexClient";
+import {
+  RecommendedSection,
+  MoreOnSection,
+} from "@/components/client/indexClient";
 import { Suspense } from "react";
 
 export default function Home() {
@@ -37,7 +40,7 @@ export default function Home() {
       </section>
 
       <Suspense fallback={<LoadingBooks len={9} />}>
-        <MoreOn bookNr={9} />
+        <MoreOnSection bookNr={9} />
         <ViewMore href="/more-on" message="" />
       </Suspense>
 
