@@ -71,10 +71,14 @@ export type CurrentStates = {
   isFilterOpen: boolean;
   isSearchOpen: boolean;
   isLoginOpen: boolean;
+  isProfileOpen: boolean;
+  isWishlistOpen: boolean;
   toggleCart: () => void;
   toggleMenu: () => void;
   toggleFilter: () => void;
   toggleSearch: () => void;
   toggleLogin: () => void;
+  toggleProfile: () => void;
+  toggleWishlist: () => void;
   close: () => void;
 };

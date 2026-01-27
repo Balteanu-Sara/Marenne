@@ -18,6 +18,8 @@ export function StateProvider({ children }: { children: ReactNode }) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
 
   useEffect(() => {
     console.log("Products: ", products);
@@ -64,6 +66,8 @@ export function StateProvider({ children }: { children: ReactNode }) {
     setIsLoginOpen(false);
     setIsFilterOpen(false);
     setIsSearchOpen(false);
+    setIsProfileOpen(false);
+    setIsWishlistOpen(false);
     setIsCartOpen((prev) => !prev);
   }
 
@@ -72,6 +76,8 @@ export function StateProvider({ children }: { children: ReactNode }) {
     setIsFilterOpen(false);
     setIsLoginOpen(false);
     setIsSearchOpen(false);
+    setIsProfileOpen(false);
+    setIsWishlistOpen(false);
     setIsMenuOpen((prev) => !prev);
   }
 
@@ -80,6 +86,8 @@ export function StateProvider({ children }: { children: ReactNode }) {
     setIsMenuOpen(false);
     setIsLoginOpen(false);
     setIsSearchOpen(false);
+    setIsProfileOpen(false);
+    setIsWishlistOpen(false);
     setIsFilterOpen((prev) => !prev);
   }
 
@@ -88,6 +96,8 @@ export function StateProvider({ children }: { children: ReactNode }) {
     setIsLoginOpen(false);
     setIsMenuOpen(false);
     setIsFilterOpen(false);
+    setIsProfileOpen(false);
+    setIsWishlistOpen(false);
     setIsSearchOpen((prev) => !prev);
   }
 
@@ -96,7 +106,29 @@ export function StateProvider({ children }: { children: ReactNode }) {
     setIsMenuOpen(false);
     setIsFilterOpen(false);
     setIsSearchOpen(false);
+    setIsProfileOpen(false);
+    setIsWishlistOpen(false);
     setIsLoginOpen((prev) => !prev);
+  }
+
+  function toggleProfile() {
+    setIsCartOpen(false);
+    setIsMenuOpen(false);
+    setIsFilterOpen(false);
+    setIsSearchOpen(false);
+    setIsLoginOpen(false);
+    setIsWishlistOpen(false);
+    setIsProfileOpen((prev) => !prev);
+  }
+
+  function toggleWishlist() {
+    setIsCartOpen(false);
+    setIsMenuOpen(false);
+    setIsFilterOpen(false);
+    setIsSearchOpen(false);
+    setIsLoginOpen(false);
+    setIsProfileOpen(false);
+    setIsWishlistOpen((prev) => !prev);
   }
 
   function close() {
@@ -105,6 +137,8 @@ export function StateProvider({ children }: { children: ReactNode }) {
     setIsFilterOpen(false);
     setIsLoginOpen(false);
     setIsSearchOpen(false);
+    setIsProfileOpen(false);
+    setIsWishlistOpen(false);
   }
 
   return (
@@ -120,11 +154,15 @@ export function StateProvider({ children }: { children: ReactNode }) {
         isFilterOpen,
         isSearchOpen,
         isLoginOpen,
+        isProfileOpen,
+        isWishlistOpen,
         toggleCart,
         toggleMenu,
         toggleFilter,
         toggleSearch,
         toggleLogin,
+        toggleProfile,
+        toggleWishlist,
         close,
       }}
     >

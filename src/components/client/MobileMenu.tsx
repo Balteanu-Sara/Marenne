@@ -5,6 +5,7 @@ import {
   Cart,
   OptionMenu,
   Login,
+  Profile,
 } from "@/components/client/indexClient";
 import { usePathname } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
@@ -44,6 +45,7 @@ export default function MobileMenu() {
     toggleLogin,
     toggleCart,
     toggleSearch,
+    toggleProfile,
   } = useStateContext();
   const { user } = useAuthContext();
   const pathName = usePathname();
@@ -69,7 +71,7 @@ export default function MobileMenu() {
             href="/"
             style="h-[35px]"
             click={toggleMenu}
-            innerText="All"
+            innerText="Home"
           />
           <OptionMenu
             href="/books"
@@ -89,23 +91,34 @@ export default function MobileMenu() {
         </div>
         <div className="flex flex-col">
           {user ? (
-            <button
-              className="h-[35px] text-right"
-              onClick={async () => {
-                await logout();
-                toggleMenu();
-              }}
-            >
-              Logout
-            </button>
+            <>
+              <button
+                className="h-[35px] text-right"
+                onClick={async () => {
+                  await logout();
+                  toggleMenu();
+                }}
+              >
+                Logout
+              </button>
+              <button className="h-[35px] text-right" onClick={toggleProfile}>
+                Profile
+              </button>
+            </>
           ) : (
-            <button className="h-[35px] text-right" onClick={toggleLogin}>
-              Login
-            </button>
+            <>
+              <button className="h-[35px] text-right" onClick={toggleLogin}>
+                Login
+              </button>
+
+              <OptionMenu
+                href="/about-us"
+                style="h-[35px]"
+                click={toggleMenu}
+                innerText="About Us"
+              />
+            </>
           )}
-          <button className="h-[35px] text-right" onClick={toggleMenu}>
-            English
-          </button>
         </div>
       </div>
 
@@ -130,6 +143,7 @@ export default function MobileMenu() {
       </div>
       <Search />
       <Login />
+      <Profile />
     </div>
   );
 }
