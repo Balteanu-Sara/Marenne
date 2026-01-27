@@ -5,14 +5,14 @@ import {
   LoadingBooks,
   ViewMore,
 } from "@/components/server/indexServer";
-import { Recommended, MoreOn } from "@/components/client/indexClient";
+import { RecommendedSection, MoreOn } from "@/components/client/indexClient";
 import { Suspense } from "react";
 
 export default function Home() {
   return (
     <main className="p-[15px]">
       <Suspense fallback={<LoadingBooks len={9} />}>
-        <Recommended bookNr={9} />
+        <RecommendedSection bookNr={9} />
         <ViewMore href="/recommended" message="recommended books" />
       </Suspense>
 
