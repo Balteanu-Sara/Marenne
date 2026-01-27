@@ -11,3 +11,4 @@ export { default as FaqSection } from "./FaqSection";
 export { default as CartButton } from "./CartButton";
 export { default as Login } from "./Login";
 export { default as Recommended } from "./Recommended";
+export { default as MoreOn } from "./MoreOn";

@@ -1,12 +1,11 @@
 import {
   NewReleases,
-  MoreOn,
   BestSellers,
   BackInStock,
   LoadingBooks,
   ViewMore,
 } from "@/components/server/indexServer";
-import { Recommended } from "@/components/client/indexClient";
+import { Recommended, MoreOn } from "@/components/client/indexClient";
 import { Suspense } from "react";
 
 export default function Home() {
@@ -27,8 +26,6 @@ export default function Home() {
         </Suspense>
       </section>
 
-      <MoreOn />
-
       <section className="w-[100%] mt-[30px]">
         <p className="text-center font-garamond text-[30px] pb-[10px]">
           Best Sellers
@@ -38,6 +35,11 @@ export default function Home() {
           <ViewMore href="/best-sellers" message="best sellers" />
         </Suspense>
       </section>
+
+      <Suspense fallback={<LoadingBooks len={9} />}>
+        <MoreOn bookNr={9} />
+        <ViewMore href="/more-on" message="" />
+      </Suspense>
 
       <section className="w-[100%] mt-[30px]">
         <p className="text-center font-garamond text-[30px] pb-[10px]">

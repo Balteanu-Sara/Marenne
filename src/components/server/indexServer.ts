@@ -1,6 +1,5 @@
 export { default as Header } from "./Header";
 export { default as Footer } from "./Footer";
-export { default as MoreOn } from "./MoreOn";
 export { default as NewReleases } from "./NewReleases";
 export { default as BestSellers } from "./BestSellers";
 export { default as BackInStock } from "./BackInStock";

@@ -82,8 +82,8 @@ export default function Login() {
 
   async function handleGenres(e: React.FormEvent) {
     e.preventDefault();
-    if (genres.length === 0) {
-      setMessage("Genre selection is required!");
+    if (genres.length === 0 || genres.length < 2) {
+      setMessage("Add at least two genres!");
       return;
     }
 
