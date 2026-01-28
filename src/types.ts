@@ -57,7 +57,6 @@ export interface AuthContext {
   user: User | null;
   userProfile: UserProfile | null;
   isLoading: boolean;
-  isLogged: boolean;
 }
 
 export type CurrentStates = {
