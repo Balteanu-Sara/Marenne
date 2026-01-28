@@ -4,6 +4,7 @@ import { register, login, addGenres } from "@/lib/auth";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
+import { LuEye, LuEyeClosed } from "react-icons/lu";
 
 const availableGenres: string[] = [
   "Architecture",
@@ -37,6 +38,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [hidden, setHidden] = useState(true);
   const [message, setMessage] = useState<string | null>("");
   const [menu, setMenu] = useState(false);
   const [genres, setGenres] = useState<string[]>([]);
@@ -48,6 +50,7 @@ export default function Login() {
     setUsername("");
     setEmail("");
     setPassword("");
+    setHidden(true);
     setMessage("");
   }
 
@@ -114,7 +117,7 @@ export default function Login() {
       {!menu && (
         <form
           onSubmit={handleSubmit}
-          className={`bg-red p-[40px] flex flex-col justify-center items-center gap-10 fixed left-[15px] w-[calc(100vw-30px)] top-[20%] transition duration-300 
+          className={`bg-red px-[20px] py-[40px] flex flex-col justify-center items-center gap-10 fixed left-[15px] w-[calc(100vw-20px)] top-[20%] transition duration-300 
       ${
         isLoginOpen
           ? "z-9 opacity-100 pointer-events-auto"
@@ -128,9 +131,7 @@ export default function Login() {
             <div className="w-[80%] border-b-white border-b-[2px]">
               <input
                 type="text"
-                placeholder={
-                  hasAccount ? "Type in your username" : "Type in an username"
-                }
+                placeholder="Type in an username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="text-black font-garamond outline-none w-[100%] text-center text-2xl"
@@ -140,20 +141,29 @@ export default function Login() {
           <div className="w-[80%] border-b-white border-b-[2px]">
             <input
               type="text"
-              placeholder="Type in an email"
+              placeholder="Type in your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="text-black font-garamond outline-none w-[100%] text-center text-2xl"
             />
           </div>
-          <div className="w-[80%] border-b-white border-b-[2px]">
+          <div className="flex flex-row gap-3 w-[80%] border-b-white border-b-[2px]">
             <input
-              type="text"
+              type={hidden ? "password" : "text"}
               placeholder="Type in your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="text-black font-garamond outline-none w-[100%] text-center text-2xl"
             />
+            <button
+              type="button"
+              onClick={() => {
+                setHidden((prev) => !prev);
+              }}
+              className="text-grey-1"
+            >
+              {hidden ? <LuEyeClosed /> : <LuEye />}
+            </button>
           </div>
           <div className="flex flex-col gap-2">
             <button
