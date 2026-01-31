@@ -35,7 +35,10 @@ export default function Carousel() {
   if (!pathName.includes("/newsletter")) {
     return (
       <Link href="/newsletter" className="">
-        <Slider {...settings} className="bg-yellow">
+        <Slider
+          {...settings}
+          className="bg-yellow text-center whitespace-nowrap"
+        >
           <p className="font-garamond">Sign up to our Newsletter</p>
           <p className="font-title">MARENNE BOOKS</p>
           <p className="font-garamond">Sign up to our Newletter</p>
