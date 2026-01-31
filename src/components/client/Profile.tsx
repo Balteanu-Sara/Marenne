@@ -2,6 +2,7 @@
 "use client";
 import { MdModeEdit } from "react-icons/md";
 import { useState, useEffect } from "react";
+import { addGenres, updateUsername, removeGenres } from "@/lib/auth";
 import { useAuthContext } from "@/context/AuthContext";
 import { useStateContext } from "@/context/CurrentStateContext";
 
@@ -32,11 +33,14 @@ const availableGenres: string[] = [
 
 export default function Profile() {
   const { isProfileOpen, toggleProfile } = useStateContext();
-  const { userProfile } = useAuthContext();
+  const { user, userProfile } = useAuthContext();
 
   const [edit, setEdit] = useState(false);
-  const [newUsername, setNewUsername] = useState("");
-  const [newGenres, setNewGenres] = useState<string[]>([]);
+  const [newUsername, setNewUsername] = useState(userProfile?.username || "");
+  const [newGenres, setNewGenres] = useState<string[]>(
+    userProfile?.selectedGenres || [],
+  );
+  const [message, setMessage] = useState("");
 
   const set1 = new Set(newGenres);
   const set2 = new Set(userProfile?.selectedGenres);
@@ -50,6 +54,7 @@ export default function Profile() {
 
   console.log("New genres: ", newGenres);
   console.log("User's genres: ", userProfile?.selectedGenres);
+  console.log("Message: ", message);
 
   function toggleGenre(genre: string) {
     if (newGenres.includes(genre))
@@ -57,16 +62,58 @@ export default function Profile() {
     else setNewGenres((prev) => [...prev, genre]);
   }
 
-  function handleChanges() {
-    // if(new Set(newGenres).difference(new Set(userProfile?.selectedGenres)) ||
-    //       new Set(userProfile?.selectedGenres).difference(new Set(newGenres)) ||
-    //       newUsername !== userProfile?.username)
+  async function handleChanges() {
+    if (set1.size < 2) {
+      setMessage("At least 2 genres required!");
+      return;
+    }
+
+    if (
+      newUsername === userProfile?.username &&
+      set1.difference(set2).size === 0 &&
+      set2.difference(set1).size === 0
+    )
+      return;
+
+    let result1;
+    if (newUsername !== userProfile?.username && user) {
+      result1 = await updateUsername(user.uid, newUsername);
+    }
+
+    let result2;
+
+    if (set1.difference(set2).size > 0 && user) {
+      const added: string[] = Array.from(set1.difference(set2));
+      result2 = await addGenres(user.uid, added);
+    }
+
+    let result3;
+    if (set2.difference(set1).size > 0 && user) {
+      const removed: string[] = Array.from(set2.difference(set1));
+      result3 = await removeGenres(user.uid, removed);
+    }
+
+    if (
+      (result1 && result1.success === false) ||
+      (result2 && result2.success === false) ||
+      (result3 && result3.success === false)
+    ) {
+      setMessage("Failed to update new user data!");
+    }
+
+    setMessage("User data updated!");
   }
 
   return (
     <>
       {isProfileOpen && (
-        <div className="fixed inset-0 z-5" onClick={toggleProfile} />
+        <div
+          className="fixed inset-0 z-5"
+          onClick={() => {
+            toggleProfile();
+            setMessage("");
+          }}
+        />
       )}
       <div
         className={`bg-green fixed text-[20px] gap-5 p-[30px] left-[15px] top-[130px] flex flex-col justify-center items-center w-[calc(100vw-30px)] h-[calc(100vh-250px)] transition duration-500 
@@ -76,7 +123,7 @@ export default function Profile() {
             : "-z-1 opacity-0 pointer-events-none"
         }`}
       >
-        <p className="text-[30px] pb-5">Profile</p>
+        <p className="text-[30px]">Profile</p>
         <div className="flex flex-col gap-3 w-full">
           <div className="flex flex-row gap-5">
             <p>Email:</p>
@@ -86,7 +133,7 @@ export default function Profile() {
             <div className="flex flex-row gap-5">
               <p>Username:</p>
               {!edit ? (
-                <p className="w-[60%]">{userProfile?.username}</p>
+                <p className="w-[60%]">{newUsername}</p>
               ) : (
                 <input
                   autoFocus={edit}
@@ -125,9 +172,12 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <button className="text-[30px] underline" onClick={handleChanges}>
-          Save edits
-        </button>
+        <div className="flex flex-col gap-2">
+          <button className="text-[30px] underline" onClick={handleChanges}>
+            Save edits
+          </button>
+          <p className="text-lg font-courier h-5">{message}</p>
+        </div>
       </div>
     </>
   );
