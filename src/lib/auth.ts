@@ -125,3 +125,36 @@ export async function addGenres(
     return { success: false };
   }
 }
+
+export async function removeGenres(
+  userId: string,
+  genres: string[],
+): Promise<{ success: true } | { success: false }> {
+  try {
+    const currentGenres = await getUserGenres(userId);
+    console.log("Current genres: ", currentGenres);
+    const updatedGenres = currentGenres.filter((g) => !genres.includes(g));
+    console.log("Updated: ", updatedGenres);
+    const docRef = doc(db, "users", userId);
+    await updateDoc(docRef, { selectedGenres: updatedGenres });
+
+    return { success: true };
+  } catch (err) {
+    console.error("Error removing genre: ", err);
+    return { success: false };
+  }
+}
+
+export async function updateUsername(
+  userId: string,
+  newUsername: string,
+): Promise<{ success: true } | { success: false }> {
+  try {
+    const docRef = doc(db, "users", userId);
+    await updateDoc(docRef, { username: newUsername });
+    return { success: true };
+  } catch (err) {
+    console.error("Error updating username: ", err);
+    return { success: false };
+  }
+}
