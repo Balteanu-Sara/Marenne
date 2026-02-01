@@ -4,6 +4,7 @@ import {
   BookDescription,
   CopyURLButton,
   CartButton,
+  WishlistButton,
 } from "@/components/client/indexClient";
 
 export default async function BookDetails({ id }: { id: string }) {
@@ -56,6 +57,7 @@ export default async function BookDetails({ id }: { id: string }) {
             <p className="text-[30px] h-11">$10,75</p>
           </div>
           <CartButton book={book} />
+          <WishlistButton book={book} />
         </div>
       </div>
       {book.description && <BookDescription description={book.description} />}
