@@ -57,7 +57,7 @@ export default async function BookDetails({ id }: { id: string }) {
             <p className="text-[30px] h-11">$10,75</p>
           </div>
           <CartButton book={book} />
-          <WishlistButton book={book} />
+          <WishlistButton bookId={book.id} />
         </div>
       </div>
       {book.description && <BookDescription description={book.description} />}
