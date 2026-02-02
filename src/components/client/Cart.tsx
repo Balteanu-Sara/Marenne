@@ -39,7 +39,7 @@ export default function Cart() {
     <>
       {isCartOpen && <div className="fixed inset-0 z-5" onClick={toggleCart} />}
       <div
-        className={`flex flex-col ${products.length ? "justify-between" : "justify-center"} ${loading ? "pointer-events-none" : ""} fixed z-10 bg-yellow overflow-y-auto p-[30px] top-0 bottom-0 w-[80%] transform transition-[left] duration-500
+        className={`flex flex-col  text-lg ${products.length ? "justify-between" : "justify-center"} ${loading ? "pointer-events-none" : ""} fixed z-10 bg-yellow overflow-y-auto p-[30px] top-0 bottom-0 w-[80%] transform transition-[left] duration-500
     ${isCartOpen ? "left-[20%]" : "left-[100%]"}
         }`}
       >
