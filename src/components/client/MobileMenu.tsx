@@ -6,6 +6,7 @@ import {
   OptionMenu,
   Login,
   Profile,
+  Wishlist,
 } from "@/components/client/indexClient";
 import { usePathname } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
@@ -46,6 +47,7 @@ export default function MobileMenu() {
     toggleCart,
     toggleSearch,
     toggleProfile,
+    toggleWishlist,
   } = useStateContext();
   const { user } = useAuthContext();
   const pathName = usePathname();
@@ -62,6 +64,7 @@ export default function MobileMenu() {
         <button onClick={toggleCart}>Cart</button>
       </div>
       <Cart />
+      <Wishlist />
       <div
         className={`flex flex-row justify-between absolute w-screen z-4 bg-gradient-to-b from-[#ffffff] to-[#f2f2f2] top-8 left-0 pl-[15px] pr-[15px] overflow-hidden transition-all duration-500
           ${isMenuOpen ? "h-[150px] mt-3 mb-3" : "h-0"} `}
@@ -103,6 +106,9 @@ export default function MobileMenu() {
               </button>
               <button className="h-[35px] text-right" onClick={toggleProfile}>
                 Profile
+              </button>
+              <button className="h-[35px] text-right" onClick={toggleWishlist}>
+                Wishlist
               </button>
             </>
           ) : (
