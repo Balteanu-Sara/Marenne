@@ -1,23 +1,41 @@
 "use client";
-import { useStateContext } from "@/context/CurrentStateContext";
 import { useState } from "react";
-import { Book } from "@/types";
 import { useAuthContext } from "@/context/AuthContext";
+import { addInWishlist, removeFromWishlist } from "@/lib/auth";
 
-export default function WishlistButton({ book }: { book: Book }) {
-  const { addToCart } = useStateContext();
-  const { user } = useAuthContext();
-  const [message, setMessage] = useState("Add to Cart");
+export default function WishlistButton({ bookId }: { bookId: string }) {
+  const { user, userProfile } = useAuthContext();
+  const [isInWishlist, setIsInWishlist] = useState(
+    userProfile?.wishlist?.includes(bookId) ?? false,
+  );
+  const [message, setMessage] = useState(
+    isInWishlist ? "Remove from Wishlist" : "Add to Wishlist",
+  );
 
-  function handleClick() {
-    setMessage("Adding...");
-    // addBook / removeBook from wishlist
+  async function handleClick() {
+    if (isInWishlist) setMessage("Removing...");
+    else setMessage("Adding...");
+
+    const result =
+      isInWishlist && user
+        ? await removeFromWishlist(user.uid, bookId)
+        : user
+          ? await addInWishlist(user?.uid, bookId)
+          : { success: false };
+
+    if (!result.success) {
+      setMessage("Cannot make edits right now!");
+      return;
+    }
 
     setTimeout(() => {
-      setMessage("Added!");
+      if (isInWishlist) setMessage("Removed!");
+      else setMessage("Added!");
     }, 2000);
     setTimeout(() => {
-      setMessage("Add to Wishlist");
+      if (isInWishlist) setMessage("Add to Wishlist");
+      else setMessage("Remove from Wishlist");
+      setIsInWishlist((prev) => !prev);
     }, 4000);
   }
 
