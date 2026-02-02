@@ -145,6 +145,43 @@ export async function removeGenres(
   }
 }
 
+export async function getUserWishlist(userId: string): Promise<string[]> {
+  const profile = await getUserProfile(userId);
+  return profile?.wishlist || [];
+}
+
+export async function addInWishlist(
+  userId: string,
+  bookId: string,
+): Promise<{ success: true } | { success: false }> {
+  try {
+    const currentWishlist = await getUserWishlist(userId);
+    const updatedWishlist = Array.from(new Set([...currentWishlist, bookId]));
+    const docRef = doc(db, "users", userId);
+    await updateDoc(docRef, { wishlist: updatedWishlist });
+    return { success: true };
+  } catch (err) {
+    console.error("Error adding to wishlist: ", err);
+    return { success: false };
+  }
+}
+
+export async function removeFromWishlist(
+  userId: string,
+  bookId: string,
+): Promise<{ success: true } | { success: false }> {
+  try {
+    const currentWishlist = await getUserWishlist(userId);
+    const updatedWishlist = currentWishlist.filter((b) => b !== bookId);
+    const docRef = doc(db, "users", userId);
+    await updateDoc(docRef, { wishlist: updatedWishlist });
+    return { success: true };
+  } catch (err) {
+    console.error("Error removing from wishlist: ", err);
+    return { success: false };
+  }
+}
+
 export async function updateUsername(
   userId: string,
   newUsername: string,

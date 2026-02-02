@@ -50,6 +50,7 @@ export interface UserProfile {
   username: string;
   email: string;
   selectedGenres: string[];
+  wishlist: string[];
   createdAt: string;
 }
 
