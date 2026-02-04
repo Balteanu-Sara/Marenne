@@ -1,7 +1,7 @@
 "use client";
 import { useStateContext } from "@/context/CurrentStateContext";
 import { register, login, addGenres } from "@/lib/auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
@@ -45,6 +45,15 @@ export default function Login() {
   const router = useRouter();
 
   console.log("message: ", message);
+
+  useEffect(() => {
+    if (isLoginOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isLoginOpen]);
 
   function resetStates() {
     setUsername("");
