@@ -8,9 +8,9 @@ import {
   ReactNode,
 } from "react";
 import { AuthContext, UserProfile } from "@/types";
-import { auth } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 import { User, onAuthStateChanged } from "firebase/auth";
-import { getUserProfile } from "@/lib/auth";
+import { doc, onSnapshot } from "firebase/firestore";
 
 const AuthStateContext = createContext<AuthContext | undefined>(undefined);
 
@@ -20,18 +20,46 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let fireStoreListener: (() => void) | null = null;
+
     const listener = onAuthStateChanged(auth, async (user) => {
       setUser(user);
 
       if (user) {
-        const profile = await getUserProfile(user.uid);
-        setUserProfile(profile);
-      } else setUserProfile(null);
+        const docRef = doc(db, "users", user.uid);
 
-      setLoading(false);
+        fireStoreListener = onSnapshot(
+          docRef,
+          (docSnap) => {
+            if (docSnap.exists()) {
+              console.log("Detected change in user's data: ", docSnap.data());
+              setUserProfile(docSnap.data() as UserProfile);
+            } else {
+              setUserProfile(null);
+            }
+            setLoading(false);
+          },
+          (error) => {
+            console.error("Error at listenting to user profile: ", error);
+            setUserProfile(null);
+            setLoading(false);
+          },
+        );
+      } else {
+        setUserProfile(null);
+        setLoading(false);
+
+        if (fireStoreListener) {
+          fireStoreListener();
+          fireStoreListener = null;
+        }
+      }
     });
 
-    return () => listener();
+    return () => {
+      listener();
+      if (fireStoreListener) fireStoreListener();
+    };
   }, []);
 
   console.log("current user: ", user);
