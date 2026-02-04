@@ -12,10 +12,26 @@ export default function WishlistButton({ bookId }: { bookId: string }) {
   const [message, setMessage] = useState(
     isInWishlist ? "Remove from Wishlist" : "Add to Wishlist",
   );
+  const [changed, setChanged] = useState(false);
+
+  console.log(changed);
 
   useEffect(() => {
+    if (!userProfile) {
+      setChanged(false);
+      return;
+    }
+
     const inWishlist = userProfile?.wishlist?.includes(bookId) ?? false;
-    setIsInWishlist(inWishlist);
+
+    if (!changed && inWishlist) {
+      setMessage("Remove from Wishlist");
+      return;
+    }
+    if (!changed && !inWishlist) {
+      setMessage("Add to Wishlist");
+      return;
+    }
 
     if (inWishlist) {
       setTimeout(() => {
@@ -33,9 +49,11 @@ export default function WishlistButton({ bookId }: { bookId: string }) {
       }, 4000);
     }
     setIsInWishlist(inWishlist);
+    setChanged(false);
   }, [userProfile, bookId]);
 
   async function handleClick() {
+    setChanged(true);
     if (!isInWishlist) {
       setMessage("Adding...");
 
