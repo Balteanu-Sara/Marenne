@@ -46,6 +46,7 @@ export default function MobileMenu() {
     toggleFilter,
     toggleLogin,
     toggleCart,
+    clearCart,
     toggleSearch,
     toggleProfile,
     toggleWishlist,
@@ -102,6 +103,7 @@ export default function MobileMenu() {
                 onClick={async () => {
                   await logout();
                   toggleMenu();
+                  clearCart();
                 }}
               >
                 <Link href="/">Logout</Link>
