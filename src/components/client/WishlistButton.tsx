@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { addInWishlist, removeFromWishlist } from "@/lib/auth";
 
@@ -12,31 +13,52 @@ export default function WishlistButton({ bookId }: { bookId: string }) {
     isInWishlist ? "Remove from Wishlist" : "Add to Wishlist",
   );
 
-  async function handleClick() {
-    if (isInWishlist) setMessage("Removing...");
-    else setMessage("Adding...");
+  useEffect(() => {
+    const inWishlist = userProfile?.wishlist?.includes(bookId) ?? false;
+    setIsInWishlist(inWishlist);
 
-    const result =
-      isInWishlist && user
-        ? await removeFromWishlist(user.uid, bookId)
-        : user
-          ? await addInWishlist(user?.uid, bookId)
-          : { success: false };
-
-    if (!result.success) {
-      setMessage("Cannot make edits right now!");
-      return;
+    if (inWishlist) {
+      setTimeout(() => {
+        setMessage("Added!");
+      }, 2000);
+      setTimeout(() => {
+        setMessage("Remove from Wishlist");
+      }, 4000);
+    } else {
+      setTimeout(() => {
+        setMessage("Removed!");
+      }, 2000);
+      setTimeout(() => {
+        setMessage("Add to Wishlist");
+      }, 4000);
     }
+    setIsInWishlist(inWishlist);
+  }, [userProfile, bookId]);
 
-    setTimeout(() => {
-      if (isInWishlist) setMessage("Removed!");
-      else setMessage("Added!");
-    }, 2000);
-    setTimeout(() => {
-      if (isInWishlist) setMessage("Add to Wishlist");
-      else setMessage("Remove from Wishlist");
-      setIsInWishlist((prev) => !prev);
-    }, 4000);
+  async function handleClick() {
+    if (!isInWishlist) {
+      setMessage("Adding...");
+
+      const result = user
+        ? await addInWishlist(user?.uid, bookId)
+        : { success: false };
+
+      if (!result.success) {
+        setMessage("Cannot make edits right now!");
+        return;
+      }
+    } else {
+      setMessage("Removing...");
+
+      const result = user
+        ? await removeFromWishlist(user?.uid, bookId)
+        : { success: false };
+
+      if (!result.success) {
+        setMessage("Cannot make edits right now!");
+        return;
+      }
+    }
   }
 
   if (user) {
