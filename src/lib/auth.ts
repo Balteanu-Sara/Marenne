@@ -46,6 +46,7 @@ export async function register(
       username,
       email,
       selectedGenres: [],
+      wishlist: [],
       createAt: new Date().toISOString(),
     });
 
@@ -87,9 +88,7 @@ export async function logout(): Promise<
   }
 }
 
-export async function getUserProfile(
-  userId: string,
-): Promise<UserProfile | null> {
+async function getUserProfile(userId: string): Promise<UserProfile | null> {
   try {
     const docRef = doc(db, "users", userId);
     const docc = await getDoc(docRef);
