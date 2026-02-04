@@ -51,24 +51,32 @@ export default function Cart() {
             <div className="overflow-x-hidden overflow-y-auto border-t-black border-t-[1px]">
               {products.map((product) => {
                 return (
-                  <Link
-                    href={`/books/${product.key.replace("/works/", "")}`}
+                  <div
+                    className="flex flex-row justify-between font-courier text-sm py-5 border-b-white border-b-[1px]"
                     key={product.key}
-                    className="flex flex-row justify-between font-courier text-sm py-5 border-b-black border-b-[1px]"
                   >
-                    <Image
-                      src={`https://covers.openlibrary.org/b/id/${product.cover_i}-M.jpg`}
-                      width={100}
-                      height={160}
-                      alt={`Cover book for ${product.title}`}
-                      className="w-1/4 h-[160px]"
-                    />
+                    <Link
+                      href={`/books/${product.key.replace("/works/", "")}`}
+                      className="w-1/4"
+                      onClick={toggleCart}
+                    >
+                      <Image
+                        src={`https://covers.openlibrary.org/b/id/${product.cover_i}-M.jpg`}
+                        width={100}
+                        height={160}
+                        alt={`Cover book for ${product.title}`}
+                        className="w-full h-[160px]"
+                      />
+                    </Link>
                     <div className="flex flex-col justify-between w-2/4 px-3">
                       <div className="flex flex-col gap-2">
                         <p>{product.author_name}</p>
-                        <p>
+                        <Link
+                          href={`/books/${product.key.replace("/works/", "")}`}
+                          onClick={toggleCart}
+                        >
                           <strong>{product.title}</strong>
-                        </p>
+                        </Link>
                         <p>$12,5</p>
                       </div>
                       <div className="flex flex-row gap-3">
@@ -99,7 +107,7 @@ export default function Cart() {
                     >
                       Remove
                     </button>
-                  </Link>
+                  </div>
                 );
               })}
             </div>
