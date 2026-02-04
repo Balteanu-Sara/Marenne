@@ -41,14 +41,16 @@ export default function Profile() {
     userProfile?.selectedGenres || [],
   );
   const [message, setMessage] = useState("");
+  const [changed, setChanged] = useState(false);
 
   const set1 = new Set(newGenres);
   const set2 = new Set(userProfile?.selectedGenres);
 
   useEffect(() => {
-    if (userProfile) {
+    if (userProfile && !changed) {
       setNewUsername(userProfile.username);
       setNewGenres(userProfile.selectedGenres);
+      setChanged(true);
     }
   }, [userProfile]);
 
