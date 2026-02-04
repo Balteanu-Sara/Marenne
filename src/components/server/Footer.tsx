@@ -31,7 +31,7 @@ function ShopSection() {
         </li>
         <li className="h-[27px]">
           <Link
-            href="/about-us"
+            href="/"
             className="lg:text-black lg:transition-colors lg:duration-300 lg:hover:text-white"
           >
             About Us
