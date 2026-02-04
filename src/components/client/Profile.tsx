@@ -47,16 +47,31 @@ export default function Profile() {
   const set2 = new Set(userProfile?.selectedGenres);
 
   useEffect(() => {
-    if (userProfile && !changed) {
+    if (isProfileOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isProfileOpen]);
+
+  useEffect(() => {
+    if (!userProfile) {
+      setNewUsername("");
+      setNewGenres([]);
+      setChanged(false);
+    }
+
+    if (userProfile && isProfileOpen && !changed) {
       setNewUsername(userProfile.username);
       setNewGenres(userProfile.selectedGenres);
-      setChanged(true);
     }
-  }, [userProfile]);
+  }, [userProfile, isProfileOpen, changed]);
 
   console.log("New genres: ", newGenres);
   console.log("User's genres: ", userProfile?.selectedGenres);
   console.log("Message: ", message);
+  console.log(changed);
 
   function toggleGenre(genre: string) {
     if (newGenres.includes(genre))
@@ -69,6 +84,8 @@ export default function Profile() {
       setMessage("At least 2 genres required!");
       return;
     }
+
+    setChanged(true);
 
     if (
       newUsername === userProfile?.username &&
@@ -102,7 +119,7 @@ export default function Profile() {
     ) {
       setMessage("Failed to update new user data!");
     }
-
+    setChanged(false);
     setMessage("User data updated!");
   }
 
