@@ -4,24 +4,24 @@ import Link from "next/link";
 import Image from "next/image";
 import { searchBooks, clearResultOverview } from "@/lib/openLibrary";
 import { useAuthContext } from "@/context/AuthContext";
-import { useEffect, useState } from "react";
-import { getUserGenres } from "@/lib/auth";
+import { Suspense, useEffect, useState } from "react";
 import { SearchResult } from "@/types";
+import LoadingBooks from "../server/LoadingBooks";
 
 export default function RecommendedSection({
   bookNr = 20,
 }: {
   bookNr?: number;
 }) {
-  const { user } = useAuthContext();
+  const { userProfile } = useAuthContext();
   const [books, setBooks] = useState<SearchResult[] | []>([]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!userProfile) return;
 
     const timeout = setTimeout(async () => {
       try {
-        const genres = user ? await getUserGenres(user.uid) : [];
+        const genres = userProfile ? userProfile.selectedGenres : [];
         if (!genres) return;
 
         const booksJson = await searchBooks(`subject:${genres[0]}`);
@@ -35,39 +35,41 @@ export default function RecommendedSection({
     return () => {
       clearTimeout(timeout);
     };
-  }, [user]);
+  }, [userProfile]);
 
-  if (!user) return null;
+  if (!userProfile) return null;
 
-  if (user) {
+  if (userProfile) {
     return (
       <section className="w-[100%] mt-[15px]">
         <p className="text-center font-garamond text-[30px] pb-[10px]">
           Recommended for you
         </p>
-        <div className="flex flex-wrap justify-center">
-          {books
-            .filter((book, index) => index < bookNr)
-            .map((book) => (
-              <Link
-                href={`/books/${book.key.replace("/works/", "")}`}
-                key={book.key}
-                className="flex flex-col items-center m-3 w-[180px]"
-              >
-                <Image
-                  src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
-                  width={180}
-                  height={275}
-                  alt={`Cover book for ${book.title}`}
-                  className="w-[180px] h-[275px] border-1 border-black border-solid"
-                />
-                <div className="font-courier text-center">
-                  <p className="text-clip">{book.title}</p>
-                  <p>$20.50</p>
-                </div>
-              </Link>
-            ))}
-        </div>
+        <Suspense fallback={<LoadingBooks len={9} />}>
+          <div className="flex flex-wrap justify-center">
+            {books
+              .filter((book, index) => index < bookNr)
+              .map((book) => (
+                <Link
+                  href={`/books/${book.key.replace("/works/", "")}`}
+                  key={book.key}
+                  className="flex flex-col items-center m-3 w-[180px]"
+                >
+                  <Image
+                    src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
+                    width={180}
+                    height={275}
+                    alt={`Cover book for ${book.title}`}
+                    className="w-[180px] h-[275px] border-1 border-black border-solid"
+                  />
+                  <div className="font-courier text-center">
+                    <p className="text-clip">{book.title}</p>
+                    <p>$20.50</p>
+                  </div>
+                </Link>
+              ))}
+          </div>
+        </Suspense>
       </section>
     );
   }

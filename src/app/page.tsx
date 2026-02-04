@@ -14,10 +14,8 @@ import { Suspense } from "react";
 export default function Home() {
   return (
     <main className="p-[15px]">
-      <Suspense fallback={<LoadingBooks len={9} />}>
-        <RecommendedSection bookNr={9} />
-        <ViewMore href="/recommended" message="recommended books" />
-      </Suspense>
+      <RecommendedSection bookNr={9} />
+      <ViewMore href="/recommended" message="recommended books" />
 
       <section className="w-[100%] mt-[30px]">
         <p className="text-center font-garamond text-[30px] pb-[10px]">
