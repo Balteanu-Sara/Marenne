@@ -25,7 +25,7 @@ export default function Carousel() {
     dots: false,
     infinite: true,
     speed: 23000,
-    slidesToShow: 3,
+    slidesToShow: 2,
     autoplay: true,
     autoplaySpeed: 0,
     swipeToSlide: false,
