@@ -16,6 +16,7 @@ type SliderProps = {
   autoplaySpeed: number;
   swipeToSlide: boolean;
   cssEase: string;
+  responsive: [{ breakpoint: number; settings: { slidesToShow: number } }];
 };
 
 export default function Carousel() {
@@ -25,11 +26,20 @@ export default function Carousel() {
     dots: false,
     infinite: true,
     speed: 23000,
-    slidesToShow: 2,
+    slidesToShow: 5,
     autoplay: true,
     autoplaySpeed: 0,
     swipeToSlide: false,
     cssEase: "linear",
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+    ],
   };
 
   if (!pathName.includes("/newsletter")) {
