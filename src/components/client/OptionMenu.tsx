@@ -8,7 +8,7 @@ export default function OptionMenu({
 }: {
   href: string;
   style: string | undefined;
-  click: () => void | undefined;
+  click: (() => void) | undefined;
   innerText: string;
 }) {
   return (
