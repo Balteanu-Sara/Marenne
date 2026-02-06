@@ -55,6 +55,8 @@ export default function Carousel() {
           <p className="font-title">MARENNE BOOKS</p>
           <p className="font-garamond">Sign up to our Newletter</p>
           <p className="font-title">MARENNE BOOKS</p>
+          <p className="font-garamond">Sign up to our Newletter</p>
+          <p className="font-title">MARENNE BOOKS</p>
         </Slider>{" "}
       </Link>
     );
