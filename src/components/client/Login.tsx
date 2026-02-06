@@ -126,7 +126,7 @@ export default function Login() {
       {!menu && (
         <form
           onSubmit={handleSubmit}
-          className={`bg-red px-[20px] py-[40px] flex flex-col justify-center items-center gap-10 fixed left-[15px] w-[calc(100vw-20px)] top-[20%] transition duration-300 
+          className={`bg-red px-[20px] py-[40px] flex flex-col justify-center items-center gap-10 fixed left-[15px] lg:left-[26%] w-[calc(100vw-40px)] lg:w-[calc(100vw-52%)] top-[20%] transition duration-300 
       ${
         isLoginOpen
           ? "z-9 opacity-100 pointer-events-auto"
@@ -219,7 +219,7 @@ export default function Login() {
       {menu && (
         <form
           onSubmit={handleGenres}
-          className={`bg-red p-[40px] flex flex-col justify-center items-center gap-10 fixed left-[15px] w-[calc(100vw-30px)] top-[20%] transition duration-300 
+          className={`bg-red p-[40px] flex flex-col justify-center items-center gap-10 fixed left-[15px] lg:left-[26%] w-[calc(100vw-30px)] lg:w-[calc(100vw-52%)] top-[20%] transition duration-300 
       ${
         isLoginOpen
           ? "z-9 opacity-100 pointer-events-auto"
