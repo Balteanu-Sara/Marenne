@@ -9,7 +9,7 @@ import { SearchResult } from "@/types";
 export default function Search() {
   const { isSearchOpen, toggleSearch } = useStateContext();
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchResult[] | undefined>(undefined);
+  const [results, setResults] = useState<SearchResult[] | []>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -25,7 +25,10 @@ export default function Search() {
   }, [isSearchOpen]);
 
   useEffect(() => {
-    if (!query.trim() || query.trim().length < 4) return;
+    if (!query.trim() || query.trim().length < 4) {
+      setResults([]);
+      return;
+    }
 
     const timeout = setTimeout(async () => {
       setLoading(true);
@@ -49,7 +52,7 @@ export default function Search() {
         <div className="fixed inset-0 z-5" onClick={toggleSearch} />
       )}
       <div
-        className={`bg-green p-[15px] flex flex-col fixed left-[15px] w-[calc(100vw-30px)] top-[130px] h-[calc(100vh-200px)] transition duration-300 
+        className={`bg-green p-[15px] lg:p-[30px] flex flex-col fixed left-[15px] lg:left-[26%] w-[calc(100vw-30px)] lg:w-[calc(100vw-52%)] top-[130px] lg:top-[10%] h-[calc(100vh-200px)] lg:h-[85vh] transition duration-300 
         ${
           isSearchOpen
             ? "z-9 opacity-100 pointer-events-auto"
@@ -62,11 +65,11 @@ export default function Search() {
             placeholder="Search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="font-garamond text-black outline-none w-[100%] text-center"
+            className="font-garamond text-black outline-none lg:text-3xl w-[100%] text-center"
           />
           <hr />
         </div>
-        <div className="pt-[30px] overflow-y-auto overflow-x-hidden scrollbar-none">
+        <div className="pt-[30px] overflow-y-auto overflow-x-hidden scrollbar-thin">
           {loading && (
             <div className="font-courier uppercase text-sm">Loading...</div>
           )}
@@ -100,19 +103,21 @@ export default function Search() {
                     })}
                 </div>
               </div>
-              <div className="text-center pt-[20px]">
-                <Link
-                  href={`/search/${encodeURIComponent(query.toLowerCase())}`}
-                  className="border-b-1"
-                  onClick={toggleSearch}
-                >
-                  Show results for {query}
-                </Link>
-              </div>
+              {results && query.length >= 4 && (
+                <div className="text-center pt-[20px]">
+                  <Link
+                    href={`/search/${encodeURIComponent(query.toLowerCase())}`}
+                    className="border-b-1"
+                    onClick={toggleSearch}
+                  >
+                    Show results for {query}
+                  </Link>
+                </div>
+              )}
             </>
           )}
           {!loading && query && query.length < 4 && (
-            <div>Type in at least 4 characters!</div>
+            <div className="pt-[10px]">Type in at least 4 characters!</div>
           )}
           {!loading && query.length > 4 && !results && (
             <div>No results found for &quot;{query}&quot;</div>
