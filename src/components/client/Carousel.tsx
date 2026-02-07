@@ -42,20 +42,28 @@ export default function Carousel() {
     ],
   };
 
-  if (!pathName.includes("/newsletter")) {
+  if (!pathName.includes("/newsletter") && !pathName.includes("/books")) {
     return (
       <Link href="/newsletter" className="">
         <Slider
           {...settings}
-          className="bg-yellow text-center whitespace-nowrap"
+          className="bg-yellow text-center whitespace-nowrap lg:h-[35px] lg:text-lg"
         >
-          <p className="font-garamond">Sign up to our Newsletter</p>
+          <p className="font-garamond translate-y-[0.12em]">
+            Sign up to our Newsletter
+          </p>
           <p className="font-title">MARENNE BOOKS</p>
-          <p className="font-garamond">Sign up to our Newletter</p>
+          <p className="font-garamond translate-y-[0.12em]">
+            Sign up to our Newletter
+          </p>
           <p className="font-title">MARENNE BOOKS</p>
-          <p className="font-garamond">Sign up to our Newletter</p>
-          <p className="font-title">MARENNE BOOKS</p>
-          <p className="font-garamond">Sign up to our Newletter</p>
+          <p className="font-garamond translate-y-[0.12em]">
+            Sign up to our Newletter
+          </p>
+          <p className="font-title ">MARENNE BOOKS</p>
+          <p className="font-garamond translate-y-[0.12em]">
+            Sign up to our Newletter
+          </p>
           <p className="font-title">MARENNE BOOKS</p>
         </Slider>{" "}
       </Link>
