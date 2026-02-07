@@ -13,18 +13,6 @@ export default function Search() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (isSearchOpen) document.body.style.overflow = "hidden";
-    else {
-      document.body.style.overflow = "";
-      setQuery("");
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isSearchOpen]);
-
-  useEffect(() => {
     if (!query.trim() || query.trim().length < 4) {
       setResults([]);
       return;
