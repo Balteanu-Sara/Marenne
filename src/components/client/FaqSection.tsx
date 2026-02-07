@@ -68,18 +68,18 @@ export default function FaqSection() {
   function toggle(id: number) {
     setOpen((prev) => ({
       ...prev,
-      id: !prev[id],
+      [id]: !prev[id],
     }));
   }
 
   return (
-    <div className="flex flex-col px-2 justify-center gap-13 w-100% min-h-[410px] mt-6 font-garamond text-2xl">
+    <div className="flex flex-col px-5 justify-center gap-13 w-100% min-h-[410px] mt-6 font-garamond text-2xl">
       <div>
         <p className="italic">Retailer & Trade Orders</p>
         {faq.slice(0, 4).map((q) => {
           return (
             <div
-              className="flex flex-col py-4 border-b-black border-b-[1px]"
+              className="flex flex-col py-4 border-b-black border-b-[1px] cursor-pointer"
               onClick={() => toggle(q.id)}
               key={q.id}
             >
@@ -98,7 +98,7 @@ export default function FaqSection() {
         {faq.slice(4, 7).map((q) => {
           return (
             <div
-              className="flex flex-col py-4 border-b-black border-b-[1px]"
+              className="flex flex-col py-4 border-b-black border-b-[1px] cursor-pointer"
               onClick={() => toggle(q.id)}
               key={q.id}
             >
@@ -117,7 +117,7 @@ export default function FaqSection() {
         {faq.slice(7).map((q) => {
           return (
             <div
-              className="flex flex-col py-4 border-b-black border-b-[1px]"
+              className="flex flex-col py-4 border-b-black border-b-[1px] cursor-pointer"
               onClick={() => toggle(q.id)}
               key={q.id}
             >
