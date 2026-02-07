@@ -16,14 +16,14 @@ export default function Cart() {
   } = useStateContext();
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (isCartOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
+  // useEffect(() => {
+  //   if (isCartOpen) document.body.style.overflow = "hidden";
+  //   else document.body.style.overflow = "";
 
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isCartOpen]);
+  //   return () => {
+  //     document.body.style.overflow = "";
+  //   };
+  // }, [isCartOpen]);
 
   async function handleClick(callback: () => void) {
     setLoading(true);
@@ -39,8 +39,8 @@ export default function Cart() {
     <>
       {isCartOpen && <div className="fixed inset-0 z-5" onClick={toggleCart} />}
       <div
-        className={`flex flex-col  text-lg ${products.length ? "justify-between" : "justify-center"} ${loading ? "pointer-events-none" : ""} fixed z-10 bg-yellow overflow-y-auto p-[30px] top-0 bottom-0 w-[80%] transform transition-[left] duration-500
-    ${isCartOpen ? "left-[20%]" : "left-[100%]"}
+        className={`flex flex-col  text-lg ${products.length ? "justify-between" : "justify-center"} ${loading ? "pointer-events-none" : ""} fixed z-10 bg-yellow overflow-y-auto p-[30px] top-0 bottom-0 w-[80%] lg:w-[35%] transform transition-[left] duration-500
+    ${isCartOpen ? "left-[20%] lg:left-[65%]" : "left-[100%]"}
         }`}
       >
         {products.length === 0 && (
@@ -48,11 +48,11 @@ export default function Cart() {
         )}
         {products.length > 0 && (
           <>
-            <div className="overflow-x-hidden overflow-y-auto border-t-black border-t-[1px]">
+            <div className="overflow-x-hidden overflow-y-auto border-t-black border-t-[1px] scrollbar-thin">
               {products.map((product) => {
                 return (
                   <div
-                    className="flex flex-row justify-between font-courier text-sm py-5 border-b-white border-b-[1px]"
+                    className="flex flex-row justify-between font-courier text-sm py-5 border-b-black border-b-[1px]"
                     key={product.key}
                   >
                     <Link
@@ -65,7 +65,7 @@ export default function Cart() {
                         width={100}
                         height={160}
                         alt={`Cover book for ${product.title}`}
-                        className="w-full h-[160px]"
+                        className="w-auto h-auto max-h-[160px] mx-auto"
                       />
                     </Link>
                     <div className="flex flex-col justify-between w-2/4 px-3">
@@ -100,7 +100,7 @@ export default function Cart() {
                       </div>
                     </div>
                     <button
-                      className="uppercase w-1/4 h-4"
+                      className="uppercase w-1/4 h-4 text-black transition-colors duration-300 hover:text-green"
                       onClick={() =>
                         handleClick(() => removeFromCart(product.key))
                       }
@@ -119,15 +119,19 @@ export default function Cart() {
                   </p>
                   <p className="text-[30px] h-11">${total}</p>
                 </div>
-                <button className="font-garamond text-left py-2 text-[30px] lg:opacity-100 lg:transition-colors lg:duration-300 lg:hover:font-green">
-                  Checkout
+                <button className="font-garamond text-left py-2 text-[30px]">
+                  <span className="text-black transition-colors duration-300 hover:text-green">
+                    Checkout
+                  </span>
                 </button>
               </div>
               <button
                 className="font-courier text-left uppercase text-sm pt-1"
                 onClick={() => handleClick(() => clearCart())}
               >
-                Clear
+                <span className="text-black transition-colors duration-300 hover:text-green">
+                  Clear
+                </span>
               </button>
             </div>
           </>

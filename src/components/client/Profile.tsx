@@ -47,15 +47,6 @@ export default function Profile() {
   const set2 = new Set(userProfile?.selectedGenres);
 
   useEffect(() => {
-    if (isProfileOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isProfileOpen]);
-
-  useEffect(() => {
     if (!userProfile) {
       setNewUsername("");
       setNewGenres([]);
@@ -135,14 +126,14 @@ export default function Profile() {
         />
       )}
       <div
-        className={`bg-green fixed text-[20px] gap-5 p-[30px] left-[15px] top-[130px] flex flex-col justify-center items-center w-[calc(100vw-30px)] h-[calc(100vh-250px)] transition duration-500 
+        className={`bg-green fixed text-[20px] lg:text-2xl justify-around p-[30px] left-[15px] lg:left-[28%] top-[130px] flex flex-col items-center w-[calc(100vw-30px)] lg:w-[calc(100vw-57%)] h-[calc(100vh-250px)] lg:h-[65vh] lg:max-h-[600px] transition duration-500 
         ${
           isProfileOpen
             ? "z-9 opacity-100 pointer-events-auto"
             : "-z-1 opacity-0 pointer-events-none"
         }`}
       >
-        <p className="text-[30px]">Profile</p>
+        <p className="text-[30px] lg:text-4xl">Profile</p>
         <div className="flex flex-col gap-3 w-full">
           <div className="flex flex-row gap-5">
             <p>Email:</p>
@@ -171,7 +162,7 @@ export default function Profile() {
               <MdModeEdit />
             </button>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col justify-between">
             <p>Genres: </p>
             <div className="flex flex-wrap justify-center font-garamond text-xl">
               {availableGenres.map((genre, index) => {
@@ -191,7 +182,7 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col justify-between">
           <button className="text-[30px] underline" onClick={handleChanges}>
             Save edits
           </button>

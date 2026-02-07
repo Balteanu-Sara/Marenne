@@ -19,15 +19,6 @@ export default function Wishlist() {
   console.log("Wishlist din Wishlist: ", userProfile?.wishlist);
 
   useEffect(() => {
-    if (isWishlistOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isWishlistOpen]);
-
-  useEffect(() => {
     if (!userProfile || userProfile.wishlist.length === 0) {
       setBooks([]);
       return;
@@ -89,8 +80,8 @@ export default function Wishlist() {
         <div className="fixed inset-0 z-5" onClick={toggleWishlist} />
       )}
       <div
-        className={`flex flex-col text-white text-lg ${books.length ? "justify-between" : "justify-center"} ${loading ? "pointer-events-none" : ""} fixed z-10 bg-red overflow-y-auto p-[30px] top-0 bottom-0 w-[80%] transform transition-[left] duration-500
-    ${isWishlistOpen ? "left-[20%]" : "left-[100%]"}
+        className={`flex flex-col text-white text-lg ${books.length ? "justify-between" : "justify-center"} ${loading ? "pointer-events-none" : ""} fixed z-10 bg-red overflow-y-auto p-[30px] top-0 bottom-0 w-[80%] lg:w-[35%] transform transition-[left] duration-500
+    ${isWishlistOpen ? "left-[20%] lg:left-[65%]" : "left-[100%]"}
         }`}
       >
         {books.length === 0 && (
@@ -98,7 +89,7 @@ export default function Wishlist() {
         )}
 
         {books.length > 0 && (
-          <div className="overflow-x-hidden overflow-y-auto border-t-white border-t-[1px] border-b-white border-b-[1px]">
+          <div className="overflow-x-hidden overflow-y-auto scrollbar-thin border-t-white border-t-[1px] border-b-white border-b-[1px]">
             {books.map((book) => {
               return (
                 <div
@@ -115,7 +106,7 @@ export default function Wishlist() {
                       width={100}
                       height={160}
                       alt={`Cover book for ${book.title}`}
-                      className="w-full h-[160px]"
+                      className="w-auto h-auto max-h-[160px] mx-auto"
                     />
                   </Link>
                   <div className="flex flex-col gap-2 w-2/4 px-3">
@@ -129,7 +120,7 @@ export default function Wishlist() {
                     <p>$12,5</p>
                   </div>
                   <button
-                    className="uppercase w-1/4 h-4"
+                    className="uppercase w-1/4 h-4 transition-colors duration-300 hover:text-yellow"
                     onClick={() => {
                       handleClick(book.key);
                     }}
