@@ -12,9 +12,13 @@ function Logo() {
       <div className="lg:hidden text-[32vw] font-title leading-none px-[15px] -translate-y-[0.12em] justify-self-center">
         <Link href="/">MARENNE</Link>
       </div>
-      <div className="hidden lg:inline text-[18.7vw] font-title leading-none px-[15px] -translate-y-[0.15em] justify-self-center">
-        <Link href="/">MARENNE BOOKS</Link>
-      </div>
+      <Link
+        href="/"
+        className="hidden lg:flex lg:flex-row text-[18.5vw] font-title text-center leading-none px-[15px] justify-between lg:-translate-y-[0.2em] lg:-mb-[0.15em]"
+      >
+        <span className="block">MARENNE</span>
+        <span className="block">BOOKS</span>
+      </Link>
     </>
   );
 }
