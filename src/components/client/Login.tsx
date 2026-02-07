@@ -1,7 +1,7 @@
 "use client";
 import { useStateContext } from "@/context/CurrentStateContext";
 import { register, login, addGenres } from "@/lib/auth";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
@@ -45,15 +45,6 @@ export default function Login() {
   const router = useRouter();
 
   console.log("message: ", message);
-
-  useEffect(() => {
-    if (isLoginOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isLoginOpen]);
 
   function resetStates() {
     setUsername("");
@@ -121,12 +112,20 @@ export default function Login() {
   return (
     <>
       {isLoginOpen && (
-        <div className="fixed inset-0 z-5" onClick={toggleLogin} />
+        <div
+          className="fixed inset-0 z-5"
+          onClick={() => {
+            if (!menu) {
+              toggleLogin();
+              resetStates();
+            }
+          }}
+        />
       )}
       {!menu && (
         <form
           onSubmit={handleSubmit}
-          className={`bg-red px-[20px] py-[40px] flex flex-col justify-center items-center gap-10 fixed left-[15px] lg:left-[26%] w-[calc(100vw-40px)] lg:w-[calc(100vw-52%)] top-[20%] transition duration-300 
+          className={`bg-red px-[20px] py-[40px] flex flex-col justify-center items-center gap-10 fixed left-[15px] lg:left-[28%] w-[calc(100vw-40px)] lg:w-[calc(100vw-56%)] top-[18%] transition duration-300 
       ${
         isLoginOpen
           ? "z-9 opacity-100 pointer-events-auto"
@@ -219,7 +218,7 @@ export default function Login() {
       {menu && (
         <form
           onSubmit={handleGenres}
-          className={`bg-red p-[40px] flex flex-col justify-center items-center gap-10 fixed left-[15px] lg:left-[26%] w-[calc(100vw-30px)] lg:w-[calc(100vw-52%)] top-[20%] transition duration-300 
+          className={`bg-red p-[40px] flex flex-col justify-center items-center gap-10 fixed left-[15px] lg:left-[28%] w-[calc(100vw-30px)] lg:w-[calc(100vw-56%)] top-[18%] transition duration-300 
       ${
         isLoginOpen
           ? "z-9 opacity-100 pointer-events-auto"
@@ -243,28 +242,12 @@ export default function Login() {
               );
             })}
           </div>
-          <div className="flex flex-col gap-2">
-            <button
-              type="submit"
-              className="w-[100%] rounded h-15 text-center bg-black text-white text-2xl"
-            >
-              Continue
-            </button>
-            <p className="font-courier text-lg text-center text-white">
-              Already have an account? Login{" "}
-              <button
-                className="underline"
-                type="button"
-                onClick={() => {
-                  setMenu((prev) => !prev);
-                  setHasAccount((prev) => !prev);
-                  setGenres([]);
-                }}
-              >
-                here
-              </button>
-            </p>
-          </div>
+          <button
+            type="submit"
+            className="w-[60%] rounded h-15 text-center bg-black text-white text-2xl"
+          >
+            Continue
+          </button>
           <p className="font-courier text-lg text-white text-center">
             {message}
           </p>
