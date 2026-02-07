@@ -24,23 +24,40 @@ export default function DesktopMenu() {
   } = useStateContext();
   const { user } = useAuthContext();
 
+  const prods = products.reduce((sum, prod) => sum + prod.count, 0);
+
   return (
-    <div className="hidden relative px-[15px] pb-1 font-garamond text-[30px] h-auto lg:gap-2 lg:flex lg:flex-row lg:justify-between">
+    <div className="hidden relative px-[15px] pb-2 font-garamond text-[30px] h-auto gap-2 lg:flex lg:flex-row lg:justify-between lg:text-3xl">
       <div>
         <Link
           href="/"
-          className="lg:text-black lg:transition-colors lg:duration-300 lg:hover:text-grey-4"
+          className="text-black transition-colors duration-300 hover:text-grey-4"
         >
           Home,
         </Link>{" "}
-        <Link href="/books">Books,</Link>{" "}
-        <Link href="/magazines">Magazines,</Link>{" "}
-        <button onClick={toggleSearch}>Search</button>
+        <Link
+          href="/books"
+          className="text-black transition-colors duration-300 hover:text-grey-4"
+        >
+          Books,
+        </Link>{" "}
+        <Link
+          href="/magazines"
+          className="text-black transition-colors duration-300 hover:text-grey-4"
+        >
+          Magazines,
+        </Link>{" "}
+        <button
+          onClick={toggleSearch}
+          className="cursor-pointer text-black transition-colors duration-300 hover:text-grey-4"
+        >
+          Search
+        </button>
       </div>
       {user ? (
         <div>
           <button
-            className="h-[35px] text-right"
+            className="h-[35px] text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4"
             onClick={async () => {
               await logout();
               clearCart();
@@ -48,29 +65,44 @@ export default function DesktopMenu() {
           >
             <Link href="/">Logout, </Link>
           </button>{" "}
-          <button className="text-right" onClick={toggleProfile}>
+          <button
+            className="text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4"
+            onClick={toggleProfile}
+          >
             Profile,
           </button>{" "}
-          <button className="text-right" onClick={toggleWishlist}>
+          <button
+            className="text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4"
+            onClick={toggleWishlist}
+          >
             Wishlist,
           </button>{" "}
-          <button onClick={toggleCart} className="text-right">
-            Cart ({products.length}){" "}
+          <button
+            onClick={toggleCart}
+            className="text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4"
+          >
+            Cart ({products.reduce((sum, prod) => sum + prod.count, 0)}){" "}
           </button>
         </div>
       ) : (
         <div>
-          <button className="text-right" onClick={toggleLogin}>
+          <button
+            className="text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4"
+            onClick={toggleLogin}
+          >
             Login,
           </button>{" "}
           <OptionMenu
             href="/"
-            style="text-right"
+            style="text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4"
             click={undefined}
             innerText="About Us,"
           />{" "}
-          <button onClick={toggleCart} className="text-right">
-            Cart ({products.length}){" "}
+          <button
+            onClick={toggleCart}
+            className="text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4"
+          >
+            Cart ({prods}){" "}
           </button>
         </div>
       )}
