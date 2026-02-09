@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { useAuthContext } from "@/context/AuthContext";
 import { logout } from "@/lib/auth";
+import { usePathname } from "next/navigation";
 
 export default function DesktopMenu() {
   const {
@@ -23,6 +24,7 @@ export default function DesktopMenu() {
     toggleWishlist,
   } = useStateContext();
   const { user } = useAuthContext();
+  const pathName = usePathname();
 
   const prods = products.reduce((sum, prod) => sum + prod.count, 0);
 
@@ -31,19 +33,19 @@ export default function DesktopMenu() {
       <div>
         <Link
           href="/"
-          className="text-black transition-colors duration-300 hover:text-grey-4"
+          className={`text-black transition-colors duration-300 hover:text-grey-4 ${pathName.endsWith("/") ? "italic" : ""}`}
         >
           Home,
         </Link>{" "}
         <Link
           href="/books"
-          className="text-black transition-colors duration-300 hover:text-grey-4"
+          className={`text-black transition-colors duration-300 hover:text-grey-4  ${pathName.endsWith("/books") ? "italic" : ""}`}
         >
           Books,
         </Link>{" "}
         <Link
           href="/magazines"
-          className="text-black transition-colors duration-300 hover:text-grey-4"
+          className={`text-black transition-colors duration-300 hover:text-grey-4 ${pathName.endsWith("/") ? "italic" : ""}`}
         >
           Magazines,
         </Link>{" "}
@@ -94,7 +96,7 @@ export default function DesktopMenu() {
           </button>{" "}
           <OptionMenu
             href="/"
-            style="text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4"
+            style={`text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4 ${pathName.endsWith("/about-us") ? "italic" : ""}`}
             click={undefined}
             innerText="About Us,"
           />{" "}

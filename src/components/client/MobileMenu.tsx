@@ -56,38 +56,48 @@ export default function MobileMenu() {
 
   return (
     <div className="relative top-0 z-10 flex flex-col px-[15px] font-garamond text-[30px] h-auto lg:hidden">
-      <div className="flex flex-row justify-between">
-        <button onClick={toggleMenu}>{isMenuOpen ? "Close" : "Menu"}</button>
+      <div className="flex flex-row">
+        <div
+          className={`${pathName.includes("books") ? "w-1/3" : "w-1/2"} text-left`}
+        >
+          <button onClick={toggleMenu}>{isMenuOpen ? "X" : "Menu"}</button>
+        </div>
         {pathName.includes("books") && (
-          <button onClick={toggleFilter}>
-            {isFilterOpen ? "Close" : "Filter"}
-          </button>
+          <div className="w-1/3 text-center">
+            <button onClick={toggleFilter} className="pl-2">
+              {isFilterOpen ? "X" : "Filter"}
+            </button>
+          </div>
         )}
-        <button onClick={toggleCart}>Cart</button>
+        <div
+          className={`${pathName.includes("books") ? "w-1/3" : "w-1/2"} text-right`}
+        >
+          <button onClick={toggleCart}>Cart</button>
+        </div>
       </div>
       <Cart />
       <Wishlist />
       {isMenuOpen && <div className="fixed inset-0 z-3" onClick={toggleMenu} />}
       <div
-        className={`flex flex-row justify-between absolute w-screen z-4 bg-gradient-to-b from-[#ffffff] to-[#f2f2f2] top-8 left-0 pl-[15px] pr-[15px] overflow-hidden transition-all duration-500
+        className={`flex flex-row justify-between absolute w-full z-4 bg-gradient-to-b from-[#ffffff] to-[#f2f2f2] top-8 left-0 pl-[15px] pr-[15px] overflow-hidden transition-all duration-500
           ${isMenuOpen ? "h-[150px] mt-3 mb-3" : "h-0"} `}
       >
         <div className="flex flex-col">
           <OptionMenu
             href="/"
-            style="h-[35px]"
+            style={`h-[35px] ${pathName.endsWith("/") ? "italic" : ""}`}
             click={toggleMenu}
             innerText="Home"
           />
           <OptionMenu
             href="/books"
-            style="h-[35px]"
+            style={`h-[35px] ${pathName.endsWith("/books") ? "italic" : ""}`}
             click={toggleMenu}
             innerText="Books"
           />
           <OptionMenu
             href="/magazines"
-            style="h-[35px]"
+            style={`h-[35px] ${pathName.endsWith("/magazines") ? "italic" : ""}`}
             click={toggleMenu}
             innerText="Magazines"
           />
@@ -123,7 +133,7 @@ export default function MobileMenu() {
 
               <OptionMenu
                 href="/"
-                style="h-[35px]"
+                style={`h-[35px] ${pathName.endsWith("/") ? "italic" : ""}`}
                 click={toggleMenu}
                 innerText="About Us"
               />
@@ -134,21 +144,39 @@ export default function MobileMenu() {
 
       <div
         className={`flex flex-col absolute w-screen z-4 bg-gradient-to-b from-[#ffffff] to-[#f2f2f2] top-8 left-0 pl-[15px] pr-[15px] overflow-hidden transition-all duration-500
-          ${isFilterOpen ? "h-[795px] mt-3 mb-3" : "h-0"} `}
+          ${isFilterOpen ? "h-[410px] mt-3 mb-3" : "h-0"} `}
       >
         <hr />
-        {genres.map((genre, index) => {
-          return (
-            <p key={genre + index}>
-              <OptionMenu
-                href={`/books/genre/${genre.toLowerCase()}`}
-                style="block h-[35px]"
-                click={toggleFilter}
-                innerText={genre}
-              />
-            </p>
-          );
-        })}
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-col text-left">
+            {genres.slice(0, genres.length / 2).map((genre, index) => {
+              return (
+                <p key={genre + index}>
+                  <OptionMenu
+                    href={`/books/genre/${genre.toLowerCase()}`}
+                    style="block h-[35px]"
+                    click={toggleFilter}
+                    innerText={genre}
+                  />
+                </p>
+              );
+            })}
+          </div>
+          <div className="flex flex-col text-right">
+            {genres.slice(genres.length / 2).map((genre, index) => {
+              return (
+                <p key={genre + index}>
+                  <OptionMenu
+                    href={`/books/genre/${genre.toLowerCase()}`}
+                    style="block h-[35px]"
+                    click={toggleFilter}
+                    innerText={genre}
+                  />
+                </p>
+              );
+            })}
+          </div>
+        </div>
         <hr className="mt-[10px]" />
       </div>
       <Search />
