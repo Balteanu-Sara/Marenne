@@ -27,9 +27,7 @@ function Menu() {
   return (
     <div>
       <Suspense
-        fallback={
-          <div className="w-full h-[40px] bg-grey-3 animate-pulse"></div>
-        }
+        fallback={<div className="w-full h-[40px] bg-grey-3 animate-pulse" />}
       >
         <MobileMenu />
         <DesktopMenu />
@@ -43,7 +41,11 @@ export default function Header() {
     <header>
       <Logo />
       <Menu />
-      <Carousel />
+      <Suspense
+        fallback={<div className="w-full h-[40px] bg-grey-3 animate-pulse" />}
+      >
+        <Carousel />
+      </Suspense>
     </header>
   );
 }
