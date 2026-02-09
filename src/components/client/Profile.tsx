@@ -126,7 +126,7 @@ export default function Profile() {
         />
       )}
       <div
-        className={`bg-green fixed text-[20px] lg:text-2xl justify-around p-[30px] left-[15px] lg:left-[28%] top-[130px] flex flex-col items-center w-[calc(100vw-30px)] lg:w-[calc(100vw-57%)] h-[calc(100vh-250px)] lg:h-[65vh] lg:max-h-[600px] transition duration-500 
+        className={`bg-green fixed text-[20px] lg:text-2xl justify-around px-[30px] py-[15px] lg:p-[30px] left-[15px] lg:left-[28%] top-[120px] lg:top-[130px] flex flex-col items-center w-[calc(100vw-30px)] lg:w-[calc(100vw-57%)] min-h-55 lg:h-[65vh] lg:max-h-[600px] transition duration-500 
         ${
           isProfileOpen
             ? "z-9 opacity-100 pointer-events-auto"

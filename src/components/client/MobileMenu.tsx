@@ -58,11 +58,11 @@ export default function MobileMenu() {
     <div className="relative top-0 z-10 flex flex-col px-[15px] font-garamond text-[30px] h-auto lg:hidden">
       <div className="flex flex-row">
         <div
-          className={`${pathName.includes("books") ? "w-1/3" : "w-1/2"} text-left`}
+          className={`${pathName.endsWith("books") ? "w-1/3" : "w-1/2"} text-left`}
         >
           <button onClick={toggleMenu}>{isMenuOpen ? "X" : "Menu"}</button>
         </div>
-        {pathName.includes("books") && (
+        {pathName.endsWith("/books") && (
           <div className="w-1/3 text-center">
             <button onClick={toggleFilter} className="pl-2">
               {isFilterOpen ? "X" : "Filter"}
@@ -70,7 +70,7 @@ export default function MobileMenu() {
           </div>
         )}
         <div
-          className={`${pathName.includes("books") ? "w-1/3" : "w-1/2"} text-right`}
+          className={`${pathName.endsWith("/books") ? "w-1/3" : "w-1/2"} text-right`}
         >
           <button onClick={toggleCart}>Cart</button>
         </div>
