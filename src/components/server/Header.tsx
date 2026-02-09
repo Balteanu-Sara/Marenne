@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Suspense } from "react";
 import {
   Carousel,
   MobileMenu,
   DesktopMenu,
 } from "@/components/client/indexClient";
+import { Suspense } from "react";
 
 function Logo() {
   return (
@@ -26,10 +26,14 @@ function Logo() {
 function Menu() {
   return (
     <div>
-      <Suspense fallback={<div>Loading mobile menu...</div>}>
+      <Suspense
+        fallback={
+          <div className="w-full h-[40px] bg-grey-3 animate-pulse"></div>
+        }
+      >
         <MobileMenu />
+        <DesktopMenu />
       </Suspense>
-      <DesktopMenu />
     </div>
   );
 }
@@ -39,9 +43,7 @@ export default function Header() {
     <header>
       <Logo />
       <Menu />
-      <Suspense>
-        <Carousel />
-      </Suspense>
+      <Carousel />
     </header>
   );
 }
