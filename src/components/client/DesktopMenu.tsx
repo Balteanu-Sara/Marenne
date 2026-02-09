@@ -45,7 +45,7 @@ export default function DesktopMenu() {
         </Link>{" "}
         <Link
           href="/magazines"
-          className={`text-black transition-colors duration-300 hover:text-grey-4 ${pathName.endsWith("/") ? "italic" : ""}`}
+          className={`text-black transition-colors duration-300 hover:text-grey-4 ${pathName.endsWith("/magazines") ? "italic" : ""}`}
         >
           Magazines,
         </Link>{" "}
