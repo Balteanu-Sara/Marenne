@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { searchBooks, clearResultOverview } from "@/lib/openLibrary";
 import { useAuthContext } from "@/context/AuthContext";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchResult } from "@/types";
 import LoadingBooks from "../server/LoadingBooks";
 
@@ -45,7 +45,8 @@ export default function RecommendedSection({
         <p className="text-center font-garamond text-[30px] pb-[10px]">
           Recommended for you
         </p>
-        <Suspense fallback={<LoadingBooks len={9} />}>
+        {!books.length && <LoadingBooks len={9} />}
+        {books.length && (
           <div className="flex flex-wrap justify-center">
             {books
               .filter((book, index) => index < bookNr)
@@ -69,7 +70,7 @@ export default function RecommendedSection({
                 </Link>
               ))}
           </div>
-        </Suspense>
+        )}
       </section>
     );
   }

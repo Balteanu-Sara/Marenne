@@ -5,7 +5,7 @@ import Image from "next/image";
 import { searchBooks, clearResultOverview } from "@/lib/openLibrary";
 import { useAuthContext } from "@/context/AuthContext";
 import { LoadingBooks } from "@/components/server/indexServer";
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { SearchResult } from "@/types";
 
 export default function MoreOnSection({ bookNr = 20 }: { bookNr?: number }) {
@@ -42,7 +42,8 @@ export default function MoreOnSection({ bookNr = 20 }: { bookNr?: number }) {
         <p className="text-center font-garamond text-[30px] pb-[10px]">
           More on <span className="italic">{usedGenre}</span>
         </p>
-        <Suspense fallback={<LoadingBooks len={9} />}>
+        {!books.length && <LoadingBooks len={9} />}
+        {books.length && (
           <div className="flex flex-wrap justify-center">
             {books
               .filter((book, index) => index < bookNr)
@@ -66,7 +67,7 @@ export default function MoreOnSection({ bookNr = 20 }: { bookNr?: number }) {
                 </Link>
               ))}
           </div>
-        </Suspense>
+        )}
       </section>
     );
   }
