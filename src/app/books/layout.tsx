@@ -1,3 +1,4 @@
+import { LoadingBooks } from "@/components/server/indexServer";
 import { Suspense } from "react";
 
 export default function LayoutBook({
@@ -5,5 +6,5 @@ export default function LayoutBook({
 }: {
   children: React.ReactNode;
 }) {
-  return <Suspense fallback="Loading books">{children}</Suspense>;
+  return <Suspense fallback={<LoadingBooks len={9} />}>{children}</Suspense>;
 }

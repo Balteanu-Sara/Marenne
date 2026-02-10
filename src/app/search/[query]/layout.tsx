@@ -1,3 +1,4 @@
+import { LoadingBooks } from "@/components/server/indexServer";
 import { Suspense } from "react";
 
 export default function SearchLayout({
@@ -5,5 +6,5 @@ export default function SearchLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <Suspense fallback="Loading search results">{children}</Suspense>;
+  return <Suspense fallback={<LoadingBooks len={4} />}>{children}</Suspense>;
 }
