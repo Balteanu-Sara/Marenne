@@ -7,7 +7,7 @@ const faq = [
     id: 0,
     question: "How do I place a trade order?",
     answer:
-      "To set up a trade account with us please email mia@antennebooks.com. \nWe offer a 40% discount RRP across our entire catalogue & free shipping for orders over £40 in the UK.",
+      "To set up a trade account with us please email mia@marennebooks.com. \nWe offer a 40% discount RRP across our entire catalogue & free shipping for orders over £40 in the UK.",
   },
   {
     id: 1,
@@ -30,19 +30,19 @@ const faq = [
     id: 4,
     question: "What is Marenne Books and how does it work?",
     answer:
-      "Antenne Books is a book distributor based in London with warehouses in the UK and EU. Antenne Books takes books, zines and magazines on a consignment basis and distributes them via independent bookstores and galleries worldwide. \nAntenne Books works on a commission split basis of your title(s) RRP of 20% to Antenne, 40% to the publisher and 40% to the retailer. \nFor more information please see our terms.",
+      "Marenne Books is a book distributor based in London with warehouses in the UK and EU. Marenne Books takes books, zines and magazines on a consignment basis and distributes them via independent bookstores and galleries worldwide. \nMarenne Books works on a commission split basis of your title(s) RRP of 20% to Marenne, 40% to the publisher and 40% to the retailer. \nFor more information please see our terms.",
   },
   {
     id: 5,
     question: "When will I receive payment?",
     answer:
-      "You will receive your first sales report after 6 months. You will need to send an invoice with the amount shown with 30 day payment terms. Antenne Books cannot pay upfront for any titles that we take on.",
+      "You will receive your first sales report after 6 months. You will need to send an invoice with the amount shown with 30 day payment terms. Marenne Books cannot pay upfront for any titles that we take on.",
   },
   {
     id: 6,
     question: "Are you GPSR Compliant?",
     answer:
-      "Yes, Antenne Books and all our publishers are EU and GPSR Compliant. \nPlease contact us for further information.",
+      "Yes, Marenne Books and all our publishers are EU and GPSR Compliant. \nPlease contact us for further information.",
   },
   {
     id: 7,
@@ -58,7 +58,7 @@ const faq = [
   {
     id: 9,
     question: "What if I have an issues with my order?",
-    answer: "For any queries please email shop@antennebooks.com",
+    answer: "For any queries please email shop@marennebooks.com",
   },
 ];
 
@@ -79,11 +79,11 @@ export default function FaqSection() {
         {faq.slice(0, 4).map((q) => {
           return (
             <div
-              className="flex flex-col py-4 border-b-black border-b-[1px] cursor-pointer"
+              className={`flex flex-col py-4 border-b-black border-b-[1px] cursor-pointer overflow-hidden transition-all duration-1000 ${open[q.id] ? "max-h-100 lg:max-h-55" : "max-h-25 lg:max-h-17"}`}
               onClick={() => toggle(q.id)}
               key={q.id}
             >
-              <div className="flex flex-row justify-between">
+              <div className="flex flex-row justify-between items-center">
                 <p>{q.question}</p>
                 <p>{open[q.id] ? "-" : "+"}</p>
               </div>
@@ -98,11 +98,11 @@ export default function FaqSection() {
         {faq.slice(4, 7).map((q) => {
           return (
             <div
-              className="flex flex-col py-4 border-b-black border-b-[1px] cursor-pointer"
+              className={`flex flex-col py-4 border-b-black border-b-[1px] cursor-pointer overflow-hidden transition-all duration-1000 ${open[q.id] ? "max-h-100 lg:max-h-55" : "max-h-25 lg:max-h-17"}`}
               onClick={() => toggle(q.id)}
               key={q.id}
             >
-              <div className="flex flex-row justify-between">
+              <div className="flex flex-row justify-between items-center">
                 <p>{q.question}</p>
                 <p>{open[q.id] ? "-" : "+"}</p>
               </div>
@@ -117,11 +117,11 @@ export default function FaqSection() {
         {faq.slice(7).map((q) => {
           return (
             <div
-              className="flex flex-col py-4 border-b-black border-b-[1px] cursor-pointer"
+              className={`flex flex-col py-4 border-b-black border-b-[1px] cursor-pointer overflow-hidden transition-all duration-1000 ${open[q.id] ? "max-h-100 lg:max-h-55" : "max-h-25 lg:max-h-17"}`}
               onClick={() => toggle(q.id)}
               key={q.id}
             >
-              <div className="flex flex-row justify-between">
+              <div className="flex flex-row justify-between items-center">
                 <p>{q.question}</p>
                 <p>{open[q.id] ? "-" : "+"}</p>
               </div>
