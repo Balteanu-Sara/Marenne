@@ -133,7 +133,7 @@ export default function MobileMenu() {
 
               <OptionMenu
                 href="/"
-                style={`h-[35px] ${pathName.endsWith("/") ? "italic" : ""}`}
+                style={`h-[35px] ${pathName.endsWith("/about-us") ? "italic" : ""}`}
                 click={toggleMenu}
                 innerText="About Us"
               />

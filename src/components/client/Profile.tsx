@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { MdModeEdit } from "react-icons/md";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { addGenres, updateUsername, removeGenres } from "@/lib/auth";
 import { useAuthContext } from "@/context/AuthContext";
 import { useStateContext } from "@/context/CurrentStateContext";
@@ -43,6 +43,8 @@ export default function Profile() {
   const [message, setMessage] = useState("");
   const [changed, setChanged] = useState(false);
 
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const set1 = new Set(newGenres);
   const set2 = new Set(userProfile?.selectedGenres);
 
@@ -59,6 +61,12 @@ export default function Profile() {
     }
   }, [userProfile, isProfileOpen, changed]);
 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
   console.log("New genres: ", newGenres);
   console.log("User's genres: ", userProfile?.selectedGenres);
   console.log("Message: ", message);
@@ -70,9 +78,19 @@ export default function Profile() {
     else setNewGenres((prev) => [...prev, genre]);
   }
 
+  function handleMessage(newMessage: string) {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    setMessage(newMessage);
+
+    timeoutRef.current = setTimeout(() => {
+      setMessage("");
+    }, 1500);
+  }
+
   async function handleChanges() {
     if (set1.size < 2) {
-      setMessage("At least 2 genres required!");
+      handleMessage("At least 2 genres required!");
       return;
     }
 
@@ -108,10 +126,10 @@ export default function Profile() {
       (result2 && result2.success === false) ||
       (result3 && result3.success === false)
     ) {
-      setMessage("Failed to update new user data!");
+      handleMessage("Failed to update new user data!");
     }
     setChanged(false);
-    setMessage("User data updated!");
+    handleMessage("User data updated!");
   }
 
   return (
