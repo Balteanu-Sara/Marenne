@@ -13,7 +13,7 @@ export default async function SearchResult({
   const correctedQuery = decodeURIComponent(query);
 
   return (
-    <main className="p-[15px] w-[100%] mt-[15px]">
+    <main className="p-[15px] w-[100%] mt-[15px] mx-auto max-w-[1050px]">
       <p className="text-center font-garamond text-[30px] pb-[10px]">
         Search Results for &quot;{correctedQuery}&quot;
       </p>

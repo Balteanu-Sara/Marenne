@@ -10,7 +10,7 @@ export default async function Genre({
   console.log(genre);
 
   return (
-    <main className="p-[15px] w-[100%] gap-2 mt-[15px]">
+    <main className="p-[15px] w-[100%] gap-2 mt-[15px] mx-auto max-w-[1050px]">
       <p className="text-center font-garamond text-[30px] pb-[10px]">
         {genre !== "lgbt" ? genre[0].toUpperCase() + genre.slice(1) : "LGBT"}
       </p>

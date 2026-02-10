@@ -13,7 +13,7 @@ import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <main className="p-[15px]">
+    <main className="p-[15px] mx-auto max-w-[1050px]">
       <RecommendedSection bookNr={9} />
       <ViewMore href="/recommended" message="recommended books" />
 

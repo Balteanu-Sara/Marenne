@@ -3,7 +3,7 @@ import { Suspense } from "react";
 
 export default function BestSellersPage() {
   return (
-    <main className="p-[15px] w-[100%] mt-[15px]">
+    <main className="p-[15px] w-[100%] mt-[15px] mx-auto max-w-[1050px]">
       <p className="text-center font-garamond text-[30px] pb-[10px]">
         Best Sellers
       </p>
