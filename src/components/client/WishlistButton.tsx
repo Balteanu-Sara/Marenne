@@ -82,7 +82,7 @@ export default function WishlistButton({ bookId }: { bookId: string }) {
   if (user) {
     return (
       <button
-        className={`py-2 text-[30px] w-[100%] text-left border-b-black border-b-[1px] lg:opacity-100 lg:transition-opacity lg:duration-300 ${message === "Add to Cart" && "lg:hover:opacity-50"}`}
+        className={`py-2 text-[30px] w-[100%] text-left border-b-black border-b-[1px] lg:opacity-100 lg:transition-opacity lg:duration-300 ${message === "Add to Wishlist" || message === "Remove from Wishlist" ? "lg:hover:opacity-50" : ""}`}
         onClick={handleClick}
         disabled={
           message !== "Add to Wishlist" && message !== "Remove from Wishlist"
