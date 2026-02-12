@@ -225,7 +225,7 @@ export default function Login() {
           : "-z-1 opacity-0 pointer-events-none"
       }`}
         >
-          <p className="font-garmond text-4xl text-black">Register</p>
+          <p className="font-garmond text-4xl text-black">Select some genres</p>
           <div className="flex flex-wrap justify-center font-garamond text-xl">
             {availableGenres.map((genre, index) => {
               return (
