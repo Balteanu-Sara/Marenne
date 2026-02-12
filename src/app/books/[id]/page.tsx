@@ -14,7 +14,7 @@ export default async function Book({
   const { id } = await params;
 
   return (
-    <main className="p-[15px]">
+    <main className="p-[15px] mx-auto max-w-[1050px]">
       <Suspense fallback={<LoadingBook />}>
         <BookDetails id={id} />
       </Suspense>

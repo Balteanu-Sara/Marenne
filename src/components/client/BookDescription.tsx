@@ -9,7 +9,7 @@ export default function BookDescription({
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="flex flex-col mt-10 mb-10">
+    <div className="flex flex-col my-10 lg:max-w-[900px] lg:mx-auto">
       <div
         className={`relative overflow-hidden transition-all duration-500 ease-in-out ${
           expanded ? "max-h-[1500px]" : "max-h-[150px]"

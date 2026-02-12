@@ -29,7 +29,7 @@ export default async function RelatedProducts({ id }: { id: string }) {
 
     return relatedBooks.length > 0 ? (
       <section className="w-[100%] gap-2 mt-15">
-        <div className="text-center font-garamond text-4xl pb-[10px]">
+        <div className="text-center font-garamond text-4xl lg:text-5xl pb-[10px]">
           Related Products
         </div>
         <div className="flex flex-wrap justify-center">
