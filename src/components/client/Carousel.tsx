@@ -54,7 +54,11 @@ export default function Carousel() {
 
   if (
     !pathName.includes("/newsletter") &&
-    !(!pathName.endsWith("/books") && pathName.includes("/books"))
+    !(
+      !pathName.endsWith("/books") &&
+      pathName.includes("/books") &&
+      !pathName.includes("genre")
+    )
   ) {
     return (
       <Link href="/newsletter" className="">

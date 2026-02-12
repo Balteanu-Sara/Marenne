@@ -20,7 +20,8 @@ export default function OptionMenu({
       href={href}
       className={
         style
-          ? style + `${pathName.includes(innerText) ? "lg:italic" : ""}`
+          ? style +
+            `${pathName.endsWith(innerText.toLowerCase()) ? " lg:italic" : ""}`
           : ""
       }
       onClick={click}

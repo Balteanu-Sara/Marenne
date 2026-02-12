@@ -48,7 +48,7 @@ export default async function BooksSection() {
               <p key={genre + index}>
                 <OptionMenu
                   href={`/books/genre/${genre.toLowerCase()}`}
-                  style="block h-[35px] text-3xl text-black transition-colors duration-300 hover:text-green"
+                  style="block h-[33px] text-3xl text-black transition-colors duration-300 hover:text-green"
                   click={undefined}
                   innerText={genre}
                 />
