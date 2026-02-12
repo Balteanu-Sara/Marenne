@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function OptionMenu({
   href,
@@ -11,8 +13,18 @@ export default function OptionMenu({
   click: (() => void) | undefined;
   innerText: string;
 }) {
+  const pathName = usePathname();
+
   return (
-    <Link href={href} className={style ? style : ""} onClick={click}>
+    <Link
+      href={href}
+      className={
+        style
+          ? style + `${pathName.includes(innerText) ? "lg:italic" : ""}`
+          : ""
+      }
+      onClick={click}
+    >
       {innerText}
     </Link>
   );
