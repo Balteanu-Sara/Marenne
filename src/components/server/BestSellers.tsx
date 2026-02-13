@@ -9,9 +9,8 @@ export default async function BestSellers({
   bookNr?: number;
 }) {
   const bestSellersJson = await searchBooks("subject:bestseller");
-  const bestSellers: SearchResult[] = await clearResultOverview(
-    bestSellersJson
-  );
+  const bestSellers: SearchResult[] =
+    await clearResultOverview(bestSellersJson);
 
   return (
     <>
@@ -22,14 +21,14 @@ export default async function BestSellers({
             <Link
               href={`/books/${release.key.replace("/works/", "")}`}
               key={release.key}
-              className="flex flex-col items-center m-3 w-[180px]"
+              className="flex flex-col items-center m-3 w-[120px] sm:w-[180px]"
             >
               <Image
                 src={`https://covers.openlibrary.org/b/id/${release.cover_i}-M.jpg`}
-                width={180}
-                height={275}
+                width={120}
+                height={195}
                 alt={`Cover book for ${release.title}`}
-                className="w-[180px] h-[275px] border-1 border-black border-solid"
+                className="w-[120px] h-[195px] sm:w-[180px] sm:h-[275px] border-1 border-black border-solid"
               />
               <div className="font-courier text-center">
                 <p className="text-clip">{release.title}</p>

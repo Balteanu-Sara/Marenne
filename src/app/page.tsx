@@ -37,10 +37,8 @@ export default function Home() {
         </Suspense>
       </section>
 
-      <Suspense fallback={<LoadingBooks len={9} />}>
-        <MoreOnSection bookNr={9} />
-        <ViewMore href="/more-on" message="" />
-      </Suspense>
+      <MoreOnSection bookNr={9} />
+      <ViewMore href="/more-on" message="" />
 
       <section className="w-[100%] mt-[30px]">
         <p className="text-center font-garamond text-[30px] pb-[10px]">
