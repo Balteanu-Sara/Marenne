@@ -21,17 +21,6 @@ export default function Search() {
     }
 
     const timeout = setTimeout(async () => {
-      // setLoading(true);
-      // try {
-      //   const booksJson = await searchBooks(query);
-      //   const books = await clearResultOverview(booksJson);
-      //   setResults(books.slice(0, 5));
-      // } catch (error) {
-      //   console.error(error);
-      // } finally {
-      //   setLoading(false);
-      // }
-
       const start = Date.now();
       setLoading(true);
       try {
@@ -101,14 +90,14 @@ export default function Search() {
                       <Link
                         href={`/books/${result.key.replace("/works/", "")}`}
                         key={result.key}
-                        className="flex flex-col justify-self-center m-3 w-[180px]"
+                        className="flex flex-col justify-self-center m-3 w-[120px] sm:w-[180px]"
                       >
                         <Image
                           src={`https://covers.openlibrary.org/b/id/${result.cover_i}-M.jpg`}
-                          width={180}
-                          height={275}
+                          width={120}
+                          height={195}
                           alt={`Cover book for ${result.title}`}
-                          className="w-[180px] h-[275px]"
+                          className="w-[120px] h-[195px] sm:w-[180px] sm:h-[275px]"
                           onClick={() => {
                             toggleSearch();
                             resetStates();
