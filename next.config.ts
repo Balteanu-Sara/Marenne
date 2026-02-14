@@ -15,11 +15,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "covers.openlibrary.org",
-        port: "",
         pathname: "/b/**",
       },
     ],
-    unoptimized: true, // Disable optimization globally
+    formats: ["image/avif", "image/webp"],
   },
 
   // PostHog rewrites

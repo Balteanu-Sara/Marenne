@@ -7,7 +7,7 @@ export default async function Genre({
   params: Promise<{ genre: string }>;
 }) {
   const { genre } = await params;
-  console.log(genre);
+  console.log("asta e genreul: ", genre);
 
   return (
     <main className="p-[15px] w-[100%] gap-2 mt-[15px]">

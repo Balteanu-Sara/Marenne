@@ -1,6 +1,6 @@
 import { searchBooks, clearResultOverview } from "@/lib/openLibrary";
 import { SearchResult } from "@/types";
-import Image from "next/image";
+import { BookCover } from "@/components/client/indexClient";
 import Link from "next/link";
 
 export default async function BestSellers({
@@ -23,13 +23,7 @@ export default async function BestSellers({
               key={release.key}
               className="flex flex-col items-center m-3 w-[120px] sm:w-[180px]"
             >
-              <Image
-                src={`https://covers.openlibrary.org/b/id/${release.cover_i}-M.jpg`}
-                width={120}
-                height={195}
-                alt={`Cover book for ${release.title}`}
-                className="w-[120px] h-[195px] sm:w-[180px] sm:h-[275px] border-1 border-black border-solid"
-              />
+              <BookCover image={release.cover_i} title={release.title} />
               <div className="font-courier text-center">
                 <p className="text-clip">{release.title}</p>
                 <p>$20.50</p>

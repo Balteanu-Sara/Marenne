@@ -3,7 +3,7 @@
 import { useStateContext } from "@/context/CurrentStateContext";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Cart() {
   const {
@@ -15,15 +15,6 @@ export default function Cart() {
     clearCart,
   } = useStateContext();
   const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   if (isCartOpen) document.body.style.overflow = "hidden";
-  //   else document.body.style.overflow = "";
-
-  //   return () => {
-  //     document.body.style.overflow = "";
-  //   };
-  // }, [isCartOpen]);
 
   async function handleClick(callback: () => void) {
     setLoading(true);

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { BookCover } from "@/components/client/indexClient";
 import { searchBooks, clearResultOverview } from "@/lib/openLibrary";
 import { useAuthContext } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
@@ -56,13 +56,7 @@ export default function RecommendedSection({
                   key={book.key}
                   className="flex flex-col items-center m-3 w-[120px] sm:w-[180px]"
                 >
-                  <Image
-                    src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
-                    width={120}
-                    height={195}
-                    alt={`Cover book for ${book.title}`}
-                    className="w-[120px] h-[195px] sm:w-[180px] sm:h-[275px] border-1 border-black border-solid"
-                  />
+                  <BookCover image={book.cover_i} title={book.title} />
                   <div className="font-courier text-center">
                     <p className="text-clip">{book.title}</p>
                     <p>$20.50</p>

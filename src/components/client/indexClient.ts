@@ -16,3 +16,4 @@ export { default as ViewMore } from "./ViewMore";
 export { default as Profile } from "./Profile";
 export { default as WishlistButton } from "./WishlistButton";
 export { default as Wishlist } from "./Wishlist";
+export { default as BookCover } from "./BookCover";
