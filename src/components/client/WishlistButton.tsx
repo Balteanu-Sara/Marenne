@@ -14,8 +14,6 @@ export default function WishlistButton({ bookId }: { bookId: string }) {
   );
   const [changed, setChanged] = useState(false);
 
-  console.log(changed);
-
   useEffect(() => {
     if (!userProfile) {
       setChanged(false);

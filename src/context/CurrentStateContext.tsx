@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  ReactNode,
-} from "react";
+import { useState, createContext, useContext, ReactNode } from "react";
 import { CurrentStates, SearchResult, Product } from "@/types";
 
 const StateContext = createContext<CurrentStates | undefined>(undefined);
@@ -20,10 +14,6 @@ export function StateProvider({ children }: { children: ReactNode }) {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
-
-  useEffect(() => {
-    console.log("Products: ", products);
-  }, [products]);
 
   function addToCart(product: SearchResult) {
     const existingProduct = products.find((prod) => prod.key === product.key);

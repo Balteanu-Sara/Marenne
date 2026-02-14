@@ -131,9 +131,7 @@ export async function removeGenres(
 ): Promise<{ success: true } | { success: false }> {
   try {
     const currentGenres = await getUserGenres(userId);
-    console.log("Current genres: ", currentGenres);
     const updatedGenres = currentGenres.filter((g) => !genres.includes(g));
-    console.log("Updated: ", updatedGenres);
     const docRef = doc(db, "users", userId);
     await updateDoc(docRef, { selectedGenres: updatedGenres });
 

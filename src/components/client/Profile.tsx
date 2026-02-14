@@ -67,11 +67,6 @@ export default function Profile() {
     };
   }, []);
 
-  console.log("New genres: ", newGenres);
-  console.log("User's genres: ", userProfile?.selectedGenres);
-  console.log("Message: ", message);
-  console.log(changed);
-
   function toggleGenre(genre: string) {
     if (newGenres.includes(genre))
       setNewGenres(newGenres.filter((g) => g !== genre));

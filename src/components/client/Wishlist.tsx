@@ -16,8 +16,6 @@ export default function Wishlist() {
   const [books, setBooks] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
 
-  console.log("Wishlist din Wishlist: ", userProfile?.wishlist);
-
   useEffect(() => {
     if (!userProfile || userProfile.wishlist.length === 0) {
       setBooks([]);
