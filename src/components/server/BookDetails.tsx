@@ -2,7 +2,7 @@ import { clearResult, searchBooks } from "@/lib/openLibrary";
 import Image from "next/image";
 import {
   BookDescription,
-  CopyURLButton,
+  ShareButton,
   CartButton,
   WishlistButton,
 } from "@/components/client/indexClient";
@@ -51,7 +51,7 @@ export default async function BookDetails({ id }: { id: string }) {
                 <p className="text-[30px] h-11">{book.isbn}</p>
               </div>
             )}
-            <CopyURLButton />
+            <ShareButton />
           </div>
           <div className="content-center lg:w-2/3">
             <Image

@@ -1,4 +1,4 @@
-import { CopyURLButton } from "@/components/client/indexClient";
+import { ShareButton } from "@/components/client/indexClient";
 
 export default function LoadingBook() {
   return (
@@ -27,7 +27,7 @@ export default function LoadingBook() {
               <p className="font-courier uppercase text-sm">Isbn</p>
               <p className="text-[30px] h-11 rounded w-full bg-grey-3 animate-pulse" />
             </div>
-            <CopyURLButton />
+            <ShareButton />
           </div>
           <div className="content-center lg:w-2/3">
             <div className="self-center aspect-[3/4] w-[180px] rounded bg-grey-3 animate-pulse  mx-auto lg:w-[295px]" />

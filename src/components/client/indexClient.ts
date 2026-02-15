@@ -5,7 +5,7 @@ export { default as DesktopMenu } from "./DesktopMenu";
 export { default as OptionMenu } from "./OptionMenu";
 export { default as Cart } from "./Cart";
 export { default as BookDescription } from "./BookDescription";
-export { default as CopyURLButton } from "./CopyURLButton";
+export { default as ShareButton } from "./ShareButton";
 export { default as NewsletterSection } from "./NewsletterSection";
 export { default as FaqSection } from "./FaqSection";
 export { default as CartButton } from "./CartButton";
