@@ -28,6 +28,7 @@ Marenne Books is an e-commerce web application focused on delivering a seamless 
 
 - Next.js
 - React
+- TypeScript
 - Tailwind
 - Firebase (authentication & database)
 - Open Library API (book data & covers)
