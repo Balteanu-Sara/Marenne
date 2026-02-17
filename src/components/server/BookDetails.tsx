@@ -55,6 +55,7 @@ export default async function BookDetails({ id }: { id: string }) {
           </div>
           <div className="content-center lg:w-2/3">
             <Image
+              priority
               src={`https://covers.openlibrary.org/b/id/${book.cover}-M.jpg`}
               width={295}
               height={430}

@@ -59,9 +59,9 @@ export default function Cart() {
                         className="w-auto h-auto max-h-[160px] mx-auto"
                       />
                     </Link>
-                    <div className="flex flex-col justify-between w-2/4 px-3">
+                    <div className="flex flex-col justify-between w-2/4 pl-3 mr-1">
                       <div className="flex flex-col gap-2">
-                        <p>{product.author_name}</p>
+                        <p className="break-words">{product.author_name}</p>
                         <Link
                           href={`/books/${product.key.replace("/works/", "")}`}
                           onClick={toggleCart}

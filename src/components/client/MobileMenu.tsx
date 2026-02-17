@@ -62,15 +62,15 @@ export default function MobileMenu() {
         >
           <button onClick={toggleMenu}>{isMenuOpen ? "X" : "Menu"}</button>
         </div>
-        {pathName.endsWith("/books") ||
+        {(pathName.endsWith("/books") ||
           (pathName.includes("/books") &&
-            genres.some((g) => pathName.endsWith(g.toLowerCase())) && (
-              <div className="w-1/3 text-center">
-                <button onClick={toggleFilter} className="pl-2">
-                  {isFilterOpen ? "X" : "Filter"}
-                </button>
-              </div>
-            ))}
+            genres.some((g) => pathName.endsWith(g.toLowerCase())))) && (
+          <div className="w-1/3 text-center">
+            <button onClick={toggleFilter} className="pl-2">
+              {isFilterOpen ? "X" : "Filter"}
+            </button>
+          </div>
+        )}
         <div
           className={`${pathName.endsWith("/books") ? "w-1/3" : "w-1/2"} text-right`}
         >
