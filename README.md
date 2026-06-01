@@ -52,7 +52,7 @@ Marenne Books follows a modern React and Next.js architecture that balances perf
 ### 1. Clone the repository
 
 ```bash
-https://github.com/Balteanu-Sara/Marenne.git
+git clone https://github.com/Balteanu-Sara/Marenne.git
 ```
 
 ### 2. Install dependencies
