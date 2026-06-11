@@ -1,26 +1,28 @@
 "use client";
-
+/* eslint-disable react-hooks/exhaustive-deps */
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ShareButton() {
-  const [message, setMessage] = useState(
-    window.innerWidth >= 1024 ? "Copy URL" : "Share Book",
-  );
+  const [message, setMessage] = useState("Copy URL");
   const pathname = usePathname();
 
-  console.log(navigator.share);
+  useEffect(() => {
+    setMessage(window.innerWidth >= 1024 ? "Copy URL" : "Share Book");
+  }, []);
 
   useEffect(() => {
-    const timeout = setTimeout(
-      () => setMessage(window.innerWidth >= 1024 ? "Copy URL" : "Share Book"),
-      1000,
-    );
+    if (message === "Url Copied") {
+      const timeout = setTimeout(
+        () => setMessage(window.innerWidth >= 1024 ? "Copy URL" : "Share Book"),
+        1000,
+      );
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  });
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [message]);
 
   async function handleShare() {
     if (navigator.share && window.innerWidth < 1024) {
@@ -43,7 +45,7 @@ export default function ShareButton() {
   return (
     <button
       onClick={handleShare}
-      className="font-courier uppercase text-sm pt-1"
+      className="font-courier uppercase text-sm pt-1 cursor-pointer"
     >
       {message}
     </button>
