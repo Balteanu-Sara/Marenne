@@ -3,7 +3,6 @@ import { useStateContext } from "@/context/CurrentStateContext";
 import {
   Search,
   Cart,
-  OptionMenu,
   Login,
   Profile,
   Wishlist,
@@ -94,12 +93,12 @@ export default function DesktopMenu() {
           >
             Login,
           </button>{" "}
-          <OptionMenu
-            href="/"
-            style={`text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4 ${pathName.endsWith("/about-us") ? "italic" : ""}`}
-            click={undefined}
-            innerText="About Us,"
-          />{" "}
+          <Link
+            href="/about-us"
+            className={`text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4 ${pathName.endsWith("/about-us") ? "italic" : ""}`}
+          >
+            About Us,
+          </Link>{" "}
           <button
             onClick={toggleCart}
             className="text-right cursor-pointer text-black transition-colors duration-300 hover:text-grey-4"
