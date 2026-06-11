@@ -70,8 +70,6 @@ export async function login(
     );
     return { success: true, user: userCredential.user };
   } catch (err) {
-    console.error("Error signing in: ", err);
-
     return { success: false, error: formatAuthError(err as AuthError) };
   }
 }
