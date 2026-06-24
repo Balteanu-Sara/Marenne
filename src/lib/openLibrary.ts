@@ -8,10 +8,35 @@ import {
 
 const baseUrl: string = "https://openlibrary.org";
 
+async function fetchWTimeout(
+  url: string,
+  options: RequestInit = {},
+  timeout = 8000,
+): Promise<Response> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const res = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+      next: { revalidate: 1800 },
+    });
+    return res;
+  } catch (err) {
+    if ((err as Error).name === "AbortError") {
+      throw new Error("Request timed out!");
+    }
+    throw err;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 async function accessEdition(
   key: string,
   description: string,
-  subjects: string[]
+  subjects: string[],
 ): Promise<{
   filledDescription: string;
   filledSubjects: string[];
@@ -20,90 +45,116 @@ async function accessEdition(
   isbn: string;
   pages: number;
 }> {
-  const res = await fetch(`${baseUrl + key}/editions.json`);
-  const editionInfo = await res.json();
-  const entries = Array.isArray(editionInfo.entries) ? editionInfo.entries : [];
+  const defaults = {
+    filledDescription: description,
+    filledSubjects: subjects,
+    publish_date: "",
+    publisher: "",
+    isbn: "",
+    pages: -1,
+  };
 
-  let filledDescription: string = description;
-  let filledSubjects: string[] = [...subjects];
-  let publish_date: string = "";
-  let publisher: string = "";
-  let isbn: string = "";
-  let pages: number = -1;
+  try {
+    const res = await fetchWTimeout(`${baseUrl + key}/editions.json`);
+    const editionInfo = await res.json();
+    const entries = Array.isArray(editionInfo.entries)
+      ? editionInfo.entries
+      : [];
 
-  for (const entry of entries) {
-    if (entry.description && filledDescription === "")
-      filledDescription = entry.description
-        ? typeof entry.description === "string"
-          ? entry.description
-          : entry.description.value
-        : "";
-    if (entry.subjects && filledSubjects.length === 0)
-      filledSubjects = [...entry.subjects];
+    let filledDescription: string = description;
+    let filledSubjects: string[] = [...subjects];
+    let publish_date: string = "Unknown";
+    let publisher: string = "Unknown";
+    let isbn: string = "Unknown";
+    let pages: number = 0;
 
-    if (!publish_date && "publish_date" in entry)
-      publish_date = entry.publish_date;
-    if (!publisher && "publishers" in entry) publisher = entry.publishers[0];
-    if (pages === -1 && "number_of_pages" in entry)
-      pages = entry.number_of_pages;
+    for (const entry of entries) {
+      if (entry.description && filledDescription === "")
+        filledDescription = entry.description
+          ? typeof entry.description === "string"
+            ? entry.description
+            : entry.description.value
+          : "";
+      if (entry.subjects && filledSubjects.length === 0)
+        filledSubjects = [...entry.subjects];
 
-    if ("isbn_13" in entry || "isbn_10" in entry) {
-      isbn = entry.isbn_13 ? entry.isbn_13[0] : entry.isbn_10[0];
-      if ("publish_date" in entry) publish_date = entry.publish_date;
-      if ("publishers" in entry) publisher = entry.publishers[0];
-      if ("number_of_pages" in entry) pages = entry.number_of_pages;
+      if (!publish_date && "publish_date" in entry)
+        publish_date = entry.publish_date;
+      if (!publisher && "publishers" in entry) publisher = entry.publishers[0];
+      if (pages === -1 && "number_of_pages" in entry)
+        pages = entry.number_of_pages;
+
+      if ("isbn_13" in entry || "isbn_10" in entry) {
+        isbn = entry.isbn_13 ? entry.isbn_13[0] : entry.isbn_10[0];
+        if ("publish_date" in entry) publish_date = entry.publish_date;
+        if ("publishers" in entry) publisher = entry.publishers[0];
+        if ("number_of_pages" in entry) pages = entry.number_of_pages;
+      }
+
+      if (publish_date !== "" && publisher !== "" && isbn !== "" && pages > 0)
+        break;
     }
 
-    if (publish_date !== "" && publisher !== "" && isbn !== "" && pages > 0)
-      break;
+    return {
+      filledDescription,
+      filledSubjects,
+      publish_date,
+      publisher,
+      isbn,
+      pages,
+    };
+  } catch (error) {
+    console.error("access edition failed: ", error);
+    return defaults;
   }
-
-  return {
-    filledDescription,
-    filledSubjects,
-    publish_date,
-    publisher,
-    isbn,
-    pages,
-  };
 }
 
 async function accessWorks(
-  key: string
+  key: string,
 ): Promise<{ description: string; subjects: string[] }> {
-  const res = await fetch(`${baseUrl + key}.json`);
-  const works = await res.json();
+  const defaults = {
+    description: "",
+    subjects: [],
+  };
 
-  const description: string = works.description
-    ? typeof works.description === "string"
-      ? works.description
-      : works.description.value
-    : "";
+  try {
+    const res = await fetchWTimeout(`${baseUrl + key}.json`);
+    const works = await res.json();
 
-  const subjects: string[] = [];
+    const description: string = works.description
+      ? typeof works.description === "string"
+        ? works.description
+        : works.description.value
+      : "";
 
-  if ("subjects" in works) {
-    for (const subject of works.subjects) {
-      if (subjects.length === 3) break;
-      if (subject.includes("(")) continue;
-      const stringSubject =
-        String(subject).charAt(0).toUpperCase() + String(subject).slice(1);
+    const subjects: string[] = [];
 
-      if (subject.split(", ") === subject) subjects.push(stringSubject);
-      else {
-        subject.split(", ").forEach((sub: string) => {
-          const stringSub =
-            String(sub).charAt(0).toUpperCase() + String(sub).slice(1);
+    if ("subjects" in works) {
+      for (const subject of works.subjects) {
+        if (subjects.length === 3) break;
+        if (subject.includes("(")) continue;
+        const stringSubject =
+          String(subject).charAt(0).toUpperCase() + String(subject).slice(1);
 
-          if (subjects.length < 3) {
-            subjects.push(stringSub);
-          }
-        });
+        if (subject.split(", ") === subject) subjects.push(stringSubject);
+        else {
+          subject.split(", ").forEach((sub: string) => {
+            const stringSub =
+              String(sub).charAt(0).toUpperCase() + String(sub).slice(1);
+
+            if (subjects.length < 3) {
+              subjects.push(stringSub);
+            }
+          });
+        }
       }
     }
-  }
 
-  return { description, subjects };
+    return { description, subjects };
+  } catch (error) {
+    console.error("access works failed: ", error);
+    return defaults;
+  }
 }
 
 export async function clearResult(booksObj: SearchBooksResults): Promise<Book> {
@@ -141,7 +192,7 @@ export async function clearResult(booksObj: SearchBooksResults): Promise<Book> {
 
 export async function clearResultOverview(
   booksObj: SearchBooksResults | SearchBooksBySubjectResults,
-  limit: number = 40
+  limit: number = 40,
 ): Promise<SearchResult[]> {
   const searchResult: SearchResult[] | SearchBySubjectResult[] =
     "docs" in booksObj
@@ -160,13 +211,13 @@ export async function clearResultOverview(
 
   const promisedBooks: SearchResult[] = await Promise.all(previewBooks);
   const filteredBooksByCover: SearchResult[] = promisedBooks.filter(
-    (book) => book.cover_i
+    (book) => book.cover_i,
   );
   return filteredBooksByCover;
 }
 
 export async function searchBooks(query: string): Promise<SearchBooksResults> {
-  const res = await fetch(`${baseUrl}/search.json?q=${query}`, {
+  const res = await fetchWTimeout(`${baseUrl}/search.json?q=${query}`, {
     cache: "force-cache",
   });
 
@@ -177,9 +228,9 @@ export async function searchBooks(query: string): Promise<SearchBooksResults> {
 }
 
 export async function searchBooksBySubject(
-  subject: string
+  subject: string,
 ): Promise<SearchBooksBySubjectResults> {
-  const res = await fetch(`${baseUrl}/subjects/${subject}.json`, {
+  const res = await fetchWTimeout(`${baseUrl}/subjects/${subject}.json`, {
     cache: "force-cache",
   });
 
