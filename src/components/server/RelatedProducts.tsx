@@ -1,16 +1,14 @@
-import {
-  clearResult,
-  clearResultOverview,
-  searchBooks,
-  searchBooksBySubject,
-} from "@/lib/openLibrary";
+import { clearResultOverview, searchBooksBySubject } from "@/lib/openLibrary";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function RelatedProducts({ id }: { id: string }) {
-  const bookJson = await searchBooks(`/works/${id}`);
-  const { subjects } = await clearResult(bookJson);
-
+export default async function RelatedProducts({
+  id,
+  subjects,
+}: {
+  id: string;
+  subjects: string[] | undefined;
+}) {
   const subject =
     subjects && subjects.length !== 0
       ? subjects.reduce((shortest, sub) =>

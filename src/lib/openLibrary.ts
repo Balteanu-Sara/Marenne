@@ -8,31 +8,6 @@ import {
 
 const baseUrl: string = "https://openlibrary.org";
 
-async function fetchWTimeout(
-  url: string,
-  options: RequestInit = {},
-  timeout = 8000,
-): Promise<Response> {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeout);
-
-  try {
-    const res = await fetch(url, {
-      ...options,
-      signal: controller.signal,
-      next: { revalidate: 1800 },
-    });
-    return res;
-  } catch (err) {
-    if ((err as Error).name === "AbortError") {
-      throw new Error("Request timed out!");
-    }
-    throw err;
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
-
 async function accessEdition(
   key: string,
   description: string,
@@ -48,14 +23,16 @@ async function accessEdition(
   const defaults = {
     filledDescription: description,
     filledSubjects: subjects,
-    publish_date: "",
-    publisher: "",
-    isbn: "",
-    pages: -1,
+    publish_date: "Unknown",
+    publisher: "Unknown",
+    isbn: "Unknown",
+    pages: 0,
   };
 
   try {
-    const res = await fetchWTimeout(`${baseUrl + key}/editions.json`);
+    const res = await fetch(`${baseUrl + key}/editions.json`, {
+      next: { revalidate: 86400 },
+    });
     const editionInfo = await res.json();
     const entries = Array.isArray(editionInfo.entries)
       ? editionInfo.entries
@@ -63,9 +40,9 @@ async function accessEdition(
 
     let filledDescription: string = description;
     let filledSubjects: string[] = [...subjects];
-    let publish_date: string = "Unknown";
-    let publisher: string = "Unknown";
-    let isbn: string = "Unknown";
+    let publish_date: string = "";
+    let publisher: string = "";
+    let isbn: string = "";
     let pages: number = 0;
 
     for (const entry of entries) {
@@ -81,7 +58,7 @@ async function accessEdition(
       if (!publish_date && "publish_date" in entry)
         publish_date = entry.publish_date;
       if (!publisher && "publishers" in entry) publisher = entry.publishers[0];
-      if (pages === -1 && "number_of_pages" in entry)
+      if (pages === 0 && "number_of_pages" in entry)
         pages = entry.number_of_pages;
 
       if ("isbn_13" in entry || "isbn_10" in entry) {
@@ -112,13 +89,10 @@ async function accessEdition(
 async function accessWorks(
   key: string,
 ): Promise<{ description: string; subjects: string[] }> {
-  const defaults = {
-    description: "",
-    subjects: [],
-  };
-
   try {
-    const res = await fetchWTimeout(`${baseUrl + key}.json`);
+    const res = await fetch(`${baseUrl + key}.json`, {
+      next: { revalidate: 86400 },
+    });
     const works = await res.json();
 
     const description: string = works.description
@@ -153,89 +127,131 @@ async function accessWorks(
     return { description, subjects };
   } catch (error) {
     console.error("access works failed: ", error);
-    return defaults;
+    return { description: "", subjects: [] };
   }
 }
 
 export async function clearResult(booksObj: SearchBooksResults): Promise<Book> {
-  const book = booksObj.docs[0];
-
-  const title: string = book.title;
-  const author: string = book["author_name"] ? book["author_name"][0] : "";
-  const id: string = book.key;
-  const cover: number = book.cover_i;
-  let { description, subjects } = await accessWorks(id);
-  const {
-    filledDescription,
-    filledSubjects,
-    publish_date,
-    publisher,
-    isbn,
-    pages,
-  } = await accessEdition(id, description, subjects);
-  if (description === "") description = filledDescription;
-  if (subjects.length === 0) subjects = [...filledSubjects];
-
-  return {
-    id,
-    title,
-    author,
-    cover,
-    description,
-    publisher,
-    publish_date,
-    pages,
-    isbn,
-    subjects,
+  const defaults = {
+    id: "notFound",
+    title: "Unknown",
+    author: "Unknown",
+    cover: 0,
+    description: "",
+    publisher: "Unkown",
+    publish_date: "",
+    pages: 0,
+    isbn: "",
+    subjects: [],
   };
+
+  try {
+    const book = booksObj.docs[0];
+
+    const title: string = book.title;
+    const author: string = book["author_name"] ? book["author_name"][0] : "";
+    const id: string = book.key;
+    const cover: number = book.cover_i;
+    let { description, subjects } = await accessWorks(id);
+    const {
+      filledDescription,
+      filledSubjects,
+      publish_date,
+      publisher,
+      isbn,
+      pages,
+    } = await accessEdition(id, description, subjects);
+    if (description === "") description = filledDescription;
+    if (subjects.length === 0) subjects = [...filledSubjects];
+
+    return {
+      id,
+      title,
+      author,
+      cover,
+      description,
+      publisher,
+      publish_date,
+      pages,
+      isbn,
+      subjects,
+    };
+  } catch (err) {
+    console.error("Error at cleaning result: ", err);
+    return defaults;
+  }
 }
 
 export async function clearResultOverview(
   booksObj: SearchBooksResults | SearchBooksBySubjectResults,
   limit: number = 40,
 ): Promise<SearchResult[]> {
-  const searchResult: SearchResult[] | SearchBySubjectResult[] =
-    "docs" in booksObj
-      ? booksObj.docs.slice(0, limit)
-      : booksObj.works.slice(0, limit);
+  const defaults = [
+    {
+      author_name: [],
+      cover_i: 0,
+      key: "",
+      title: "",
+    },
+  ];
 
-  const previewBooks = searchResult.map(async (result) => {
-    const title: string = result.title;
-    const author_name: string[] = [];
-    const key: string = result.key;
-    const cover_i: number =
-      "cover_i" in result ? result.cover_i : result.cover_id;
+  try {
+    const searchResult: SearchResult[] | SearchBySubjectResult[] =
+      "docs" in booksObj
+        ? booksObj.docs.slice(0, limit)
+        : booksObj.works.slice(0, limit);
 
-    return { author_name, cover_i, key, title };
-  });
+    const previewBooks = searchResult.map(async (result) => {
+      const title: string = result.title;
+      const author_name: string[] = [];
+      const key: string = result.key;
+      const cover_i: number =
+        "cover_i" in result ? result.cover_i : result.cover_id;
 
-  const promisedBooks: SearchResult[] = await Promise.all(previewBooks);
-  const filteredBooksByCover: SearchResult[] = promisedBooks.filter(
-    (book) => book.cover_i,
-  );
-  return filteredBooksByCover;
+      return { author_name, cover_i, key, title };
+    });
+
+    const promisedBooks: SearchResult[] = await Promise.all(previewBooks);
+    const filteredBooksByCover: SearchResult[] = promisedBooks.filter(
+      (book) => book.cover_i,
+    );
+    return filteredBooksByCover;
+  } catch (err) {
+    console.error("Error at cleaning overview results: ", err);
+    return defaults;
+  }
 }
 
 export async function searchBooks(query: string): Promise<SearchBooksResults> {
-  const res = await fetchWTimeout(`${baseUrl}/search.json?q=${query}`, {
-    cache: "force-cache",
-  });
+  try {
+    const res = await fetch(`${baseUrl}/search.json?q=${query}`, {
+      next: { revalidate: 86400 },
+    });
 
-  if (!res.ok) throw new Error("Failed to fetch books in searchBooks");
+    if (!res.ok) throw new Error("Failed to fetch books in searchBooks");
 
-  const booksObj: SearchBooksResults = await res.json();
-  return booksObj;
+    const booksObj: SearchBooksResults = await res.json();
+    return booksObj;
+  } catch (err) {
+    console.error("Error in search books: ", err);
+    return { numFound: 0, start: 0, docs: [] };
+  }
 }
 
 export async function searchBooksBySubject(
   subject: string,
 ): Promise<SearchBooksBySubjectResults> {
-  const res = await fetchWTimeout(`${baseUrl}/subjects/${subject}.json`, {
-    cache: "force-cache",
-  });
+  try {
+    const res = await fetch(`${baseUrl}/subjects/${subject}.json`, {
+      next: { revalidate: 86400 },
+    });
 
-  if (!res.ok) throw new Error("Failed to fetch books in searchBooks");
+    if (!res.ok) throw new Error("Failed to fetch books in searchBooks");
 
-  const booksObj: SearchBooksBySubjectResults = await res.json();
-  return booksObj;
+    const booksObj: SearchBooksBySubjectResults = await res.json();
+    return booksObj;
+  } catch (err) {
+    console.error("Error while searching books by subject: ", err);
+    return { works: [] };
+  }
 }

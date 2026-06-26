@@ -1,5 +1,5 @@
-import { clearResult, searchBooks } from "@/lib/openLibrary";
 import Image from "next/image";
+import { Book } from "@/types";
 import {
   BookDescription,
   ShareButton,
@@ -7,10 +7,7 @@ import {
   WishlistButton,
 } from "@/components/client/indexClient";
 
-export default async function BookDetails({ id }: { id: string }) {
-  const bookJson = await searchBooks(`/works/${id}`);
-  const book = await clearResult(bookJson);
-
+export default async function BookDetails({ book }: { book: Book }) {
   return (
     <section className="flex flex-col gap-2 w-[100%] mt-[20px] font-garamond lg:gap-10">
       <div className="flex flex-col items-center text-center gap-0.5 lg:py-10">

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { searchBooks, clearResultOverview } from "@/lib/openLibrary";
+import { clearResultOverview, searchBooksBySubject } from "@/lib/openLibrary";
 import { useAuthContext } from "@/context/AuthContext";
 import { LoadingBooks } from "@/components/server/indexServer";
 import { BookCover } from "@/components/client/indexClient";
@@ -21,7 +21,7 @@ export default function MoreOnSection({ bookNr = 20 }: { bookNr?: number }) {
         const genres = userProfile ? userProfile.selectedGenres : [];
         if (!genres) return;
         setUsedGenre(genres[1]);
-        const booksJson = await searchBooks(`subject:${genres[1]}`);
+        const booksJson = await searchBooksBySubject(genres[1]);
         const booksResult = await clearResultOverview(booksJson);
         setBooks(booksResult);
       } catch (e) {

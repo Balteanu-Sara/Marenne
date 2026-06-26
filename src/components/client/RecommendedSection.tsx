@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { BookCover } from "@/components/client/indexClient";
-import { searchBooks, clearResultOverview } from "@/lib/openLibrary";
+import { searchBooksBySubject, clearResultOverview } from "@/lib/openLibrary";
 import { useAuthContext } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import { SearchResult } from "@/types";
@@ -24,7 +24,7 @@ export default function RecommendedSection({
         const genres = userProfile ? userProfile.selectedGenres : [];
         if (!genres) return;
 
-        const booksJson = await searchBooks(`subject:${genres[0]}`);
+        const booksJson = await searchBooksBySubject(genres[0]);
         const booksResult = await clearResultOverview(booksJson);
         setBooks(booksResult);
       } catch (e) {
